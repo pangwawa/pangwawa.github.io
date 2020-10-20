@@ -1,8 +1,8 @@
 baseURL = "https://pangwawa.github.io"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "小吴的工作手记"
 theme = "m10c"
-
+paginate = 10
 
 [menu]
   [[menu.main]]
@@ -15,12 +15,20 @@ theme = "m10c"
     url = "/tags/"
 
 [params]
-  author = "John Doe"
-  description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vehicula turpis sit amet elit pretium."
+  author = "Jack Wu"
+  description = "互联网从业者，专注于Java架构、大数据开发"
   menu_item_separator = " - "
   [[params.social]]
     name = "github"
-    url = "https://github.com/gohugoio"
+    url = "https://github.com/pangwawa"
   [[params.social]]
     name = "twitter"
-    url = "https://twitter.com/gohugoio"
+    url = "https://blog.csdn.net/Jack__iT"
+
+  # Brown theme
+[params.style]
+  darkestColor = "#463625"
+  darkColor = "#2a3738"
+  primaryColor = "#eeee6a"
+  lightColor = "#96a879"
+  lightestColor = "#ffffff"

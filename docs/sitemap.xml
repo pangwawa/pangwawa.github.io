@@ -3,11 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://pangwawa.github.io/categories/</loc>
+    <loc>https://pangwawa.github.io/posts/</loc>
+    <lastmod>2020-10-20T15:00:01+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/posts/%E4%BD%A0%E5%A5%BD%E7%AC%AC%E4%B8%80%E7%AF%87%E6%89%8B%E8%AE%B0/</loc>
+    <lastmod>2020-10-20T15:00:01+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://pangwawa.github.io/</loc>
+    <lastmod>2020-10-20T15:00:01+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/categories/</loc>
   </url>
   
   <url>

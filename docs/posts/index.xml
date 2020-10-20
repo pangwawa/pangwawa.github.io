@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>小吴的工作手记</title>
-    <link>https://pangwawa.github.io/</link>
-    <description>Recent content on 小吴的工作手记</description>
+    <title>Posts on 小吴的工作手记</title>
+    <link>https://pangwawa.github.io/posts/</link>
+    <description>Recent content in Posts on 小吴的工作手记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Oct 2020 15:00:01 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Oct 2020 15:00:01 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>你好，第一篇手记</title>
       <link>https://pangwawa.github.io/posts/%E4%BD%A0%E5%A5%BD%E7%AC%AC%E4%B8%80%E7%AF%87%E6%89%8B%E8%AE%B0/</link>
