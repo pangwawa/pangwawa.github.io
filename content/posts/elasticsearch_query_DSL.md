@@ -1,6 +1,7 @@
 ---
 title: "Elasticsearch的DSL——常用检索、复合检索、高级检索"
 tags: ["ElasticSearch", "OLAP","大数据"]
+author: "Jack Wu"
 date: 2020-10-20T17:49:40+08:00
 draft: false
 ---

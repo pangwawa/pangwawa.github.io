@@ -6,18 +6,18 @@ paginate = 10
 
 [menu]
   [[menu.main]]
-    identifier = "home"
-    name = "Home"
-    url = "/"
-  [[menu.main]]
-    identifier = "tags"
-    name = "Tags"
+    identifier = "分类标签"
+    name = "分类标签"
     url = "/tags/"
+  [[menu.main]]
+    identifier = "首页"
+    name = "首页"
+    url = "/"
 
 [params]
   author = "Jack Wu"
   description = "互联网从业者，专注于Java架构、大数据开发"
-  menu_item_separator = " - "
+  menu_item_separator = "  "
   [[params.social]]
     name = "github"
     url = "https://github.com/pangwawa"
