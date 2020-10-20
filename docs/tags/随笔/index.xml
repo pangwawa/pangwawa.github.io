@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>随笔 on 小吴的工作手记</title>
+    <link>https://pangwawa.github.io/tags/%E9%9A%8F%E7%AC%94/</link>
+    <description>Recent content in 随笔 on 小吴的工作手记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Tue, 20 Oct 2020 15:00:01 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/tags/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>你好，第一篇手记</title>
+      <link>https://pangwawa.github.io/posts/%E4%BD%A0%E5%A5%BD%E7%AC%AC%E4%B8%80%E7%AF%87%E6%89%8B%E8%AE%B0/</link>
+      <pubDate>Tue, 20 Oct 2020 15:00:01 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/%E4%BD%A0%E5%A5%BD%E7%AC%AC%E4%B8%80%E7%AF%87%E6%89%8B%E8%AE%B0/</guid>
+      <description>关于我  我是一名专注于Java架构和大数据开发的互联网人。 2020，是我毕业后在职场的第二年，但也知道了自己的兴趣方向，明白了生活的不易。之前都是在CSDN https://blog.csdn.net/Jack__iT上写博客，现在想有个专属的小天地。
+我也许只是浩瀚星辰中的小星星，但这并无法阻挡我发出自己的光芒。
+共勉 忘了在哪看到的这段话，算是挺有意思的鸡汤吧，咱一起喝碗鸡汤补补：
+纽约时间比加州时间早三个小时，
+New York is 3 hours ahead of California,
+但加州时间并没有变慢。
+but it does not make California slow.
+有人22岁就毕业了，
+Someone graduated at the age of 22,
+但等了五年才找到好的工作！
+but waited 5 years before securing a good job!
+有人25岁就当上CEO，
+Someone became a CEO at 25,
+却在50岁去世。
+and died at 50.
+也有人迟到50岁才当上CEO，
+While another became a CEO at 50,
+然后活到90岁。
+and lived to 90 years.
+有人依然单身，</description>
+    </item>
+    
+  </channel>
+</rss>

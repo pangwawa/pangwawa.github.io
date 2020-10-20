@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f91f832-8bcf-4565-9eba-ec84d8ef5792" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/sitemap.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tags/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tags/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tags/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tags/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/posts/你好，第一篇手记.md" beforeDir="false" afterPath="$PROJECT_DIR$/content/posts/你好，第一篇手记.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,12 +28,24 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/content/posts/elasticsearch_query_DSL.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="306">
-                <caret line="154" column="25" selection-start-line="154" selection-start-column="25" selection-end-line="154" selection-end-column="25" />
+              <first_editor relative-caret-position="38">
+                <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="37" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/content/posts/你好，第一篇手记.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="380">
+                <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
               </first_editor>
               <second_editor />
             </state>
@@ -109,12 +114,12 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/docs/index.html" />
         <option value="$PROJECT_DIR$/archetypes/default.md" />
-        <option value="$PROJECT_DIR$/content/posts/你好，第一篇手记.md" />
         <option value="$PROJECT_DIR$/themes/m10c/assets/css/components/_app.scss" />
         <option value="$PROJECT_DIR$/themes/m10c/layouts/_default/baseof.html" />
         <option value="$PROJECT_DIR$/themes/m10c/assets/css/main.scss" />
         <option value="$PROJECT_DIR$/config.toml" />
         <option value="$PROJECT_DIR$/content/posts/elasticsearch_query_DSL.md" />
+        <option value="$PROJECT_DIR$/content/posts/你好，第一篇手记.md" />
       </list>
     </option>
   </component>
@@ -155,6 +160,12 @@
               <item name="pangwawa.github.io" type="b2602c69:ProjectViewProjectNode" />
               <item name="pangwawa.github.io" type="462c0819:PsiDirectoryNode" />
               <item name="content" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pangwawa.github.io" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pangwawa.github.io" type="462c0819:PsiDirectoryNode" />
+              <item name="content" type="462c0819:PsiDirectoryNode" />
+              <item name="posts" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -201,7 +212,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1603174655479</updated>
-      <workItem from="1603174656725" duration="13845000" />
+      <workItem from="1603174656725" duration="14176000" />
     </task>
     <task id="LOCAL-00001" summary="languageCode修改">
       <created>1603185171761</created>
@@ -221,11 +232,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13845000" />
+    <option name="totallyTimeSpent" value="14176000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Image Layers" />
       <window_info id="Designer" />
@@ -332,16 +342,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/docs/page/1/index.html">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/posts/你好，第一篇手记.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="1444">
-            <caret line="76" column="19" lean-forward="true" selection-start-line="76" selection-start-column="19" selection-end-line="76" selection-end-column="19" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/themes/m10c/layouts/_default/terms.html">
       <provider selected="true" editor-type-id="text-editor" />
@@ -483,8 +483,18 @@
     <entry file="file://$PROJECT_DIR$/content/posts/elasticsearch_query_DSL.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="306">
-            <caret line="154" column="25" selection-start-line="154" selection-start-column="25" selection-end-line="154" selection-end-column="25" />
+          <first_editor relative-caret-position="38">
+            <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="37" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/posts/你好，第一篇手记.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="380">
+            <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
           </first_editor>
           <second_editor />
         </state>
