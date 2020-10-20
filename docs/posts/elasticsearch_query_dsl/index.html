@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <title>Elasticsearch的DSL——常用检索、复合检索、高级检索 // 小吴的工作手记</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.76.5" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Jack Wu" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://pangwawa.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+    <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Elasticsearch的DSL——常用检索、复合检索、高级检索"/>
+<meta name="twitter:description" content="简单查询 精准查询term （完全匹配，不使用分词器） term单值查询
+{ &quot;query&quot;: { &quot;term&quot;: { &quot;productType&quot;: { &quot;value&quot;: &quot;101&quot; } } } } term多值查询
+{ &quot;query&quot;: { &quot;terms&quot;: { &quot;productType&quot;:[&quot;101&quot;,&quot;102&quot;] } } } terms查询多值
+{ &quot;query&quot;: { &quot;terms&quot;: { &quot;productType&quot;:[&quot;101&quot;,&quot;102&quot;] } } } 模糊查询 （模糊匹配，使用分词器） match 、 match_all、multi_match、match_phrase
+match_all 匹配所有的， 当不给查询条件时，默认全查 match
+ { &quot;query&quot;: { &quot;match&quot;: { &quot;username&quot;: &quot;张三&quot; } } } multi_match 同时对查询的关键词，多个字段同时进行匹配，即多个字段是AND的关系 更丰富的查询 按brandName（品牌名）、sortName（分类名）、productName（商品名）productKeyword（商品关键字），搜索“牛仔 弹力”关键词， brandName源值、拼音值、关键字值都是100分，sortName源值、拼音值80分，productName源值60分，productKeyword值20分，分值由高到低优先级搜索
+{ &quot;query&quot;: { &quot;multi_match&quot;: { &quot;query&quot;: &quot;牛仔 弹力&quot;, &quot;fields&quot;: [ &quot;brandName^100&quot;, &quot;brandName."/>
+
+    <meta property="og:title" content="Elasticsearch的DSL——常用检索、复合检索、高级检索" />
+<meta property="og:description" content="简单查询 精准查询term （完全匹配，不使用分词器） term单值查询
+{ &quot;query&quot;: { &quot;term&quot;: { &quot;productType&quot;: { &quot;value&quot;: &quot;101&quot; } } } } term多值查询
+{ &quot;query&quot;: { &quot;terms&quot;: { &quot;productType&quot;:[&quot;101&quot;,&quot;102&quot;] } } } terms查询多值
+{ &quot;query&quot;: { &quot;terms&quot;: { &quot;productType&quot;:[&quot;101&quot;,&quot;102&quot;] } } } 模糊查询 （模糊匹配，使用分词器） match 、 match_all、multi_match、match_phrase
+match_all 匹配所有的， 当不给查询条件时，默认全查 match
+ { &quot;query&quot;: { &quot;match&quot;: { &quot;username&quot;: &quot;张三&quot; } } } multi_match 同时对查询的关键词，多个字段同时进行匹配，即多个字段是AND的关系 更丰富的查询 按brandName（品牌名）、sortName（分类名）、productName（商品名）productKeyword（商品关键字），搜索“牛仔 弹力”关键词， brandName源值、拼音值、关键字值都是100分，sortName源值、拼音值80分，productName源值60分，productKeyword值20分，分值由高到低优先级搜索
+{ &quot;query&quot;: { &quot;multi_match&quot;: { &quot;query&quot;: &quot;牛仔 弹力&quot;, &quot;fields&quot;: [ &quot;brandName^100&quot;, &quot;brandName." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pangwawa.github.io/posts/elasticsearch_query_dsl/" />
+<meta property="article:published_time" content="2020-10-20T17:49:40+08:00" />
+<meta property="article:modified_time" content="2020-10-20T17:49:40+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://pangwawa.github.io"><img class="app-header-avatar" src="/avatar.jpg" alt="Jack Wu" /></a>
+      <h1>小吴的工作手记</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+      </nav>
+      <p>互联网从业者，专注于Java架构、大数据开发</p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/pangwawa" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://blog.csdn.net/Jack__iT" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Elasticsearch的DSL——常用检索、复合检索、高级检索</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Oct 20, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          2 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://pangwawa.github.io/tags/elasticsearch/">ElasticSearch</a>
+              <a class="tag" href="https://pangwawa.github.io/tags/olap/">OLAP</a>
+              <a class="tag" href="https://pangwawa.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h2 id="简单查询">简单查询</h2>
+<h4 id="精准查询term-完全匹配不使用分词器">精准查询term （完全匹配，不使用分词器）</h4>
+<p><strong>term单值查询</strong></p>
+<pre><code>{
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;productType&quot;: {
+        &quot;value&quot;: &quot;101&quot;
+      }
+    }
+  }
+}
+</code></pre><p><strong>term多值查询</strong></p>
+<pre><code>{
+  &quot;query&quot;: {
+    &quot;terms&quot;: {
+      &quot;productType&quot;:[&quot;101&quot;,&quot;102&quot;]
+    }
+  }
+}
+</code></pre><p><strong>terms查询多值</strong></p>
+<pre><code>{
+  &quot;query&quot;: {
+    &quot;terms&quot;: {
+      &quot;productType&quot;:[&quot;101&quot;,&quot;102&quot;]
+    }
+  }
+}
+</code></pre><h4 id="模糊查询-模糊匹配使用分词器">模糊查询 （模糊匹配，使用分词器）</h4>
+<p><em>match 、 match_all、multi_match、match_phrase</em></p>
+<p><strong>match_all</strong>
+匹配所有的， 当不给查询条件时，默认全查
+match</p>
+<pre><code> {
+   &quot;query&quot;: {
+     &quot;match&quot;: {
+       &quot;username&quot;: &quot;张三&quot;
+     }
+   }
+ }
+</code></pre><p><strong>multi_match</strong>
+同时对查询的关键词，多个字段同时进行匹配，即多个字段是AND的关系
+更丰富的查询
+按brandName（品牌名）、sortName（分类名）、productName（商品名）productKeyword（商品关键字），搜索“牛仔 弹力”关键词，
+brandName源值、拼音值、关键字值都是100分，sortName源值、拼音值80分，productName源值60分，productKeyword值20分，分值由高到低优先级搜索</p>
+<pre><code>{
+  &quot;query&quot;: {
+    &quot;multi_match&quot;: {
+      &quot;query&quot;: &quot;牛仔 弹力&quot;,
+      &quot;fields&quot;: [
+        &quot;brandName^100&quot;,
+        &quot;brandName.brandName_pinyin^100&quot;,
+        &quot;brandName.brandName_keyword^100&quot;,
+        &quot;sortName^80&quot;,
+        &quot;sortName.sortName_pinyin^80&quot;,
+        &quot;productName^60&quot;,
+        &quot;productKeyword^20&quot;
+      ],
+      &quot;type&quot;: &lt;multi-match-type&gt;,
+      &quot;operator&quot;: &quot;AND&quot;
+    }
+  }
+}
+</code></pre><h4 id="match_phrase">match_phrase</h4>
+<p>查询分析文本，并从分析文本中创建短语查询。（即对查询的条件也进行分词，然后使用分词进行匹配查询）</p>
+<h4 id="wildcard通配符查询">wildcard：通配符查询</h4>
+<ul>
+<li>表示全匹配，？ 表示单一匹配，etc： aaa* 或者 a?b；</li>
+</ul>
+<h4 id="prefix前缀匹配">prefix：前缀匹配</h4>
+<p>搜索框如果输入aa,那么可能匹配到的字段值为 aab,aavb等；</p>
+<h4 id="fuzzy-min_similarity弹性模糊匹配">fuzzy min_similarity：弹性模糊匹配</h4>
+<p>有两个搜索框，第一个搜索框为搜索匹配值，会自动纠错，比如输入 ggjk,那么可能会匹配到ggjo，第二个框为最小相似度，采用的算法是Damerau-Levenshtein（最佳字符串对齐）算法，不建议填写这个框，我到发稿前也是被搞的头皮发麻，等我完全吃透再更新；</p>
+<h4 id="fuzzy-max_expansions-弹性模糊匹配">fuzzy max_expansions ：弹性模糊匹配</h4>
+<p>有两个搜索框，第一个搜索框为搜索匹配值，会自动纠错，比如输入gjk,那么可能会匹配到ggjo，第二个框是最大扩展匹配数，比如是1，那么ggjk只会随机模糊匹配到一种可能结果，即使它会出现2种或者更加多，也只会搜索一种；</p>
+<h4 id="range范围查询">range：范围查询</h4>
+<p>gt为大于，gte为大于等于，lt小于，lte小于等于，所搜索的字段值在两个搜索框标识数值之间；</p>
+<h4 id="query_string字符片段查询">query_string：字符片段查询，</h4>
+<p>如果是数字，则严格匹配数字，如果是字符串，则按照自身或者分片词匹配；</p>
+<h4 id="text分片词查询等确定后更新">text：分片词查询，等确定后更新；</h4>
+<h4 id="missing查询没有定义该字段或者该字段值为null的数据">missing：查询没有定义该字段或者该字段值为null的数据。</h4>
+<h2 id="compound-query复合查询bool-queryboosting-queryconstant_score-querydis_max-query-function_score-的区别">compound query(复合查询)bool query、boosting query、constant_score query、dis_max query、 function_score 的区别</h2>
+<h4 id="bool-query多查询或复合查询的默认查询方式">bool query（多查询或复合查询的默认查询方式）</h4>
+<p>用于组合多个叶子或复合查询子句的默认查询，包含must, should, must_not, or filter 。must和should子句将它们的分数组合在一起 - 匹配子句越多越好 - 而must_not和filter子句在过滤器上下文中执行。</p>
+<p>　　must：返回的文档必须满足must子句的条件，并且参与计算分值</p>
+<p>　　filter：返回的文档必须满足filter子句的条件。不参与计算分值</p>
+<p>　　must_not：返回的文档必须不满足must_not定义的条件。不参与评分。</p>
+<p>　　should：返回的文档可能满足should子句的条件。在一个Bool查询中，如果没有must或者filter，有一个或者多个should子句，那么只要满足一个就可以返回。minimum_should_match参数定义了至少满足几个子句。</p>
+<p>注1：评分计算
+bool 查询会为每个文档计算相关度评分 _score ， 再将所有匹配的 must 和 should 语句的分数 _score 求和，最后除以 must 和 should 语句的总数。
+must_not 语句不会影响评分； 它的作用只是将不相关的文档排除。</p>
+<p>注2：控制精度
+所有 must 语句必须匹配，所有 must_not 语句都必须不匹配，但有多少 should 语句应该匹配呢？ 默认情况下，没有 should 语句是必须匹配的，只有一个例外：那就是当没有 must 语句的时候，至少有一个 should 语句必须匹配。
+就像我们能控制 match 查询的精度 一样，我们可以通过 minimum_should_match 参数控制需要匹配的 should 语句的数量， 它既可以是一个绝对的数字，又可以是个百分比：</p>
+<h4 id="boosting-query">boosting query</h4>
+<p>提升查询可用于有效降级与给定查询匹配的结果。与bool查询中的“NOT”子句不同，这仍然会选择包含不良术语的文档，但会降低其总分。</p>
+<h4 id="constant_score-query">constant_score query</h4>
+<p>含另一个查询但在过滤器上下文中执行的查询。所有匹配的文档都给出相同的“常量”_score</p>
+<h4 id="dis_max-query">dis_max query</h4>
+<p>一个接受多个查询的查询，并返回与任何查询子句匹配的任何文档。虽然bool查询组合了所有匹配查询的分数，但dis_max查询使用单个最佳匹配查询子句的分数。</p>
+<p>一个查询，它生成由其子查询生成的文档的并集，并为每个文档评分由任何子查询生成的该文档的最大分数，以及任何其他匹配子查询的平局增量。</p>
+<p>当在具有不同增强因子的多个字段中搜索单词时，这非常有用（因此不能将字段等效地组合到单个搜索字段中）。我们希望主要分数是与最高提升相关联的分数，而不是字段分数的总和（如布尔查询所给出的）。如果查询是“albino elephant”，则这确保匹配一个字段的“albino”和匹配另一个的“elephant”获得比匹配两个字段的“albino”更高的分数。要获得此结果，请同时使用Boolean Query和DisjunctionMax Query：对于每个术语，DisjunctionMaxQuery在每个字段中搜索它，而将这些DisjunctionMaxQuery的集合组合成BooleanQuery。　</p>
+<h4 id="function_score-query">function_score query</h4>
+<p>使用函数修改主查询返回的分数，以考虑流行度、最近度、距离或使用脚本实现的自定义算法等因素。</p>
+<h4 id="地理坐标的查询">地理坐标的查询</h4>
+<p>**矩形范围内 查询 geo_bounding_box query</p>
+<p>坐标距离范围 查询 geo_distance query</p>
+<pre><code>{
+  &quot;query&quot;: {
+    &quot;geo_distance&quot;: {
+      &quot;distance&quot;: &quot;100km&quot;,
+      &quot;location&quot;: {
+        &quot;lat&quot;: 40,
+        &quot;lon&quot;: -70
+      }
+    }
+  }
+} 
+</code></pre><p>多边形范围内查询 geo_polygon query</p>
+<p>geo_shape query</p>
+<p>geo-shapes 与指定的几何形状相交，包含于其中或不与指定的几何形状相交的对象
+geo-points 与指定的地理形状相交</p>
+<h4 id="查询中query-context和filter-context的区别什么是相关性得分">查询中Query context和Filter context的区别、什么是相关性得分</h4>
+<p>1、查询上下文中，查询操作不仅仅会进行查询，还会计算分值，用于确定相关度；在过滤器上下文中，查询操作仅判断是否满足查询条件</p>
+<p>2、 过滤器上下文中，查询的结果可以被缓存。</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

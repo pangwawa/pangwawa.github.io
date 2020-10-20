@@ -6,7 +6,22 @@
     <description>Recent content on 小吴的工作手记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Tue, 20 Oct 2020 15:00:01 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Oct 2020 17:49:40 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Elasticsearch的DSL——常用检索、复合检索、高级检索</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch_query_dsl/</link>
+      <pubDate>Tue, 20 Oct 2020 17:49:40 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch_query_dsl/</guid>
+      <description>简单查询 精准查询term （完全匹配，不使用分词器） term单值查询
+{ &amp;quot;query&amp;quot;: { &amp;quot;term&amp;quot;: { &amp;quot;productType&amp;quot;: { &amp;quot;value&amp;quot;: &amp;quot;101&amp;quot; } } } } term多值查询
+{ &amp;quot;query&amp;quot;: { &amp;quot;terms&amp;quot;: { &amp;quot;productType&amp;quot;:[&amp;quot;101&amp;quot;,&amp;quot;102&amp;quot;] } } } terms查询多值
+{ &amp;quot;query&amp;quot;: { &amp;quot;terms&amp;quot;: { &amp;quot;productType&amp;quot;:[&amp;quot;101&amp;quot;,&amp;quot;102&amp;quot;] } } } 模糊查询 （模糊匹配，使用分词器） match 、 match_all、multi_match、match_phrase
+match_all 匹配所有的， 当不给查询条件时，默认全查 match
+ { &amp;quot;query&amp;quot;: { &amp;quot;match&amp;quot;: { &amp;quot;username&amp;quot;: &amp;quot;张三&amp;quot; } } } multi_match 同时对查询的关键词，多个字段同时进行匹配，即多个字段是AND的关系 更丰富的查询 按brandName（品牌名）、sortName（分类名）、productName（商品名）productKeyword（商品关键字），搜索“牛仔 弹力”关键词， brandName源值、拼音值、关键字值都是100分，sortName源值、拼音值80分，productName源值60分，productKeyword值20分，分值由高到低优先级搜索
+{ &amp;quot;query&amp;quot;: { &amp;quot;multi_match&amp;quot;: { &amp;quot;query&amp;quot;: &amp;quot;牛仔 弹力&amp;quot;, &amp;quot;fields&amp;quot;: [ &amp;quot;brandName^100&amp;quot;, &amp;quot;brandName.</description>
+    </item>
+    
     <item>
       <title>你好，第一篇手记</title>
       <link>https://pangwawa.github.io/posts/%E4%BD%A0%E5%A5%BD%E7%AC%AC%E4%B8%80%E7%AF%87%E6%89%8B%E8%AE%B0/</link>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on 小吴的工作手记</title>
-    <link>https://pangwawa.github.io/posts/</link>
-    <description>Recent content in Posts on 小吴的工作手记</description>
+    <title>OLAP on 小吴的工作手记</title>
+    <link>https://pangwawa.github.io/tags/olap/</link>
+    <description>Recent content in OLAP on 小吴的工作手记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Tue, 20 Oct 2020 17:49:40 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Oct 2020 17:49:40 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/tags/olap/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Elasticsearch的DSL——常用检索、复合检索、高级检索</title>
       <link>https://pangwawa.github.io/posts/elasticsearch_query_dsl/</link>
@@ -20,34 +20,6 @@
 match_all 匹配所有的， 当不给查询条件时，默认全查 match
  { &amp;quot;query&amp;quot;: { &amp;quot;match&amp;quot;: { &amp;quot;username&amp;quot;: &amp;quot;张三&amp;quot; } } } multi_match 同时对查询的关键词，多个字段同时进行匹配，即多个字段是AND的关系 更丰富的查询 按brandName（品牌名）、sortName（分类名）、productName（商品名）productKeyword（商品关键字），搜索“牛仔 弹力”关键词， brandName源值、拼音值、关键字值都是100分，sortName源值、拼音值80分，productName源值60分，productKeyword值20分，分值由高到低优先级搜索
 { &amp;quot;query&amp;quot;: { &amp;quot;multi_match&amp;quot;: { &amp;quot;query&amp;quot;: &amp;quot;牛仔 弹力&amp;quot;, &amp;quot;fields&amp;quot;: [ &amp;quot;brandName^100&amp;quot;, &amp;quot;brandName.</description>
-    </item>
-    
-    <item>
-      <title>你好，第一篇手记</title>
-      <link>https://pangwawa.github.io/posts/%E4%BD%A0%E5%A5%BD%E7%AC%AC%E4%B8%80%E7%AF%87%E6%89%8B%E8%AE%B0/</link>
-      <pubDate>Tue, 20 Oct 2020 15:00:01 +0800</pubDate>
-      
-      <guid>https://pangwawa.github.io/posts/%E4%BD%A0%E5%A5%BD%E7%AC%AC%E4%B8%80%E7%AF%87%E6%89%8B%E8%AE%B0/</guid>
-      <description>关于我  我是一名专注于Java架构和大数据开发的互联网人。 2020，是我毕业后在职场的第二年，但也知道了自己的兴趣方向，明白了生活的不易。之前都是在CSDN https://blog.csdn.net/Jack__iT上写博客，现在想有个专属的小天地。
-我也许只是浩瀚星辰中的小星星，但这并无法阻挡我发出自己的光芒。
-共勉 忘了在哪看到的这段话，算是挺有意思的鸡汤吧，咱一起喝碗鸡汤补补：
-纽约时间比加州时间早三个小时，
-New York is 3 hours ahead of California,
-但加州时间并没有变慢。
-but it does not make California slow.
-有人22岁就毕业了，
-Someone graduated at the age of 22,
-但等了五年才找到好的工作！
-but waited 5 years before securing a good job!
-有人25岁就当上CEO，
-Someone became a CEO at 25,
-却在50岁去世。
-and died at 50.
-也有人迟到50岁才当上CEO，
-While another became a CEO at 50,
-然后活到90岁。
-and lived to 90 years.
-有人依然单身，</description>
     </item>
     
   </channel>
