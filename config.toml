@@ -16,7 +16,7 @@ paginate = 10
 
 [params]
   author = "Jack Wu"
-  description = "互联网从业者，专注于Java架构、大数据开发"
+      description = "我是一名专注于Java架构、大数据开发的互联网从业者，很高兴认识你！"
   menu_item_separator = "  "
   [[params.social]]
     name = "github"

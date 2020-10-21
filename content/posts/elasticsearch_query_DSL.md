@@ -2,7 +2,7 @@
 title: "Elasticsearch的DSL——常用检索、复合检索、高级检索"
 tags: ["ElasticSearch", "OLAP","大数据"]
 author: "Jack Wu"
-date: 2020-10-20T17:49:40+08:00
+date: 2020-02-15T17:49:40+08:00
 draft: false
 ---
 
@@ -26,11 +26,27 @@ draft: false
 ```
 **term多值查询**
 ```
+GET /test/_search
 {
   "query": {
-    "terms": {
-      "productType":["101","102"]
-    }
+   "bool": {
+     "must": [
+       {
+         "term": {
+           "mac": {
+             "value": "2541229"
+           }
+         }
+       },
+       {
+         "term": {
+           "productType": {
+             "value": "1"
+           }
+         }
+       }
+     ]
+   }
   }
 }
 ```

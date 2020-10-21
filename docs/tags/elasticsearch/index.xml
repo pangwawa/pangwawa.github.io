@@ -6,20 +6,135 @@
     <description>Recent content in ElasticSearch on 小吴的工作手记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Tue, 20 Oct 2020 17:49:40 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/tags/elasticsearch/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 05 Mar 2020 11:20:35 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/tags/elasticsearch/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ElasticSearch倒排索引原理探索</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch_inverted_index/</link>
+      <pubDate>Thu, 05 Mar 2020 11:20:35 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch_inverted_index/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch集群与调优</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch_cluster/</link>
+      <pubDate>Sat, 29 Feb 2020 11:10:33 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch_cluster/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch 数据导入方案</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch_data_input/</link>
+      <pubDate>Tue, 25 Feb 2020 11:08:58 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch_data_input/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch用户权限与安全机制</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch_account_management_and_security/</link>
+      <pubDate>Sat, 22 Feb 2020 10:32:21 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch_account_management_and_security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch基础概念与架构原理</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch__structure/</link>
+      <pubDate>Thu, 20 Feb 2020 11:14:21 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch__structure/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch Mapping 数据建模规范与建模过程</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch_data_modeling/</link>
+      <pubDate>Sun, 16 Feb 2020 09:41:35 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch_data_modeling/</guid>
+      <description>##Mapping数据建模
+字段类型————是否要搜索及分词————是否要聚合及排序————是否要额外的存储
+mapping 设计非常重要，需要从两个维度进行考虑：
+功能：搜索、排序、聚合 性能：存储的开锁、内存的开销、搜索的性能 mapping 注意事项：
+加入新字段很容易（必要时需要 update_by_query） 更新删除字段不允许（需要 reindex 重建数据）
+最佳实践
+1、不允许自动新增字段，将 dynamic 设置成 strict。默认为 true；
+2、不需要分词的字段，将 type 设置成 keyword。默认使用了多字段特性，text、keyword这2种类型都有；
+3、不需要检查的字段，将 index 设置成 false。默认为 true；
+4、不需要排序和聚合的字段，将 doc_values 设置成false。默认为 true；
+5、不需要检查、排序、聚合的字段，将 enable 设置成 false，仅做存储；
+6、type = text 的字段，默认不可以排序，如需要排序，将 fielddata 设置成 true，默认为 false；
+7、单个索引避免过多字段，默认最大值为1000；
+8、避免空值引起的聚合不准确的问题；
+9、避免使用正则查询；
+10、尽量不要设计成索引关联，可冗余多一些字段，以空间换时间，如实在无法避免，按以下方式处理：</description>
+    </item>
+    
     <item>
       <title>Elasticsearch的DSL——常用检索、复合检索、高级检索</title>
       <link>https://pangwawa.github.io/posts/elasticsearch_query_dsl/</link>
-      <pubDate>Tue, 20 Oct 2020 17:49:40 +0800</pubDate>
+      <pubDate>Sat, 15 Feb 2020 17:49:40 +0800</pubDate>
       
       <guid>https://pangwawa.github.io/posts/elasticsearch_query_dsl/</guid>
       <description>简单查询 精准查询term （完全匹配，不使用分词器） term单值查询
 { &amp;quot;query&amp;quot;: { &amp;quot;term&amp;quot;: { &amp;quot;productType&amp;quot;: { &amp;quot;value&amp;quot;: &amp;quot;101&amp;quot; } } } } term多值查询
-{ &amp;quot;query&amp;quot;: { &amp;quot;terms&amp;quot;: { &amp;quot;productType&amp;quot;:[&amp;quot;101&amp;quot;,&amp;quot;102&amp;quot;] } } } terms查询多值
+GET /test/_search { &amp;quot;query&amp;quot;: { &amp;quot;bool&amp;quot;: { &amp;quot;must&amp;quot;: [ { &amp;quot;term&amp;quot;: { &amp;quot;mac&amp;quot;: { &amp;quot;value&amp;quot;: &amp;quot;2541229&amp;quot; } } }, { &amp;quot;term&amp;quot;: { &amp;quot;productType&amp;quot;: { &amp;quot;value&amp;quot;: &amp;quot;1&amp;quot; } } } ] } } } terms查询多值
 { &amp;quot;query&amp;quot;: { &amp;quot;terms&amp;quot;: { &amp;quot;productType&amp;quot;:[&amp;quot;101&amp;quot;,&amp;quot;102&amp;quot;] } } } 模糊查询 （模糊匹配，使用分词器） match 、 match_all、multi_match、match_phrase
-match_all 匹配所有的， 当不给查询条件时，默认全查 match
- { &amp;quot;query&amp;quot;: { &amp;quot;match&amp;quot;: { &amp;quot;username&amp;quot;: &amp;quot;张三&amp;quot; } } } multi_match 同时对查询的关键词，多个字段同时进行匹配，即多个字段是AND的关系 更丰富的查询 按brandName（品牌名）、sortName（分类名）、productName（商品名）productKeyword（商品关键字），搜索“牛仔 弹力”关键词， brandName源值、拼音值、关键字值都是100分，sortName源值、拼音值80分，productName源值60分，productKeyword值20分，分值由高到低优先级搜索
-{ &amp;quot;query&amp;quot;: { &amp;quot;multi_match&amp;quot;: { &amp;quot;query&amp;quot;: &amp;quot;牛仔 弹力&amp;quot;, &amp;quot;fields&amp;quot;: [ &amp;quot;brandName^100&amp;quot;, &amp;quot;brandName.</description>
+match_all 匹配所有的， 当不给查询条件时，默认全查 match</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch 生命周期管理——索引生命周期与冷热数据分离</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch_lifecycle_management/</link>
+      <pubDate>Tue, 11 Feb 2020 09:46:25 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch_lifecycle_management/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch 7.x 数据类型详解</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch_datatype/</link>
+      <pubDate>Mon, 10 Feb 2020 09:23:44 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch_datatype/</guid>
+      <description>基础类型 String类型 keyword
+keyword字符串按原样保留以进行过滤和排序。
+text
+text将对字段值进行分析以进行全文本搜索
+数字类型 long
+integer
+short
+byte
+double
+float
+half float
+scaled float
+时间类型 date
+布尔类型 **boolean
+二进制类型 binary
+区间类型 integer range
+float range
+long ranage
+double range
+date range
+复杂类型 Array数组
+Object对象
+Nested类型
+GEO地理位置类型 geo point
+geo shape
+IP类型 ip
+自动补全类型 completion
+String长度类型 token_count
+percolate类型 mumur3
+父子索引Join类型 percolator
+别名类型 alias</description>
     </item>
     
   </channel>

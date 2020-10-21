@@ -14,38 +14,37 @@
 <meta name="twitter:title" content="Elasticsearch的DSL——常用检索、复合检索、高级检索"/>
 <meta name="twitter:description" content="简单查询 精准查询term （完全匹配，不使用分词器） term单值查询
 { &quot;query&quot;: { &quot;term&quot;: { &quot;productType&quot;: { &quot;value&quot;: &quot;101&quot; } } } } term多值查询
-{ &quot;query&quot;: { &quot;terms&quot;: { &quot;productType&quot;:[&quot;101&quot;,&quot;102&quot;] } } } terms查询多值
+GET /test/_search { &quot;query&quot;: { &quot;bool&quot;: { &quot;must&quot;: [ { &quot;term&quot;: { &quot;mac&quot;: { &quot;value&quot;: &quot;2541229&quot; } } }, { &quot;term&quot;: { &quot;productType&quot;: { &quot;value&quot;: &quot;1&quot; } } } ] } } } terms查询多值
 { &quot;query&quot;: { &quot;terms&quot;: { &quot;productType&quot;:[&quot;101&quot;,&quot;102&quot;] } } } 模糊查询 （模糊匹配，使用分词器） match 、 match_all、multi_match、match_phrase
-match_all 匹配所有的， 当不给查询条件时，默认全查 match
- { &quot;query&quot;: { &quot;match&quot;: { &quot;username&quot;: &quot;张三&quot; } } } multi_match 同时对查询的关键词，多个字段同时进行匹配，即多个字段是AND的关系 更丰富的查询 按brandName（品牌名）、sortName（分类名）、productName（商品名）productKeyword（商品关键字），搜索“牛仔 弹力”关键词， brandName源值、拼音值、关键字值都是100分，sortName源值、拼音值80分，productName源值60分，productKeyword值20分，分值由高到低优先级搜索
-{ &quot;query&quot;: { &quot;multi_match&quot;: { &quot;query&quot;: &quot;牛仔 弹力&quot;, &quot;fields&quot;: [ &quot;brandName^100&quot;, &quot;brandName."/>
+match_all 匹配所有的， 当不给查询条件时，默认全查 match"/>
 
     <meta property="og:title" content="Elasticsearch的DSL——常用检索、复合检索、高级检索" />
 <meta property="og:description" content="简单查询 精准查询term （完全匹配，不使用分词器） term单值查询
 { &quot;query&quot;: { &quot;term&quot;: { &quot;productType&quot;: { &quot;value&quot;: &quot;101&quot; } } } } term多值查询
-{ &quot;query&quot;: { &quot;terms&quot;: { &quot;productType&quot;:[&quot;101&quot;,&quot;102&quot;] } } } terms查询多值
+GET /test/_search { &quot;query&quot;: { &quot;bool&quot;: { &quot;must&quot;: [ { &quot;term&quot;: { &quot;mac&quot;: { &quot;value&quot;: &quot;2541229&quot; } } }, { &quot;term&quot;: { &quot;productType&quot;: { &quot;value&quot;: &quot;1&quot; } } } ] } } } terms查询多值
 { &quot;query&quot;: { &quot;terms&quot;: { &quot;productType&quot;:[&quot;101&quot;,&quot;102&quot;] } } } 模糊查询 （模糊匹配，使用分词器） match 、 match_all、multi_match、match_phrase
-match_all 匹配所有的， 当不给查询条件时，默认全查 match
- { &quot;query&quot;: { &quot;match&quot;: { &quot;username&quot;: &quot;张三&quot; } } } multi_match 同时对查询的关键词，多个字段同时进行匹配，即多个字段是AND的关系 更丰富的查询 按brandName（品牌名）、sortName（分类名）、productName（商品名）productKeyword（商品关键字），搜索“牛仔 弹力”关键词， brandName源值、拼音值、关键字值都是100分，sortName源值、拼音值80分，productName源值60分，productKeyword值20分，分值由高到低优先级搜索
-{ &quot;query&quot;: { &quot;multi_match&quot;: { &quot;query&quot;: &quot;牛仔 弹力&quot;, &quot;fields&quot;: [ &quot;brandName^100&quot;, &quot;brandName." />
+match_all 匹配所有的， 当不给查询条件时，默认全查 match" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://pangwawa.github.io/posts/elasticsearch_query_dsl/" />
-<meta property="article:published_time" content="2020-10-20T17:49:40+08:00" />
-<meta property="article:modified_time" content="2020-10-20T17:49:40+08:00" />
+<meta property="article:published_time" content="2020-02-15T17:49:40+08:00" />
+<meta property="article:modified_time" content="2020-02-15T17:49:40+08:00" />
 
 
   </head>
   <body>
     <header class="app-header">
       <a href="https://pangwawa.github.io"><img class="app-header-avatar" src="/avatar.jpg" alt="Jack Wu" /></a>
-      <h1>小吴的工作手记</h1>
+      <h2>小吴的工作手记</h2>
       <nav class="app-header-menu" style="font-size: 20px">
-          <a class="app-header-menu-item" href="/tags/">分类标签</a><br>
+          <a class="app-header-menu-item" href="/tags/">分类标签</a>&nbsp;&nbsp;&nbsp;&nbsp;
               
           
-          <a class="app-header-menu-item" href="/">首页</a><br>
+          <a class="app-header-menu-item" href="/">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
       </nav>
-      <p>互联网从业者，专注于Java架构、大数据开发</p>
+      <div class="app-header-menu">
+        <h4>标签云</h4>
+
+      </div>
       <div class="app-header-social">
         
           <a target="_blank" href="https://github.com/pangwawa" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
@@ -59,6 +58,7 @@ match_all 匹配所有的， 当不给查询条件时，默认全查 match
 </svg></a>
         
       </div>
+      <p>我是一名专注于Java架构、大数据开发的互联网从业者，很高兴认识你！</p>
     </header>
     <main class="app-container">
       
@@ -71,7 +71,7 @@ match_all 匹配所有的， 当不给查询条件时，默认全查 match
   <title>calendar</title>
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
 </svg>
-          Oct 20, 2020
+          Feb 15, 2020
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
@@ -105,11 +105,27 @@ match_all 匹配所有的， 当不给查询条件时，默认全查 match
   }
 }
 </code></pre><p><strong>term多值查询</strong></p>
-<pre><code>{
+<pre><code>GET /test/_search
+{
   &quot;query&quot;: {
-    &quot;terms&quot;: {
-      &quot;productType&quot;:[&quot;101&quot;,&quot;102&quot;]
-    }
+   &quot;bool&quot;: {
+     &quot;must&quot;: [
+       {
+         &quot;term&quot;: {
+           &quot;mac&quot;: {
+             &quot;value&quot;: &quot;2541229&quot;
+           }
+         }
+       },
+       {
+         &quot;term&quot;: {
+           &quot;productType&quot;: {
+             &quot;value&quot;: &quot;1&quot;
+           }
+         }
+       }
+     ]
+   }
   }
 }
 </code></pre><p><strong>terms查询多值</strong></p>
