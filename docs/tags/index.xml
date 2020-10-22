@@ -6,7 +6,34 @@
     <description>Recent content in Tags on 小吴的工作手记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Thu, 05 Mar 2020 11:20:35 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 Mar 2020 18:09:01 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL</title>
+      <link>https://pangwawa.github.io/tags/mysql/</link>
+      <pubDate>Sun, 22 Mar 2020 18:09:01 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>关系型数据库</title>
+      <link>https://pangwawa.github.io/tags/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Sun, 22 Mar 2020 18:09:01 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/tags/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>存储</title>
+      <link>https://pangwawa.github.io/tags/%E5%AD%98%E5%82%A8/</link>
+      <pubDate>Sun, 22 Mar 2020 18:09:01 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/tags/%E5%AD%98%E5%82%A8/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>ElasticSearch</title>
       <link>https://pangwawa.github.io/tags/elasticsearch/</link>

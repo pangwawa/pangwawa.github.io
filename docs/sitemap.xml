@@ -3,6 +3,41 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://pangwawa.github.io/tags/mysql/</loc>
+    <lastmod>2020-03-22T18:09:01+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/posts/mysql_index/</loc>
+    <lastmod>2020-03-22T18:09:01+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/posts/</loc>
+    <lastmod>2020-03-22T18:09:01+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/tags/</loc>
+    <lastmod>2020-03-22T18:09:01+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/tags/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2020-03-22T18:09:01+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/tags/%E5%AD%98%E5%82%A8/</loc>
+    <lastmod>2020-03-22T18:09:01+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/</loc>
+    <lastmod>2020-03-22T18:09:01+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://pangwawa.github.io/tags/elasticsearch/</loc>
     <lastmod>2020-03-05T11:20:35+08:00</lastmod>
   </url>
@@ -18,22 +53,7 @@
   </url>
   
   <url>
-    <loc>https://pangwawa.github.io/posts/</loc>
-    <lastmod>2020-03-05T11:20:35+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pangwawa.github.io/tags/</loc>
-    <lastmod>2020-03-05T11:20:35+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://pangwawa.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
-    <lastmod>2020-03-05T11:20:35+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pangwawa.github.io/</loc>
     <lastmod>2020-03-05T11:20:35+08:00</lastmod>
   </url>
   

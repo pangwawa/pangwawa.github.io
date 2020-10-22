@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <title>MySQL索引与优化 // 小吴的工作手记</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.76.5" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Jack Wu" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://pangwawa.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+    <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MySQL索引与优化"/>
+<meta name="twitter:description" content="什么是索引，为什么要使用索引 索引是一种能提高数据查询速度的数据结构， 常用的索引数据解构有 B&#43; 树 和 Hash
+可以提高数据检索的效率，降低数据库的IO成本 通过索引列对数据进行排序，降低数据排序的成本，降低了CPU的消耗
+劣势：
+索引会占据磁盘空间
+索引虽然会提高查询效率，但是会降低更新表的效率
+索引类型 主键索引 索引列中的值必须是唯一的，不允许有空值。 ####普通索引 MySQL中基本索引类型，没有什么限制，允许在定义索引的列中插入重复值和空值。 ####唯一索引 索引列中的值必须是唯一的，但是允许为空值。 ####全文索引 只能在文本类型CHAR,VARCHAR,TEXT类型字段上创建全文索引。字段长度比较大时，如果创建普通索引，在进行like模糊查询时效率比较低，这时可以创建全文索引。MyISAM和InnoDB中都可以使用全文索引。 ####空间索引 MySQL在5.7之后的版本支持了空间索引，而且支持OpenGIS几何数据模型。MySQL在空间索引这方面遵循OpenGIS几何数据模型规则。 ####前缀索引 在文本类型如CHAR,VARCHAR,TEXT类列上创建索引时，可以指定索引列的长度，但是数值类型不能指定。
+其他（按照索引列数量分类） ####单列索引 ####组合索引 组合索引的使用，需要遵循最左前缀匹配原则（最左匹配原则）。一般情况下在条件允许的情况下使用组合索引替代多个单列索引使用。
+为什么很少使用Hash作为索引的数据结构 Hash表在等值查询时效率很高，时间复杂度为O(1)；但是不支持范围快速查找，范围查找时还是只能通过扫描全表方式。
+什么是B&#43;树，为什么使用B&#43;树作为数据库索引的底层结构，为什么不使用B树 减少磁盘IO操作，就需要尽量降低树的高度，第一个根节点的位置要合理
+平衡二叉树：采用二分法思维，平衡二叉查找树除了具备二叉树的特点，最主要的特征是树的左右两个子树的层级最多相差1。
+B树，改造平衡二叉树，降低树的高度，减少磁盘IO操作。B树的高度一般2至3层就能满足大部分的应用场景，所以使用B树构建索引可以很好的提升查询的效率。
+B&#43;树，为了解决B树不支持范围查询的快速查找
+B&#43;树和B树最主要的区别在于非叶子节点是否存储数据的问题 B树：非叶子节点和叶子节点都会存储数据。 B&#43;树：只有叶子节点才会存储数据，非叶子节点至存储键值。叶子节点之间使用双向指针连接，最底层的叶子节点形成了一个双向有序链表。  MyISAM索引和InnoDB索引的区别 ####MyISAM MyISAM的数据文件和索引文件是分开存储的。MyISAM使用B&#43;树构建索引树时，叶子节点中存储的键值为索引列的值，数据为索引所在行的磁盘地址。 先在主键树中从根节点开始检索，将根节点加载到内存，比较28&lt;75，走左路。（1次磁盘IO） 将左子树节点加载到内存中，比较16&lt;28&lt;47，向下检索。（1次磁盘IO） 检索到叶节点，将节点加载到内存中遍历，比较16&lt;28，18&lt;28，28=28。查找到值等于30的索引项。（1次磁盘IO） 从索引项中获取磁盘地址，然后到数据文件user.MYD中获取对应整行记录。（1次磁盘IO） 将记录返给客户端。
+InnoDB 索引 InnoDB的数据和索引存储在一个文件t_user_innodb.ibd中。InnoDB的数据组织方式，是聚簇索引。
+InnoDB索引按照叶子节点是否存储数据分为主键索引（聚簇索引）和 辅助索引 除聚簇索引之外的所有索引都称为辅助索引，InnoDB的辅助索引只会存储主键值而非磁盘地址。
+ 主键索引的叶子节点会存储数据行，辅助索引只会存储主键值。  回表查询：根据在辅助索引树中获取的主键id，到主键索引树检索数据的过程称为回表查询
+组合索引和覆盖索引 组合索引的最左前缀匹配原则：使用组合索引查询时，mysql会一直向右匹配直至遇到范围查询(&gt;、&lt;、between、like)就停止匹配。
+覆盖索引 覆盖索引并不是说是索引结构，覆盖索引是一种很常用的优化手段。因为在使用辅助索引的时候，我们只可以拿到主键值，相当于获取数据还需要再根据主键查询主键索引再获取到数据。 但是试想下这么一种情况，在上面abc_innodb表中的组合索引查询时，如果我只需要abc字段的，那是不是意味着我们查询到组合索引的叶子节点就可以直接返回了，而不需要回表。这种情况就是覆盖索引。
+覆盖索引和联合索引是什么 覆盖索引，返回的字段建立索引，减少回表操作
+联合索引，在合理的情况下，尽可能在一个****索引中包含多个字段
+覆盖索引的字段可能不是在同一个索引，即覆盖索引中所使用的索引不一定是联合索引"/>
+
+    <meta property="og:title" content="MySQL索引与优化" />
+<meta property="og:description" content="什么是索引，为什么要使用索引 索引是一种能提高数据查询速度的数据结构， 常用的索引数据解构有 B&#43; 树 和 Hash
+可以提高数据检索的效率，降低数据库的IO成本 通过索引列对数据进行排序，降低数据排序的成本，降低了CPU的消耗
+劣势：
+索引会占据磁盘空间
+索引虽然会提高查询效率，但是会降低更新表的效率
+索引类型 主键索引 索引列中的值必须是唯一的，不允许有空值。 ####普通索引 MySQL中基本索引类型，没有什么限制，允许在定义索引的列中插入重复值和空值。 ####唯一索引 索引列中的值必须是唯一的，但是允许为空值。 ####全文索引 只能在文本类型CHAR,VARCHAR,TEXT类型字段上创建全文索引。字段长度比较大时，如果创建普通索引，在进行like模糊查询时效率比较低，这时可以创建全文索引。MyISAM和InnoDB中都可以使用全文索引。 ####空间索引 MySQL在5.7之后的版本支持了空间索引，而且支持OpenGIS几何数据模型。MySQL在空间索引这方面遵循OpenGIS几何数据模型规则。 ####前缀索引 在文本类型如CHAR,VARCHAR,TEXT类列上创建索引时，可以指定索引列的长度，但是数值类型不能指定。
+其他（按照索引列数量分类） ####单列索引 ####组合索引 组合索引的使用，需要遵循最左前缀匹配原则（最左匹配原则）。一般情况下在条件允许的情况下使用组合索引替代多个单列索引使用。
+为什么很少使用Hash作为索引的数据结构 Hash表在等值查询时效率很高，时间复杂度为O(1)；但是不支持范围快速查找，范围查找时还是只能通过扫描全表方式。
+什么是B&#43;树，为什么使用B&#43;树作为数据库索引的底层结构，为什么不使用B树 减少磁盘IO操作，就需要尽量降低树的高度，第一个根节点的位置要合理
+平衡二叉树：采用二分法思维，平衡二叉查找树除了具备二叉树的特点，最主要的特征是树的左右两个子树的层级最多相差1。
+B树，改造平衡二叉树，降低树的高度，减少磁盘IO操作。B树的高度一般2至3层就能满足大部分的应用场景，所以使用B树构建索引可以很好的提升查询的效率。
+B&#43;树，为了解决B树不支持范围查询的快速查找
+B&#43;树和B树最主要的区别在于非叶子节点是否存储数据的问题 B树：非叶子节点和叶子节点都会存储数据。 B&#43;树：只有叶子节点才会存储数据，非叶子节点至存储键值。叶子节点之间使用双向指针连接，最底层的叶子节点形成了一个双向有序链表。  MyISAM索引和InnoDB索引的区别 ####MyISAM MyISAM的数据文件和索引文件是分开存储的。MyISAM使用B&#43;树构建索引树时，叶子节点中存储的键值为索引列的值，数据为索引所在行的磁盘地址。 先在主键树中从根节点开始检索，将根节点加载到内存，比较28&lt;75，走左路。（1次磁盘IO） 将左子树节点加载到内存中，比较16&lt;28&lt;47，向下检索。（1次磁盘IO） 检索到叶节点，将节点加载到内存中遍历，比较16&lt;28，18&lt;28，28=28。查找到值等于30的索引项。（1次磁盘IO） 从索引项中获取磁盘地址，然后到数据文件user.MYD中获取对应整行记录。（1次磁盘IO） 将记录返给客户端。
+InnoDB 索引 InnoDB的数据和索引存储在一个文件t_user_innodb.ibd中。InnoDB的数据组织方式，是聚簇索引。
+InnoDB索引按照叶子节点是否存储数据分为主键索引（聚簇索引）和 辅助索引 除聚簇索引之外的所有索引都称为辅助索引，InnoDB的辅助索引只会存储主键值而非磁盘地址。
+ 主键索引的叶子节点会存储数据行，辅助索引只会存储主键值。  回表查询：根据在辅助索引树中获取的主键id，到主键索引树检索数据的过程称为回表查询
+组合索引和覆盖索引 组合索引的最左前缀匹配原则：使用组合索引查询时，mysql会一直向右匹配直至遇到范围查询(&gt;、&lt;、between、like)就停止匹配。
+覆盖索引 覆盖索引并不是说是索引结构，覆盖索引是一种很常用的优化手段。因为在使用辅助索引的时候，我们只可以拿到主键值，相当于获取数据还需要再根据主键查询主键索引再获取到数据。 但是试想下这么一种情况，在上面abc_innodb表中的组合索引查询时，如果我只需要abc字段的，那是不是意味着我们查询到组合索引的叶子节点就可以直接返回了，而不需要回表。这种情况就是覆盖索引。
+覆盖索引和联合索引是什么 覆盖索引，返回的字段建立索引，减少回表操作
+联合索引，在合理的情况下，尽可能在一个****索引中包含多个字段
+覆盖索引的字段可能不是在同一个索引，即覆盖索引中所使用的索引不一定是联合索引" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pangwawa.github.io/posts/mysql_index/" />
+<meta property="article:published_time" content="2020-03-22T18:09:01+08:00" />
+<meta property="article:modified_time" content="2020-03-22T18:09:01+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://pangwawa.github.io"><img class="app-header-avatar" src="/avatar.jpg" alt="Jack Wu" /></a>
+      <h2>小吴的工作手记</h2>
+      <nav class="app-header-menu" style="font-size: 20px">
+          <a class="app-header-menu-item" href="/tags/">分类标签</a>&nbsp;&nbsp;&nbsp;&nbsp;
+              
+          
+          <a class="app-header-menu-item" href="/">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      </nav>
+      <div class="app-header-menu">
+        <h4>标签云</h4>
+
+      </div>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/pangwawa" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+          <a target="_blank" href="https://blog.csdn.net/Jack__iT" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+      <p>我是一名专注于Java架构、大数据开发的互联网从业者，很高兴认识你！</p>
+      <p style="text-align: center">联系邮箱：jackwu1024@163.com</p>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">MySQL索引与优化</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Mar 22, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://pangwawa.github.io/tags/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/">关系型数据库</a>
+              <a class="tag" href="https://pangwawa.github.io/tags/mysql/">MySQL</a>
+              <a class="tag" href="https://pangwawa.github.io/tags/%E5%AD%98%E5%82%A8/">存储</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h2 id="什么是索引为什么要使用索引">什么是索引，为什么要使用索引</h2>
+<p>索引是一种能提高数据查询速度的数据结构， 常用的索引数据解构有 B+ 树 和 Hash</p>
+<p>可以提高数据检索的效率，降低数据库的IO成本
+通过索引列对数据进行排序，降低数据排序的成本，降低了CPU的消耗</p>
+<p>劣势：<br>
+索引会占据磁盘空间<br>
+索引虽然会提高查询效率，但是会降低更新表的效率</p>
+<h2 id="索引类型">索引类型</h2>
+<h4 id="主键索引">主键索引</h4>
+<p>索引列中的值必须是唯一的，不允许有空值。
+####普通索引
+MySQL中基本索引类型，没有什么限制，允许在定义索引的列中插入重复值和空值。
+####唯一索引
+索引列中的值必须是唯一的，但是允许为空值。
+####全文索引
+只能在文本类型CHAR,VARCHAR,TEXT类型字段上创建全文索引。字段长度比较大时，如果创建普通索引，在进行like模糊查询时效率比较低，这时可以创建全文索引。MyISAM和InnoDB中都可以使用全文索引。
+####空间索引
+MySQL在5.7之后的版本支持了空间索引，而且支持OpenGIS几何数据模型。MySQL在空间索引这方面遵循OpenGIS几何数据模型规则。
+####前缀索引
+在文本类型如CHAR,VARCHAR,TEXT类列上创建索引时，可以指定索引列的长度，但是数值类型不能指定。</p>
+<p>其他（按照索引列数量分类）
+####单列索引
+####组合索引
+组合索引的使用，需要遵循最左前缀匹配原则（最左匹配原则）。一般情况下在条件允许的情况下使用组合索引替代多个单列索引使用。</p>
+<h2 id="为什么很少使用hash作为索引的数据结构">为什么很少使用Hash作为索引的数据结构</h2>
+<p>Hash表在等值查询时效率很高，时间复杂度为O(1)；但是不支持范围快速查找，范围查找时还是只能通过扫描全表方式。</p>
+<h2 id="什么是b树为什么使用b树作为数据库索引的底层结构为什么不使用b树">什么是B+树，为什么使用B+树作为数据库索引的底层结构，为什么不使用B树</h2>
+<p>减少磁盘IO操作，就需要尽量降低树的高度，第一个根节点的位置要合理</p>
+<p>平衡二叉树：采用二分法思维，平衡二叉查找树除了具备二叉树的特点，最主要的特征是树的左右两个子树的层级最多相差1。</p>
+<p>B树，改造平衡二叉树，降低树的高度，减少磁盘IO操作。B树的高度一般2至3层就能满足大部分的应用场景，所以使用B树构建索引可以很好的提升查询的效率。</p>
+<p>B+树，为了解决B树不支持范围查询的快速查找</p>
+<pre><code>B+树和B树最主要的区别在于非叶子节点是否存储数据的问题
+
+B树：非叶子节点和叶子节点都会存储数据。
+
+B+树：只有叶子节点才会存储数据，非叶子节点至存储键值。叶子节点之间使用双向指针连接，最底层的叶子节点形成了一个双向有序链表。
+</code></pre>
+<h2 id="myisam索引和innodb索引的区别">MyISAM索引和InnoDB索引的区别</h2>
+<p>####MyISAM
+MyISAM的数据文件和索引文件是分开存储的。MyISAM使用B+树构建索引树时，叶子节点中存储的键值为索引列的值，数据为索引所在行的磁盘地址。
+先在主键树中从根节点开始检索，将根节点加载到内存，比较28&lt;75，走左路。（1次磁盘IO）
+将左子树节点加载到内存中，比较16&lt;28&lt;47，向下检索。（1次磁盘IO）
+检索到叶节点，将节点加载到内存中遍历，比较16&lt;28，18&lt;28，28=28。查找到值等于30的索引项。（1次磁盘IO）
+从索引项中获取磁盘地址，然后到数据文件user.MYD中获取对应整行记录。（1次磁盘IO）
+将记录返给客户端。</p>
+<h4 id="innodb-索引">InnoDB 索引</h4>
+<p>InnoDB的数据和索引存储在一个文件t_user_innodb.ibd中。InnoDB的数据组织方式，是聚簇索引。</p>
+<p>InnoDB索引按照叶子节点是否存储数据分为主键索引（聚簇索引）和 辅助索引
+除聚簇索引之外的所有索引都称为辅助索引，InnoDB的辅助索引只会存储主键值而非磁盘地址。</p>
+<pre><code> 主键索引的叶子节点会存储数据行，辅助索引只会存储主键值。
+</code></pre>
+<p>回表查询：根据在辅助索引树中获取的主键id，到主键索引树检索数据的过程称为回表查询</p>
+<h4 id="组合索引和覆盖索引">组合索引和覆盖索引</h4>
+<p>组合索引的最左前缀匹配原则：使用组合索引查询时，mysql会一直向右匹配直至遇到范围查询(&gt;、&lt;、between、like)就停止匹配。</p>
+<p>覆盖索引
+覆盖索引并不是说是索引结构，覆盖索引是一种很常用的优化手段。因为在使用辅助索引的时候，我们只可以拿到主键值，相当于获取数据还需要再根据主键查询主键索引再获取到数据。
+但是试想下这么一种情况，在上面abc_innodb表中的组合索引查询时，如果我只需要abc字段的，那是不是意味着我们查询到组合索引的叶子节点就可以直接返回了，而不需要回表。这种情况就是覆盖索引。</p>
+<h4 id="覆盖索引和联合索引是什么">覆盖索引和联合索引是什么</h4>
+<p>覆盖索引，返回的字段建立索引，减少回表操作</p>
+<p>联合索引，在合理的情况下，尽可能在一个****索引中包含多个字段</p>
+<p>覆盖索引的字段可能不是在同一个索引，即覆盖索引中所使用的索引不一定是联合索引</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+    <p style="position: fixed; bottom: 0; width: 100%;text-align: center; color: gray; font-size: 13px;">Copyright &copy; 2020 Jack Wu All Rights Reserved.</p>
+  </body>
+</html>
