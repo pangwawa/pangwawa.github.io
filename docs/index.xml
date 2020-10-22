@@ -6,7 +6,21 @@
     <description>Recent content on 小吴的工作手记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Sun, 22 Mar 2020 18:09:01 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Oct 2020 18:19:12 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Flink编程模型详解</title>
+      <link>https://pangwawa.github.io/posts/flink_programing_model/</link>
+      <pubDate>Thu, 22 Oct 2020 18:19:12 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/flink_programing_model/</guid>
+      <description>Flink 为流式/批式处理应用程序的开发提供了Stateful Stream Processing、DataStream/DataSet ApI 、Table API和SQL这四个不同级别的抽象，如下如所示：
+1、SQL 这层抽象在语义和程序表达式上都类似于 Table API，但是其程序实现都是 SQL 查询表达式。SQL 抽象与 Table API 抽象之间的关联是非常紧密的，并且 SQL 查询语句可以在 Table API 中定义的表上执行。
+2、Table API 以表（Table）为中心的声明式编程（DSL）API，例如在流式数据场景下，它可以表示一张正在动态改变的表。Table API 遵循（扩展）关系模型：即表拥有 schema（类似于关系型数据库中的 schema），并且 Table API 也提供了类似于关系模型中的操作，比如 select、project、join、group-by 和 aggregate 等
+3、Datastream、DataSet API 核心 API，包含 DataStream API（应用于有界/无界数据流场景）和 DataSet API（应用于有界数据集场景）两部分。Core APIs 提供的流式 API（Fluent API）为数据处理提供了通用的模块组件，例如各种形式的用户自定义转换（transformations）、联接（joins）、聚合（aggregations）、窗口（windows）和状态（state）操作等。此层 API 中处理的数据类型在每种编程语言中都有其对应的类。
+4、Stateful Stream Processing（有状态实时流处理） 允许用户在应用程序中自由地处理来自单流或多流的事件（数据），并提供具有全局一致性和容错保障的状态。此外，用户可以在此层抽象中注册事件时间（event time）和处理时间（processing time）回调方法，从而允许程序可以实现复杂计算。
+这4层中，一般用于开发的是第三层，即DataStrem/DataSetAPI。用户可以使用DataStream API处理无界数据流，使用DataSet API处理有界数据流。同时这两个API都提供了各种各样的接口来处理数据。</description>
+    </item>
+    
     <item>
       <title>MySQL索引与优化</title>
       <link>https://pangwawa.github.io/posts/mysql_index/</link>
