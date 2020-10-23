@@ -18,7 +18,11 @@
 2、Table API 以表（Table）为中心的声明式编程（DSL）API，例如在流式数据场景下，它可以表示一张正在动态改变的表。Table API 遵循（扩展）关系模型：即表拥有 schema（类似于关系型数据库中的 schema），并且 Table API 也提供了类似于关系模型中的操作，比如 select、project、join、group-by 和 aggregate 等
 3、Datastream、DataSet API 核心 API，包含 DataStream API（应用于有界/无界数据流场景）和 DataSet API（应用于有界数据集场景）两部分。Core APIs 提供的流式 API（Fluent API）为数据处理提供了通用的模块组件，例如各种形式的用户自定义转换（transformations）、联接（joins）、聚合（aggregations）、窗口（windows）和状态（state）操作等。此层 API 中处理的数据类型在每种编程语言中都有其对应的类。
 4、Stateful Stream Processing（有状态实时流处理） 允许用户在应用程序中自由地处理来自单流或多流的事件（数据），并提供具有全局一致性和容错保障的状态。此外，用户可以在此层抽象中注册事件时间（event time）和处理时间（processing time）回调方法，从而允许程序可以实现复杂计算。
-这4层中，一般用于开发的是第三层，即DataStrem/DataSetAPI。用户可以使用DataStream API处理无界数据流，使用DataSet API处理有界数据流。同时这两个API都提供了各种各样的接口来处理数据。</description>
+这4层中，一般用于开发的是第三层，即DataStrem/DataSetAPI。用户可以使用DataStream API处理无界数据流，使用DataSet API处理有界数据流。同时这两个API都提供了各种各样的接口来处理数据。
+Flink程序的模块结构 如下图，Flink程序主要分为 source&amp;ndash;&amp;gt;transformation&amp;ndash;&amp;gt;sink 这三个模块
+在获取执行环境后，程序从数据源中获取数据，并执行Transformation操作，最后将执行结果输出到指定的地方，如消息队列、文件系统、数据库等。
+下面这个简单的例子便包含了整个过程：
+ public static void main(String[] args) throws Exception { // Checking input parameters final MultipleParameterTool params = MultipleParameterTool.</description>
     </item>
     
     <item>
@@ -32,7 +36,12 @@
 劣势：
 索引会占据磁盘空间
 索引虽然会提高查询效率，但是会降低更新表的效率
-索引类型 主键索引 索引列中的值必须是唯一的，不允许有空值。 ####普通索引 MySQL中基本索引类型，没有什么限制，允许在定义索引的列中插入重复值和空值。 ####唯一索引 索引列中的值必须是唯一的，但是允许为空值。 ####全文索引 只能在文本类型CHAR,VARCHAR,TEXT类型字段上创建全文索引。字段长度比较大时，如果创建普通索引，在进行like模糊查询时效率比较低，这时可以创建全文索引。MyISAM和InnoDB中都可以使用全文索引。 ####空间索引 MySQL在5.7之后的版本支持了空间索引，而且支持OpenGIS几何数据模型。MySQL在空间索引这方面遵循OpenGIS几何数据模型规则。 ####前缀索引 在文本类型如CHAR,VARCHAR,TEXT类列上创建索引时，可以指定索引列的长度，但是数值类型不能指定。
+索引类型 主键索引 索引列中的值必须是唯一的，不允许有空值。
+普通索引 MySQL中基本索引类型，没有什么限制，允许在定义索引的列中插入重复值和空值。
+唯一索引 索引列中的值必须是唯一的，但是允许为空值。
+全文索引 只能在文本类型CHAR,VARCHAR,TEXT类型字段上创建全文索引。字段长度比较大时，如果创建普通索引，在进行like模糊查询时效率比较低，这时可以创建全文索引。MyISAM和InnoDB中都可以使用全文索引。
+空间索引 MySQL在5.7之后的版本支持了空间索引，而且支持OpenGIS几何数据模型。MySQL在空间索引这方面遵循OpenGIS几何数据模型规则。
+前缀索引 在文本类型如CHAR,VARCHAR,TEXT类列上创建索引时，可以指定索引列的长度，但是数值类型不能指定。
 其他（按照索引列数量分类） ####单列索引 ####组合索引 组合索引的使用，需要遵循最左前缀匹配原则（最左匹配原则）。一般情况下在条件允许的情况下使用组合索引替代多个单列索引使用。
 为什么很少使用Hash作为索引的数据结构 Hash表在等值查询时效率很高，时间复杂度为O(1)；但是不支持范围快速查找，范围查找时还是只能通过扫描全表方式。
 什么是B+树，为什么使用B+树作为数据库索引的底层结构，为什么不使用B树 减少磁盘IO操作，就需要尽量降低树的高度，第一个根节点的位置要合理
