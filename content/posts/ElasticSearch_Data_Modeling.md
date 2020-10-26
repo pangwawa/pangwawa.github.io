@@ -6,7 +6,7 @@ date: 2020-02-16T09:41:35+08:00
 draft: false
 ---
 
-##Mapping数据建模
+## Mapping数据建模
 
 数据建模即创建数据模型的过程，它主要分为以下的步骤
 
@@ -63,8 +63,7 @@ mapping 注意事项：
 |dynamic|true/false/strict|控制mapping自动更新|
 |date_detection|true/false|是否自动识别日期类型|
 
-常用规则
-
+## 常用规则
 1. 如果索引不允许自动新增字段，将 dynamic 设置成 strict。默认为 true；
 
 2. 不需要分词的字段，将 type 设置成 keyword。默认使用了多字段特性，text、keyword这2种类型都有；
