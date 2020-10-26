@@ -2,36 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0f91f832-8bcf-4565-9eba-ec84d8ef5792" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/docs/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/404.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/about/about_me/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/about/about_me/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/about/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/about/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/categories/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/categories/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/elasticsearch__structure/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/elasticsearch__structure/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/elasticsearch_account_management_and_security/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/elasticsearch_account_management_and_security/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/elasticsearch_cluster/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/elasticsearch_cluster/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/elasticsearch_data_input/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/elasticsearch_data_input/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/Elasticsearch_mapping_process.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/setting_es_mapping.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/posts/ElasticSearch_Data_Modeling.md" beforeDir="false" afterPath="$PROJECT_DIR$/content/posts/ElasticSearch_Data_Modeling.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/posts/elasticsearch_data_modeling/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/elasticsearch_data_modeling/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/elasticsearch_datatype/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/elasticsearch_datatype/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/elasticsearch_inverted_index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/elasticsearch_inverted_index/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/elasticsearch_lifecycle_management/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/elasticsearch_lifecycle_management/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/elasticsearch_query_dsl/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/elasticsearch_query_dsl/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/flink_programing_model/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/flink_programing_model/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/hello/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/hello/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/lsm_store/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/lsm_store/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/mysql_index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/mysql_index/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/posts/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tags/elasticsearch/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tags/elasticsearch/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tags/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tags/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tags/mysql/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tags/mysql/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tags/olap/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tags/olap/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tags/关系型数据库/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tags/关系型数据库/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tags/大数据/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tags/大数据/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tags/存储/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tags/存储/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tags/感想/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tags/感想/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/tags/随笔/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tags/随笔/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/posts/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tags/elasticsearch/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tags/elasticsearch/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tags/olap/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tags/olap/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/tags/大数据/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/tags/大数据/index.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,29 +24,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/docs/about/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="78" column="13" selection-start-line="78" selection-start-column="13" selection-end-line="78" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/themes/m10c/layouts/_default/baseof.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
-              <folding>
-                <element signature="n#style#0;n#img#0;n#a#0;n#header#0;n#body#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#nav#0;n#header#0;n#body#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#nav#0;n#header#0;n#body#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#nav#0;n#header#0;n#body#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#nav#0;n#header#0;n#body#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#header#0;n#body#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#body#0;n#!!top" expanded="true" />
-              </folding>
+        <entry file="file://$PROJECT_DIR$/content/posts/ElasticSearch_Data_Modeling.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="282">
+                <caret line="79" column="25" lean-forward="true" selection-start-line="79" selection-start-column="25" selection-end-line="79" selection-end-column="25" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -98,7 +63,6 @@
         <option value="$PROJECT_DIR$/content/posts/ElasticSearch_cluster.md" />
         <option value="$PROJECT_DIR$/content/posts/ElasticSearch_account_management_and_security.md" />
         <option value="$PROJECT_DIR$/themes/m10c/theme.toml" />
-        <option value="$PROJECT_DIR$/content/posts/ElasticSearch_Data_Modeling.md" />
         <option value="$PROJECT_DIR$/content/posts/elasticsearch_query_DSL.md" />
         <option value="$PROJECT_DIR$/content/posts/mysql_index.md" />
         <option value="$PROJECT_DIR$/content/about/about_me.md" />
@@ -111,6 +75,7 @@
         <option value="$PROJECT_DIR$/themes/m10c/assets/css/components/_app.scss" />
         <option value="$PROJECT_DIR$/config.toml" />
         <option value="$PROJECT_DIR$/themes/m10c/layouts/_default/baseof.html" />
+        <option value="$PROJECT_DIR$/content/posts/ElasticSearch_Data_Modeling.md" />
       </list>
     </option>
   </component>
@@ -149,45 +114,24 @@
             <path>
               <item name="pangwawa.github.io" type="b2602c69:ProjectViewProjectNode" />
               <item name="pangwawa.github.io" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
+              <item name="content" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pangwawa.github.io" type="b2602c69:ProjectViewProjectNode" />
               <item name="pangwawa.github.io" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
-              <item name="about" type="462c0819:PsiDirectoryNode" />
+              <item name="content" type="462c0819:PsiDirectoryNode" />
+              <item name="posts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pangwawa.github.io" type="b2602c69:ProjectViewProjectNode" />
               <item name="pangwawa.github.io" type="462c0819:PsiDirectoryNode" />
-              <item name="docs" type="462c0819:PsiDirectoryNode" />
-              <item name="categories" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pangwawa.github.io" type="b2602c69:ProjectViewProjectNode" />
               <item name="pangwawa.github.io" type="462c0819:PsiDirectoryNode" />
-              <item name="themes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pangwawa.github.io" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pangwawa.github.io" type="462c0819:PsiDirectoryNode" />
-              <item name="themes" type="462c0819:PsiDirectoryNode" />
-              <item name="m10c" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pangwawa.github.io" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pangwawa.github.io" type="462c0819:PsiDirectoryNode" />
-              <item name="themes" type="462c0819:PsiDirectoryNode" />
-              <item name="m10c" type="462c0819:PsiDirectoryNode" />
-              <item name="layouts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pangwawa.github.io" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pangwawa.github.io" type="462c0819:PsiDirectoryNode" />
-              <item name="themes" type="462c0819:PsiDirectoryNode" />
-              <item name="m10c" type="462c0819:PsiDirectoryNode" />
-              <item name="layouts" type="462c0819:PsiDirectoryNode" />
-              <item name="_default" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -201,15 +145,15 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/themes/m10c/static" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static/images" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\esunproject\pangwawa.github.io\themes\m10c\static" />
       <recent name="D:\esunproject\pangwawa.github.io\static\images" />
+      <recent name="D:\esunproject\pangwawa.github.io\themes\m10c\static" />
       <recent name="D:\esunproject\pangwawa.github.io\docs\tags" />
       <recent name="D:\esunproject\pangwawa.github.io" />
     </key>
@@ -240,7 +184,7 @@
       <workItem from="1603242410008" duration="13445000" />
       <workItem from="1603361166691" duration="1664000" />
       <workItem from="1603415468106" duration="10614000" />
-      <workItem from="1603674839768" duration="4135000" />
+      <workItem from="1603674839768" duration="7314000" />
     </task>
     <task id="LOCAL-00001" summary="languageCode修改">
       <created>1603185171761</created>
@@ -291,11 +235,18 @@
       <option name="project" value="LOCAL" />
       <updated>1603678825878</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="email 修改">
+      <created>1603679092152</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1603679092152</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46992000" />
+    <option name="totallyTimeSpent" value="50171000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -342,7 +293,8 @@
     <MESSAGE value="elasticsearch.md" />
     <MESSAGE value="flink 编程模型修改" />
     <MESSAGE value="menu 修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="menu 修改" />
+    <MESSAGE value="email 修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="email 修改" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/themes/m10c/exampleSite/config.toml">
@@ -581,16 +533,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/posts/flink_programing_model.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="399">
-            <caret line="21" selection-start-line="21" selection-end-line="21" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/content/about/about_me.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
@@ -647,16 +589,6 @@
         <state split_layout="FIRST">
           <first_editor relative-caret-position="855">
             <caret line="45" column="16" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/posts/ElasticSearch_Data_Modeling.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="453">
-            <caret line="43" column="25" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
           </first_editor>
           <second_editor />
         </state>
@@ -721,10 +653,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/content/posts/flink_programing_model.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="152">
+            <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/themes/m10c/layouts/_default/baseof.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+        <state relative-caret-position="302">
+          <caret line="51" column="32" lean-forward="true" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
           <folding>
             <element signature="n#style#0;n#img#0;n#a#0;n#header#0;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#nav#0;n#header#0;n#body#0;n#!!top" expanded="true" />
@@ -734,6 +676,19 @@
             <element signature="n#style#0;n#div#0;n#header#0;n#body#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#p#0;n#body#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/Elasticsearch_mapping_process.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/posts/ElasticSearch_Data_Modeling.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="282">
+            <caret line="79" column="25" lean-forward="true" selection-start-line="79" selection-start-column="25" selection-end-line="79" selection-end-column="25" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
