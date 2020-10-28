@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 22 Mar 2020 18:09:01 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/tags/%E5%AD%98%E5%82%A8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MySQL索引与优化</title>
-      <link>https://pangwawa.github.io/posts/mysql_index/</link>
+      <link>https://pangwawa.github.io/posts/mysql/mysql_index/</link>
       <pubDate>Sun, 22 Mar 2020 18:09:01 +0800</pubDate>
       
-      <guid>https://pangwawa.github.io/posts/mysql_index/</guid>
+      <guid>https://pangwawa.github.io/posts/mysql/mysql_index/</guid>
       <description>什么是索引，为什么要使用索引 索引是一种能提高数据查询速度的数据结构， 常用的索引数据解构有 B+ 树 和 Hash
 可以提高数据检索的效率，降低数据库的IO成本 通过索引列对数据进行排序，降低数据排序的成本，降低了CPU的消耗
 劣势：

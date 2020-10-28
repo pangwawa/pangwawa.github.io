@@ -3,12 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://pangwawa.github.io/posts/flink_programing_model/</loc>
+    <loc>https://pangwawa.github.io/tags/flink/</loc>
+    <lastmod>2020-10-22T18:19:12+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/posts/flink/flink_programing_model/</loc>
     <lastmod>2020-10-22T18:19:12+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://pangwawa.github.io/posts/</loc>
+    <lastmod>2020-10-22T18:19:12+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/tags/</loc>
+    <lastmod>2020-10-22T18:19:12+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2020-10-22T18:19:12+08:00</lastmod>
   </url>
   
@@ -23,12 +38,7 @@
   </url>
   
   <url>
-    <loc>https://pangwawa.github.io/posts/mysql_index/</loc>
-    <lastmod>2020-03-22T18:09:01+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pangwawa.github.io/tags/</loc>
+    <loc>https://pangwawa.github.io/posts/mysql/mysql_index/</loc>
     <lastmod>2020-03-22T18:09:01+08:00</lastmod>
   </url>
   
@@ -48,7 +58,7 @@
   </url>
   
   <url>
-    <loc>https://pangwawa.github.io/posts/elasticsearch_inverted_index/</loc>
+    <loc>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_inverted_index/</loc>
     <lastmod>2020-03-05T11:20:35+08:00</lastmod>
   </url>
   
@@ -58,57 +68,52 @@
   </url>
   
   <url>
-    <loc>https://pangwawa.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
-    <lastmod>2020-03-05T11:20:35+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pangwawa.github.io/posts/lsm_store/</loc>
+    <loc>https://pangwawa.github.io/posts/other/lsm_store/</loc>
     <lastmod>2020-03-02T11:18:34+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pangwawa.github.io/posts/elasticsearch_cluster/</loc>
+    <loc>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_cluster/</loc>
     <lastmod>2020-02-29T11:10:33+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pangwawa.github.io/posts/elasticsearch_data_input/</loc>
+    <loc>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_data_input/</loc>
     <lastmod>2020-02-25T11:08:58+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pangwawa.github.io/posts/elasticsearch_account_management_and_security/</loc>
+    <loc>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_account_management_and_security/</loc>
     <lastmod>2020-02-22T10:32:21+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pangwawa.github.io/posts/elasticsearch__structure/</loc>
+    <loc>https://pangwawa.github.io/posts/elasticsearch/elasticsearch__structure/</loc>
     <lastmod>2020-02-20T11:14:21+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pangwawa.github.io/posts/elasticsearch_data_modeling/</loc>
+    <loc>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_data_modeling/</loc>
     <lastmod>2020-02-16T09:41:35+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pangwawa.github.io/posts/elasticsearch_query_dsl/</loc>
+    <loc>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_query_dsl/</loc>
     <lastmod>2020-02-15T17:49:40+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pangwawa.github.io/posts/elasticsearch_lifecycle_management/</loc>
+    <loc>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_lifecycle_management/</loc>
     <lastmod>2020-02-11T09:46:25+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pangwawa.github.io/posts/elasticsearch_datatype/</loc>
+    <loc>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_datatype/</loc>
     <lastmod>2020-02-10T09:23:44+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pangwawa.github.io/posts/hello/</loc>
+    <loc>https://pangwawa.github.io/posts/life/hello/</loc>
     <lastmod>2020-02-09T15:00:01+08:00</lastmod>
   </url>
   

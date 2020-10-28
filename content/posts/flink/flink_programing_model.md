@@ -1,6 +1,6 @@
 ---
 title: "Flink编程模型详解"
-tags: []
+tags: ["Flink","大数据"]
 author: "Jack Wu"
 date: 2020-10-22T18:19:12+08:00
 draft: false

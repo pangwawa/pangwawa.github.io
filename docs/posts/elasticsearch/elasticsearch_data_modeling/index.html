@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <title>ElasticSearch Mapping 数据建模规范与建模过程 // 小吴的工作手记</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.76.5" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Jack Wu" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://pangwawa.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+    <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ElasticSearch Mapping 数据建模规范与建模过程"/>
+<meta name="twitter:description" content="Mapping数据建模 数据建模即创建数据模型的过程，它主要分为以下的步骤
+概念分析：确定系统的核心需求和范围边界，设计实现和实体间的关系 逻辑模型：进一步梳理业务需求，确定每个实体的属性、关系和约束等 物理模型：结合具体的数据库产品，在满足业务读写性能等需求的前提下确定最终的定义
+ElasticSearch索引建立可以遵循一个流程：字段类型——是否要搜索及分词——是否要聚合及排序——是否要额外的存储
+是何种类型？ 字符串类型：需要分词设定为text类型，否则设置为keyword类型 枚举类型：基于性能考虑将其设定为keyword类型，即便该数据为整型（如状态码） 数值类型：尽量选择贴近的类型，比如byte即可表示所有数值时，即选用byte,不要用long 其他类型：比如布尔类型、日期、地理位置数据等
+是否需要检索？ 完全不需要检索、排序、聚合分析的字段：enable设置为false 不需要检索的字段：index设置为false 需要检索的字段，可以通过如下配置设定需要的存储粒度 index_options: 结合需要设定 norms: 不需要归一化数据时关闭即可 ####是否需要排序和聚合分析？ 不需要排序或者聚合分析功能：
+doc_values设定为false fielddata设定为false ####是否需要专门存储当前字段的数据？ store设定为true,即可存储该字段的原始内容（与_source中的不相关） 一般结合_source的enabled设定为false时使用
+索引建立Mapping的过程如下图所示
+mapping 设计非常重要，需要从两个维度进行考虑：
+功能：搜索、排序、聚合 性能：存储的开锁、内存的开销、搜索的性能 mapping 注意事项： 加入新字段很容易（必要时需要 update_by_query） 更新删除字段不允许（需要 reindex 重建数据）
+下面列出Mapping 字段的相关设置：
+   参数 取值 说明     enabled ture/false 默认为true, false：仅存储，不做搜索或聚合分析(比如cookie/session字段)   index ture/false 控制当前字段是否索引，默认为true,即记录索引，false不记录，即不可搜索   index_options docs/freqs/positions/offsets 存储倒排索引的哪些信息,text类型默认配置为positions,其他默认为docs ,记录内容越多，占用空间越大。   norms true/false 是否存储归一化相关参数，如果字段仅用于过滤和聚合分析，可关闭   doc_values true/false 是否启用doc_values,用于排序和聚合分析   field_data true/false 是否为text类型启用fielddata,实现排序和聚合分析   store true/false 是否存储该字段值,默认是false   coerce true/false 是否开启自动数据类型转换功能，比如字符串转换为数字、浮点转换为整型等（默认是true   multifields - 多字段-灵活使用多字段特性来解决多样的业务需求   dynamic true/false/strict 控制mapping自动更新   date_detection true/false 是否自动识别日期类型    常用规则   如果索引不允许自动新增字段，将 dynamic 设置成 strict。默认为 true；"/>
+
+    <meta property="og:title" content="ElasticSearch Mapping 数据建模规范与建模过程" />
+<meta property="og:description" content="Mapping数据建模 数据建模即创建数据模型的过程，它主要分为以下的步骤
+概念分析：确定系统的核心需求和范围边界，设计实现和实体间的关系 逻辑模型：进一步梳理业务需求，确定每个实体的属性、关系和约束等 物理模型：结合具体的数据库产品，在满足业务读写性能等需求的前提下确定最终的定义
+ElasticSearch索引建立可以遵循一个流程：字段类型——是否要搜索及分词——是否要聚合及排序——是否要额外的存储
+是何种类型？ 字符串类型：需要分词设定为text类型，否则设置为keyword类型 枚举类型：基于性能考虑将其设定为keyword类型，即便该数据为整型（如状态码） 数值类型：尽量选择贴近的类型，比如byte即可表示所有数值时，即选用byte,不要用long 其他类型：比如布尔类型、日期、地理位置数据等
+是否需要检索？ 完全不需要检索、排序、聚合分析的字段：enable设置为false 不需要检索的字段：index设置为false 需要检索的字段，可以通过如下配置设定需要的存储粒度 index_options: 结合需要设定 norms: 不需要归一化数据时关闭即可 ####是否需要排序和聚合分析？ 不需要排序或者聚合分析功能：
+doc_values设定为false fielddata设定为false ####是否需要专门存储当前字段的数据？ store设定为true,即可存储该字段的原始内容（与_source中的不相关） 一般结合_source的enabled设定为false时使用
+索引建立Mapping的过程如下图所示
+mapping 设计非常重要，需要从两个维度进行考虑：
+功能：搜索、排序、聚合 性能：存储的开锁、内存的开销、搜索的性能 mapping 注意事项： 加入新字段很容易（必要时需要 update_by_query） 更新删除字段不允许（需要 reindex 重建数据）
+下面列出Mapping 字段的相关设置：
+   参数 取值 说明     enabled ture/false 默认为true, false：仅存储，不做搜索或聚合分析(比如cookie/session字段)   index ture/false 控制当前字段是否索引，默认为true,即记录索引，false不记录，即不可搜索   index_options docs/freqs/positions/offsets 存储倒排索引的哪些信息,text类型默认配置为positions,其他默认为docs ,记录内容越多，占用空间越大。   norms true/false 是否存储归一化相关参数，如果字段仅用于过滤和聚合分析，可关闭   doc_values true/false 是否启用doc_values,用于排序和聚合分析   field_data true/false 是否为text类型启用fielddata,实现排序和聚合分析   store true/false 是否存储该字段值,默认是false   coerce true/false 是否开启自动数据类型转换功能，比如字符串转换为数字、浮点转换为整型等（默认是true   multifields - 多字段-灵活使用多字段特性来解决多样的业务需求   dynamic true/false/strict 控制mapping自动更新   date_detection true/false 是否自动识别日期类型    常用规则   如果索引不允许自动新增字段，将 dynamic 设置成 strict。默认为 true；" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pangwawa.github.io/posts/elasticsearch/elasticsearch_data_modeling/" />
+<meta property="article:published_time" content="2020-02-16T09:41:35+08:00" />
+<meta property="article:modified_time" content="2020-02-16T09:41:35+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://pangwawa.github.io"><img class="app-header-avatar" style="border: 0.1rem none;" src="/avatar.jpg" alt="Jack Wu" /></a>
+      <h2>小吴的工作手记</h2>
+      
+      <nav  class="app-header-menu" style="font-size: 20px">
+        <div style="margin-top: 10px">
+          <a href="/">Home</a>
+        </div>
+        <div style="margin-top: 10px">
+          <a href="/tags/">Tags</a>
+        </div>
+        <div style="margin-top: 10px">
+          <a href="/about/about_me/">About</a>
+        </div>
+      </nav>
+      <p>Stay hungry, stay foolish.</p>
+      <p style="">Email：jackwu1024@163.com</p>
+      <img  src="/wechat.jpg" alt="扫一扫添加博主微信" />
+      <div class="app-header-social" style="margin-top: 20px">
+        
+        <a target="_blank" href="https://github.com/pangwawa" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+        <a target="_blank" href="https://blog.csdn.net/Jack__iT" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">ElasticSearch Mapping 数据建模规范与建模过程</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Feb 16, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://pangwawa.github.io/tags/elasticsearch/">ElasticSearch</a>
+              <a class="tag" href="https://pangwawa.github.io/tags/olap/">OLAP</a>
+              <a class="tag" href="https://pangwawa.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h2 id="mapping数据建模">Mapping数据建模</h2>
+<p>数据建模即创建数据模型的过程，它主要分为以下的步骤</p>
+<p>概念分析：确定系统的核心需求和范围边界，设计实现和实体间的关系
+逻辑模型：进一步梳理业务需求，确定每个实体的属性、关系和约束等
+物理模型：结合具体的数据库产品，在满足业务读写性能等需求的前提下确定最终的定义</p>
+<p>ElasticSearch索引建立可以遵循一个流程：字段类型——是否要搜索及分词——是否要聚合及排序——是否要额外的存储</p>
+<h4 id="是何种类型">是何种类型？</h4>
+<p>字符串类型：需要分词设定为text类型，否则设置为keyword类型
+枚举类型：基于性能考虑将其设定为keyword类型，即便该数据为整型（如状态码）
+数值类型：尽量选择贴近的类型，比如byte即可表示所有数值时，即选用byte,不要用long
+其他类型：比如布尔类型、日期、地理位置数据等</p>
+<h4 id="是否需要检索">是否需要检索？</h4>
+<p>完全不需要检索、排序、聚合分析的字段：enable设置为false
+不需要检索的字段：index设置为false
+需要检索的字段，可以通过如下配置设定需要的存储粒度
+index_options: 结合需要设定
+norms: 不需要归一化数据时关闭即可
+####是否需要排序和聚合分析？
+不需要排序或者聚合分析功能：</p>
+<p>doc_values设定为false
+fielddata设定为false
+####是否需要专门存储当前字段的数据？
+store设定为true,即可存储该字段的原始内容（与_source中的不相关）
+一般结合_source的enabled设定为false时使用</p>
+<p>索引建立Mapping的过程如下图所示</p>
+<p><img src="/images/Elasticsearch_mapping_process.png" alt="建模过程"></p>
+<p>mapping 设计非常重要，需要从两个维度进行考虑：</p>
+<p>功能：搜索、排序、聚合
+性能：存储的开锁、内存的开销、搜索的性能
+mapping 注意事项：
+加入新字段很容易（必要时需要 update_by_query）
+更新删除字段不允许（需要 reindex 重建数据）</p>
+<p>下面列出Mapping 字段的相关设置：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>取值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>enabled</td>
+<td>ture/false</td>
+<td>默认为true, false：仅存储，不做搜索或聚合分析(比如cookie/session字段)</td>
+</tr>
+<tr>
+<td>index</td>
+<td>ture/false</td>
+<td>控制当前字段是否索引，默认为true,即记录索引，false不记录，即不可搜索</td>
+</tr>
+<tr>
+<td>index_options</td>
+<td>docs/freqs/positions/offsets</td>
+<td>存储倒排索引的哪些信息,text类型默认配置为positions,其他默认为docs ,记录内容越多，占用空间越大。</td>
+</tr>
+<tr>
+<td>norms</td>
+<td>true/false</td>
+<td>是否存储归一化相关参数，如果字段仅用于过滤和聚合分析，可关闭</td>
+</tr>
+<tr>
+<td>doc_values</td>
+<td>true/false</td>
+<td>是否启用doc_values,用于排序和聚合分析</td>
+</tr>
+<tr>
+<td>field_data</td>
+<td>true/false</td>
+<td>是否为text类型启用fielddata,实现排序和聚合分析</td>
+</tr>
+<tr>
+<td>store</td>
+<td>true/false</td>
+<td>是否存储该字段值,默认是false</td>
+</tr>
+<tr>
+<td>coerce</td>
+<td>true/false</td>
+<td>是否开启自动数据类型转换功能，比如字符串转换为数字、浮点转换为整型等（默认是true</td>
+</tr>
+<tr>
+<td>multifields</td>
+<td>-</td>
+<td>多字段-灵活使用多字段特性来解决多样的业务需求</td>
+</tr>
+<tr>
+<td>dynamic</td>
+<td>true/false/strict</td>
+<td>控制mapping自动更新</td>
+</tr>
+<tr>
+<td>date_detection</td>
+<td>true/false</td>
+<td>是否自动识别日期类型</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常用规则">常用规则</h2>
+<ol>
+<li>
+<p>如果索引不允许自动新增字段，将 dynamic 设置成 strict。默认为 true；</p>
+</li>
+<li>
+<p>不需要分词的字段，将 type 设置成 keyword。默认使用了多字段特性，text、keyword这2种类型都有；</p>
+</li>
+<li>
+<p>不需要建立索引的字段，将 index 设置成 false。默认为 true；</p>
+</li>
+<li>
+<p>不需要排序和聚合的字段，将 doc_values 设置成false。默认为 true；</p>
+</li>
+<li>
+<p>不需要检查、排序、聚合的字段，将 enable 设置成 false，仅做存储；</p>
+</li>
+<li>
+<p>type = text 的字段，默认不可以排序，如需要排序，将 fielddata 设置成 true，默认为 false；</p>
+</li>
+<li>
+<p>单个索引避免过多字段，默认最大值为1000；</p>
+</li>
+<li>
+<p>避免空值引起的聚合不准确的问题；</p>
+</li>
+<li>
+<p>避免使用正则查询；</p>
+</li>
+<li>
+<p>尽量不要设计成索引关联，可冗余多一些字段，以空间换时间，如实在无法避免，按以下方式处理：</p>
+</li>
+</ol>
+<ul>
+<li>Object:优先考虑Denormalization；</li>
+<li>Nested： 当数据包含多数值对象，同时有查询请求；</li>
+<li>Child/Parent:关联文档更新非常频繁时</li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+    <p style="position: fixed; bottom: 0; width: 100%;text-align: center; color: gray; font-size: 13px;">Copyright &copy; 2020 Jack Wu All Rights Reserved.</p>
+  </body>
+</html>
