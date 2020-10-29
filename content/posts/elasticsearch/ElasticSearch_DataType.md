@@ -1,14 +1,15 @@
 ---
-title: "ElasticSearch 7.9 数据类型详解"
+title: "ElasticSearch 7.9 数据类型和Mapping参数详解"
 tags: ["ElasticSearch", "OLAP","大数据"]
 author: "Jack Wu"
 date: 2020-02-10T09:23:44+08:00
 draft: false
 ---
-
+# ElasticSearch数据类型
 ### 基础类型
 #### String
 keyword字段通常用于排序， 聚合和术语级查询
+
 **keyword类型**
 
 （keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）
@@ -196,3 +197,66 @@ flattened类型可设置的属性：boost、depth_limit、doc_values、eager_glo
 
 用于特定搜素的数据存储，前缀、中缀搜索
 	（特定设置属性：max_shingle_size）
+
+# ElasticSearch的Mapping参数
+以下映射参数对于某些或所有字段数据类型是通用的：
+
+#### analyzer
+  仅text字段支持analyzer映射参数，用于指定文本分析的分析器，   
+#### boost
+   修改字段的得分权重（不建议使用）
+#### coerce
+   true|false,将数据以合适的值进行存储
+   字符串将被强制转换为数字。
+   浮点将被截断为整数值。
+#### copy_to
+   true|false ,将多个字段的值复制到组字段中，然后可以将其作为单个字段进行查询，提高搜索嘟嘟
+#### doc_values
+true|false: 字段排序或聚合
+
+几乎所有字段类型都支持Doc值，但textandannotated_text字段除外。
+
+默认情况下，所有支持doc值的字段均已启用它们,不需要可关闭从而节约磁盘空间
+   
+#### dynamic
+true|false|strict
+
+该dynamic设置控制是否可以动态添加新字段。
+#### eager_global_ordinals
+如果您正在优化索引速度，那么这是正确的方法，但是如果搜索性能是优先考虑的情况，建议您急切地在将用于聚合的字段上急切加载全局序号：
+#### enabled
+enabled设置仅可应用于顶级映射定义和object字段，设置是否建立索引
+#### fielddata
+text字段使用称为的查询时内存数据结构 fielddata
+#### fields
+为不同的目的以不同的方式对同一字段建立索引
+#### format
+设置日期的格式
+#### ignore_above
+长于ignore_above设置的字符串将不会被索引或存储。
+#### ignore_malformed
+是否拒接错误数据类型的文档
+#### index_options
+该index_options参数控制将哪些信息添加到反向索引中以进行搜索和突出显示，这个参数只能在text中使用
+#### index_phrases
+加快词语搜索
+#### index_prefixes
+加快前缀搜索
+#### index
+是否对字段值建立索引
+#### meta
+设置字段限制
+#### normalizer
+#### norms
+字段是否参与评分
+#### null_value
+使用指定的值替换空值，以便搜索
+#### position_increment_gap
+#### properties
+#### search_analyzer
+#### similarity
+相似度算法
+#### store
+对字段值进行索引时，是否存储数据
+#### term_vector
+存储特定术语以方便文档检索

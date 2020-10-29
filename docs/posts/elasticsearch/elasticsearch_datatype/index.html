@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hans">
   <head>
-    <title>ElasticSearch 7.9 数据类型详解 // 小吴的工作手记</title>
+    <title>ElasticSearch 7.9 数据类型和Mapping参数详解 // 小吴的工作手记</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.76.5" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,8 +11,9 @@
     <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="ElasticSearch 7.9 数据类型详解"/>
-<meta name="twitter:description" content="基础类型 String keyword字段通常用于排序， 聚合和术语级查询 keyword类型
+<meta name="twitter:title" content="ElasticSearch 7.9 数据类型和Mapping参数详解"/>
+<meta name="twitter:description" content="ElasticSearch数据类型 基础类型 String keyword字段通常用于排序， 聚合和术语级查询
+keyword类型
 （keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）
 constant_keyword类型
 提交的值只能是固定的或者没有该值 （constant_keyword类型可设置的属性：meta、value）
@@ -47,11 +48,11 @@ ip_range类型
 复杂文档 Array数组类型
 没有特定的mapping类型，elasticsearch默认支持相同类型的多个值
 Object类型
-对象类型，可包含内部对象 （object对象可设置属性：dynamic、enabled、properties、）
-Nested类型"/>
+对象类型，可包含内部对象 （object对象可设置属性：dynamic、enabled、properties、）"/>
 
-    <meta property="og:title" content="ElasticSearch 7.9 数据类型详解" />
-<meta property="og:description" content="基础类型 String keyword字段通常用于排序， 聚合和术语级查询 keyword类型
+    <meta property="og:title" content="ElasticSearch 7.9 数据类型和Mapping参数详解" />
+<meta property="og:description" content="ElasticSearch数据类型 基础类型 String keyword字段通常用于排序， 聚合和术语级查询
+keyword类型
 （keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）
 constant_keyword类型
 提交的值只能是固定的或者没有该值 （constant_keyword类型可设置的属性：meta、value）
@@ -86,8 +87,7 @@ ip_range类型
 复杂文档 Array数组类型
 没有特定的mapping类型，elasticsearch默认支持相同类型的多个值
 Object类型
-对象类型，可包含内部对象 （object对象可设置属性：dynamic、enabled、properties、）
-Nested类型" />
+对象类型，可包含内部对象 （object对象可设置属性：dynamic、enabled、properties、）" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://pangwawa.github.io/posts/elasticsearch/elasticsearch_datatype/" />
 <meta property="article:published_time" content="2020-02-10T09:23:44+08:00" />
@@ -132,7 +132,7 @@ Nested类型" />
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">ElasticSearch 7.9 数据类型详解</h1>
+      <h1 class ="post-title">ElasticSearch 7.9 数据类型和Mapping参数详解</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -146,7 +146,7 @@ Nested类型" />
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          2 min read
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
@@ -160,10 +160,11 @@ Nested类型" />
       </div>
     </header>
     <div class="post-content">
-      <h3 id="基础类型">基础类型</h3>
+      <h1 id="elasticsearch数据类型">ElasticSearch数据类型</h1>
+<h3 id="基础类型">基础类型</h3>
 <h4 id="string">String</h4>
-<p>keyword字段通常用于排序， 聚合和术语级查询
-<strong>keyword类型</strong></p>
+<p>keyword字段通常用于排序， 聚合和术语级查询</p>
+<p><strong>keyword类型</strong></p>
 <p>（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）</p>
 <p><strong>constant_keyword类型</strong></p>
 <p>提交的值只能是固定的或者没有该值
@@ -288,6 +289,63 @@ flattened类型可设置的属性：boost、depth_limit、doc_values、eager_glo
 <p><strong>search_as_you_type类型</strong></p>
 <p>用于特定搜素的数据存储，前缀、中缀搜索
 （特定设置属性：max_shingle_size）</p>
+<h1 id="elasticsearch的mapping参数">ElasticSearch的Mapping参数</h1>
+<p>以下映射参数对于某些或所有字段数据类型是通用的：</p>
+<h4 id="analyzer">analyzer</h4>
+<p>仅text字段支持analyzer映射参数，用于指定文本分析的分析器，</p>
+<h4 id="boost">boost</h4>
+<p>修改字段的得分权重（不建议使用）</p>
+<h4 id="coerce">coerce</h4>
+<p>true|false,将数据以合适的值进行存储
+字符串将被强制转换为数字。
+浮点将被截断为整数值。</p>
+<h4 id="copy_to">copy_to</h4>
+<p>true|false ,将多个字段的值复制到组字段中，然后可以将其作为单个字段进行查询，提高搜索嘟嘟</p>
+<h4 id="doc_values">doc_values</h4>
+<p>true|false: 字段排序或聚合</p>
+<p>几乎所有字段类型都支持Doc值，但textandannotated_text字段除外。</p>
+<p>默认情况下，所有支持doc值的字段均已启用它们,不需要可关闭从而节约磁盘空间</p>
+<h4 id="dynamic">dynamic</h4>
+<p>true|false|strict</p>
+<p>该dynamic设置控制是否可以动态添加新字段。</p>
+<h4 id="eager_global_ordinals">eager_global_ordinals</h4>
+<p>如果您正在优化索引速度，那么这是正确的方法，但是如果搜索性能是优先考虑的情况，建议您急切地在将用于聚合的字段上急切加载全局序号：</p>
+<h4 id="enabled">enabled</h4>
+<p>enabled设置仅可应用于顶级映射定义和object字段，设置是否建立索引</p>
+<h4 id="fielddata">fielddata</h4>
+<p>text字段使用称为的查询时内存数据结构 fielddata</p>
+<h4 id="fields">fields</h4>
+<p>为不同的目的以不同的方式对同一字段建立索引</p>
+<h4 id="format">format</h4>
+<p>设置日期的格式</p>
+<h4 id="ignore_above">ignore_above</h4>
+<p>长于ignore_above设置的字符串将不会被索引或存储。</p>
+<h4 id="ignore_malformed">ignore_malformed</h4>
+<p>是否拒接错误数据类型的文档</p>
+<h4 id="index_options">index_options</h4>
+<p>该index_options参数控制将哪些信息添加到反向索引中以进行搜索和突出显示，这个参数只能在text中使用</p>
+<h4 id="index_phrases">index_phrases</h4>
+<p>加快词语搜索</p>
+<h4 id="index_prefixes">index_prefixes</h4>
+<p>加快前缀搜索</p>
+<h4 id="index">index</h4>
+<p>是否对字段值建立索引</p>
+<h4 id="meta">meta</h4>
+<p>设置字段限制</p>
+<h4 id="normalizer">normalizer</h4>
+<h4 id="norms">norms</h4>
+<p>字段是否参与评分</p>
+<h4 id="null_value">null_value</h4>
+<p>使用指定的值替换空值，以便搜索</p>
+<h4 id="position_increment_gap">position_increment_gap</h4>
+<h4 id="properties">properties</h4>
+<h4 id="search_analyzer">search_analyzer</h4>
+<h4 id="similarity">similarity</h4>
+<p>相似度算法</p>
+<h4 id="store">store</h4>
+<p>对字段值进行索引时，是否存储数据</p>
+<h4 id="term_vector">term_vector</h4>
+<p>存储特定术语以方便文档检索</p>
 
     </div>
     <div class="post-footer">
