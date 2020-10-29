@@ -12,9 +12,10 @@
     
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ElasticSearch 7.9 数据类型详解"/>
-<meta name="twitter:description" content="基础类型 String keyword字段通常用于排序， 聚合和术语级查询 keyword类型 （keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）
-constant_keyword类型 提交的值只能是固定的或者没有该值 （constant_keyword类型可设置的属性：meta、value）
-wildcard类型 存储为通配符grep式查询优化的值 （可设置的参数：ignore_above） wildcard 字段像关键字字段一样是未标记的，因此不支持依赖词位置的查询，例如短语查询
+<meta name="twitter:description" content="基础类型 String keyword字段通常用于排序， 聚合和术语级查询 keyword类型
+（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）  constant_keyword类型
+提交的值只能是固定的或者没有该值 （constant_keyword类型可设置的属性：meta、value）  wildcard类型
+存储为通配符grep式查询优化的值 （可设置的参数：ignore_above） wildcard 字段像关键字字段一样是未标记的，因此不支持依赖词位置的查询，例如短语查询
 text类型
 text将对字段值进行分析以进行全文本搜索 （可设置属性：analyzer、boost、eager_global_ordinals、fielddata、fielddata_frequency_filter、fields、index、index_options、index_prefixes、index_pharses、norms、position_increment_gap、store、search_analyzer、search_quote_analyzer、similarity、term_vector、meta）
 数字 long类型
@@ -28,9 +29,12 @@ scaled float类型
 （数字类型可设置参数：coerce、boost、doc_values、ignore_malformed、index、null_value、source、meta；scaled_float 接受一个附加参数：scaling_factor）
 时间 date类型
 （date类型可设置的属性：boost、doc_values、index、null_value、store、meta、format、locale、ignore_malformed） **日期格式可以自定义，但是如果未format指定，则使用默认格式：“ strict_date_optional_time || epoch_millis”
-date_nanos类型 date_nanos类型（是date的补充，增加了纳秒级别的时间戳和格式时间支持，1420070400 ） **日期格式可以自定义，但是如果未format指定，则使用默认格式：“ strict_date_optional_time || epoch_millis”
+date_nanos类型
+date_nanos类型（是date的补充，增加了纳秒级别的时间戳和格式时间支持，1420070400 ） **日期格式可以自定义，但是如果未format指定，则使用默认格式：“ strict_date_optional_time || epoch_millis”
 布尔 boolean类型
-（boolean可设置属性：boost、doc_values、index、null_value、store、meta）  二进制 binary类型 （binary类型可设置的属性，doc_values，store）
+（boolean可设置属性：boost、doc_values、index、null_value、store、meta）
+二进制 binary类型
+（binary类型可设置的属性，doc_values，store）
 区间 integer range类型
 float range类型
 long ranage类型
@@ -40,12 +44,14 @@ ip_range类型
 （可设置属性：coerce、boost、index、store）
 复杂文档 Array数组类型
 没有特定的mapping类型，elasticsearch默认支持相同类型的多个值
-Object类型 对象类型，可包含内部对象 （object对象可设置属性：dynamic、enabled、properties、）"/>
+Object类型
+对象类型，可包含内部对象 （object对象可设置属性：dynamic、enabled、properties、）"/>
 
     <meta property="og:title" content="ElasticSearch 7.9 数据类型详解" />
-<meta property="og:description" content="基础类型 String keyword字段通常用于排序， 聚合和术语级查询 keyword类型 （keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）
-constant_keyword类型 提交的值只能是固定的或者没有该值 （constant_keyword类型可设置的属性：meta、value）
-wildcard类型 存储为通配符grep式查询优化的值 （可设置的参数：ignore_above） wildcard 字段像关键字字段一样是未标记的，因此不支持依赖词位置的查询，例如短语查询
+<meta property="og:description" content="基础类型 String keyword字段通常用于排序， 聚合和术语级查询 keyword类型
+（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）  constant_keyword类型
+提交的值只能是固定的或者没有该值 （constant_keyword类型可设置的属性：meta、value）  wildcard类型
+存储为通配符grep式查询优化的值 （可设置的参数：ignore_above） wildcard 字段像关键字字段一样是未标记的，因此不支持依赖词位置的查询，例如短语查询
 text类型
 text将对字段值进行分析以进行全文本搜索 （可设置属性：analyzer、boost、eager_global_ordinals、fielddata、fielddata_frequency_filter、fields、index、index_options、index_prefixes、index_pharses、norms、position_increment_gap、store、search_analyzer、search_quote_analyzer、similarity、term_vector、meta）
 数字 long类型
@@ -59,9 +65,12 @@ scaled float类型
 （数字类型可设置参数：coerce、boost、doc_values、ignore_malformed、index、null_value、source、meta；scaled_float 接受一个附加参数：scaling_factor）
 时间 date类型
 （date类型可设置的属性：boost、doc_values、index、null_value、store、meta、format、locale、ignore_malformed） **日期格式可以自定义，但是如果未format指定，则使用默认格式：“ strict_date_optional_time || epoch_millis”
-date_nanos类型 date_nanos类型（是date的补充，增加了纳秒级别的时间戳和格式时间支持，1420070400 ） **日期格式可以自定义，但是如果未format指定，则使用默认格式：“ strict_date_optional_time || epoch_millis”
+date_nanos类型
+date_nanos类型（是date的补充，增加了纳秒级别的时间戳和格式时间支持，1420070400 ） **日期格式可以自定义，但是如果未format指定，则使用默认格式：“ strict_date_optional_time || epoch_millis”
 布尔 boolean类型
-（boolean可设置属性：boost、doc_values、index、null_value、store、meta）  二进制 binary类型 （binary类型可设置的属性，doc_values，store）
+（boolean可设置属性：boost、doc_values、index、null_value、store、meta）
+二进制 binary类型
+（binary类型可设置的属性，doc_values，store）
 区间 integer range类型
 float range类型
 long ranage类型
@@ -71,7 +80,8 @@ ip_range类型
 （可设置属性：coerce、boost、index、store）
 复杂文档 Array数组类型
 没有特定的mapping类型，elasticsearch默认支持相同类型的多个值
-Object类型 对象类型，可包含内部对象 （object对象可设置属性：dynamic、enabled、properties、）" />
+Object类型
+对象类型，可包含内部对象 （object对象可设置属性：dynamic、enabled、properties、）" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://pangwawa.github.io/posts/elasticsearch/elasticsearch_datatype/" />
 <meta property="article:published_time" content="2020-02-10T09:23:44+08:00" />
@@ -147,13 +157,15 @@ Object类型 对象类型，可包含内部对象 （object对象可设置属性
       <h3 id="基础类型">基础类型</h3>
 <h4 id="string">String</h4>
 <p>keyword字段通常用于排序， 聚合和术语级查询
-<strong>keyword类型</strong>
-（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）</p>
-<p><strong>constant_keyword类型</strong>
-提交的值只能是固定的或者没有该值
-（constant_keyword类型可设置的属性：meta、value）</p>
-<p><strong>wildcard类型</strong>
-存储为通配符grep式查询优化的值
+<strong>keyword类型</strong></p>
+<pre><code>（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）
+</code></pre>
+<p><strong>constant_keyword类型</strong></p>
+<pre><code>提交的值只能是固定的或者没有该值
+（constant_keyword类型可设置的属性：meta、value）
+</code></pre>
+<p><strong>wildcard类型</strong></p>
+<p>存储为通配符grep式查询优化的值
 （可设置的参数：ignore_above）
 wildcard 字段像关键字字段一样是未标记的，因此不支持依赖词位置的查询，例如短语查询</p>
 <p><strong>text类型</strong></p>
@@ -173,16 +185,15 @@ wildcard 字段像关键字字段一样是未标记的，因此不支持依赖�
 <p><strong>date类型</strong></p>
 <p>（date类型可设置的属性：boost、doc_values、index、null_value、store、meta、format、locale、ignore_malformed）
 **日期格式可以自定义，但是如果未format指定，则使用默认格式：“ strict_date_optional_time || epoch_millis”</p>
-<p><strong>date_nanos类型</strong>
-date_nanos类型（是date的补充，增加了纳秒级别的时间戳和格式时间支持，1420070400 ）
+<p><strong>date_nanos类型</strong></p>
+<p>date_nanos类型（是date的补充，增加了纳秒级别的时间戳和格式时间支持，1420070400 ）
 **日期格式可以自定义，但是如果未format指定，则使用默认格式：“ strict_date_optional_time || epoch_millis”</p>
 <h4 id="布尔">布尔</h4>
 <p><strong>boolean类型</strong></p>
-<pre><code>（boolean可设置属性：boost、doc_values、index、null_value、store、meta）
-</code></pre>
+<p>（boolean可设置属性：boost、doc_values、index、null_value、store、meta）</p>
 <h4 id="二进制">二进制</h4>
-<p><strong>binary类型</strong>
-（binary类型可设置的属性，doc_values，store）</p>
+<p><strong>binary类型</strong></p>
+<p>（binary类型可设置的属性，doc_values，store）</p>
 <h4 id="区间">区间</h4>
 <p><strong>integer range类型</strong></p>
 <p><strong>float range类型</strong></p>
@@ -194,11 +205,11 @@ date_nanos类型（是date的补充，增加了纳秒级别的时间戳和格式
 <h4 id="复杂文档">复杂文档</h4>
 <p><strong>Array数组类型</strong></p>
 <p>没有特定的mapping类型，elasticsearch默认支持相同类型的多个值</p>
-<p><strong>Object类型</strong>
-对象类型，可包含内部对象
+<p><strong>Object类型</strong></p>
+<p>对象类型，可包含内部对象
 （object对象可设置属性：dynamic、enabled、properties、）</p>
-<p><strong>Nested类型</strong>
-Neste是object数据类型的专用版本
+<p><strong>Nested类型</strong></p>
+<p>Neste是object数据类型的专用版本
 nested字段可设置的属性：dynamic、properties、include_in_parent、include_in_root； 设置限制：index.mapping.nested_fields.limit，index.mapping.nested_objects.limit）
 如果您需要索引对象数组并保持数组中每个对象的独立性，请使用nested数据类型而不是 object数据类型。</p>
 <h4 id="geo地理位置">GEO地理位置</h4>
@@ -247,31 +258,31 @@ nested字段可设置的属性：dynamic、properties、include_in_parent、incl
 <p><strong>dense_vector类型</strong>
 密集矢量类型</p>
 <h4 id="histogram">Histogram</h4>
-<p><strong>histogram直方图数据类型</strong>
-存储直方图数据，两个数组必须等长
+<p><strong>histogram直方图数据类型</strong></p>
+<p>存储直方图数据，两个数组必须等长
 ####Flattened
-<strong>flattened类型</strong>
-此数据类型对于索引具有大量或未知数量的唯一键的对象很有用。将整个对象映射为单个字段，仅为整个JSON对象创建一个字段映射
+<strong>flattened类型</strong></p>
+<p>此数据类型对于索引具有大量或未知数量的唯一键的对象很有用。将整个对象映射为单个字段，仅为整个JSON对象创建一个字段映射
 flattened类型可设置的属性：boost、depth_limit、doc_values、eager_global_ordinals、ignore_above、index、index_options、null_value、similarity，split_queries_on_whitespace）</p>
 <h4 id="percolator">Percolator</h4>
 <p><strong>percolator类型</strong></p>
 <h4 id="point">Point</h4>
-<p><strong>point类型</strong>
-二维坐标点
+<p><strong>point类型</strong></p>
+<p>二维坐标点
 （可设置属性：ignore_malformd、ignore_z_value、null）</p>
 <h4 id="rank-feature">Rank feature</h4>
-<p><strong>rank_featur类型</strong>
-用于rank_feature查询</p>
+<p><strong>rank_featur类型</strong></p>
+<p>用于rank_feature查询</p>
 <h4 id="rank-features">Rank features</h4>
-<p><strong>rank_features类型</strong>
-用户多个属性的rank_feature查询</p>
+<p><strong>rank_features类型</strong></p>
+<p>用户多个属性的rank_feature查询</p>
 <h4 id="sparse-vector">Sparse vector</h4>
 <p><strong>sparse_vector类型</strong></p>
 <h4 id="shape">Shape</h4>
 <p><strong>shape类型</strong></p>
 <h4 id="search-as-you-type">Search-as-you-type</h4>
-<p><strong>search_as_you_type类型</strong>
-用于特定搜素的数据存储，前缀、中缀搜索
+<p><strong>search_as_you_type类型</strong></p>
+<p>用于特定搜素的数据存储，前缀、中缀搜索
 （特定设置属性：max_shingle_size）</p>
 
     </div>

@@ -10,13 +10,16 @@ draft: false
 #### String
 keyword字段通常用于排序， 聚合和术语级查询
 **keyword类型**
+
 	（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）
 	
 **constant_keyword类型**
+
     提交的值只能是固定的或者没有该值
 	（constant_keyword类型可设置的属性：meta、value）
 	
 **wildcard类型**
+
 存储为通配符grep式查询优化的值
 	（可设置的参数：ignore_above）
 	wildcard 字段像关键字字段一样是未标记的，因此不支持依赖词位置的查询，例如短语查询
@@ -53,15 +56,17 @@ text将对字段值进行分析以进行全文本搜索
  	**日期格式可以自定义，但是如果未format指定，则使用默认格式：“ strict_date_optional_time || epoch_millis” 
  	
 **date_nanos类型**
+
  date_nanos类型（是date的补充，增加了纳秒级别的时间戳和格式时间支持，1420070400 ）
  	**日期格式可以自定义，但是如果未format指定，则使用默认格式：“ strict_date_optional_time || epoch_millis”
 #### 布尔
 **boolean类型**
 
-	（boolean可设置属性：boost、doc_values、index、null_value、store、meta）
+（boolean可设置属性：boost、doc_values、index、null_value、store、meta）
 #### 二进制
 **binary类型**
-	（binary类型可设置的属性，doc_values，store）
+
+（binary类型可设置的属性，doc_values，store）
 
 #### 区间
 
@@ -85,13 +90,15 @@ text将对字段值进行分析以进行全文本搜索
 没有特定的mapping类型，elasticsearch默认支持相同类型的多个值
 
 **Object类型**
+
 对象类型，可包含内部对象	
 	（object对象可设置属性：dynamic、enabled、properties、）
 	
 **Nested类型**
-    Neste是object数据类型的专用版本
-    nested字段可设置的属性：dynamic、properties、include_in_parent、include_in_root； 设置限制：index.mapping.nested_fields.limit，index.mapping.nested_objects.limit）
-    如果您需要索引对象数组并保持数组中每个对象的独立性，请使用nested数据类型而不是 object数据类型。
+
+Neste是object数据类型的专用版本
+nested字段可设置的属性：dynamic、properties、include_in_parent、include_in_root； 设置限制：index.mapping.nested_fields.limit，index.mapping.nested_objects.limit）
+如果您需要索引对象数组并保持数组中每个对象的独立性，请使用nested数据类型而不是 object数据类型。
 #### GEO地理位置
 
 **geo point类型**
@@ -152,9 +159,11 @@ alias类型：字段名称的别名搜索
 密集矢量类型
 #### Histogram
 **histogram直方图数据类型**
+
 存储直方图数据，两个数组必须等长
 ####Flattened
 **flattened类型**
+
 此数据类型对于索引具有大量或未知数量的唯一键的对象很有用。将整个对象映射为单个字段，仅为整个JSON对象创建一个字段映射
 flattened类型可设置的属性：boost、depth_limit、doc_values、eager_global_ordinals、ignore_above、index、index_options、null_value、similarity，split_queries_on_whitespace）
 
@@ -163,14 +172,17 @@ flattened类型可设置的属性：boost、depth_limit、doc_values、eager_glo
 
 #### Point
 **point类型**
+
 二维坐标点
 （可设置属性：ignore_malformd、ignore_z_value、null）
 
 #### Rank feature
 **rank_featur类型**
+
 用于rank_feature查询
 #### Rank features
 **rank_features类型**
+
 用户多个属性的rank_feature查询
 	
 #### Sparse vector
@@ -181,5 +193,6 @@ flattened类型可设置的属性：boost、depth_limit、doc_values、eager_glo
 
 #### Search-as-you-type
 **search_as_you_type类型**
+
 用于特定搜素的数据存储，前缀、中缀搜索
 	（特定设置属性：max_shingle_size）
