@@ -13,8 +13,10 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="ElasticSearch 7.9 数据类型详解"/>
 <meta name="twitter:description" content="基础类型 String keyword字段通常用于排序， 聚合和术语级查询 keyword类型
-（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）  constant_keyword类型
-提交的值只能是固定的或者没有该值 （constant_keyword类型可设置的属性：meta、value）  wildcard类型
+（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）
+constant_keyword类型
+提交的值只能是固定的或者没有该值 （constant_keyword类型可设置的属性：meta、value）
+wildcard类型
 存储为通配符grep式查询优化的值 （可设置的参数：ignore_above） wildcard 字段像关键字字段一样是未标记的，因此不支持依赖词位置的查询，例如短语查询
 text类型
 text将对字段值进行分析以进行全文本搜索 （可设置属性：analyzer、boost、eager_global_ordinals、fielddata、fielddata_frequency_filter、fields、index、index_options、index_prefixes、index_pharses、norms、position_increment_gap、store、search_analyzer、search_quote_analyzer、similarity、term_vector、meta）
@@ -45,12 +47,15 @@ ip_range类型
 复杂文档 Array数组类型
 没有特定的mapping类型，elasticsearch默认支持相同类型的多个值
 Object类型
-对象类型，可包含内部对象 （object对象可设置属性：dynamic、enabled、properties、）"/>
+对象类型，可包含内部对象 （object对象可设置属性：dynamic、enabled、properties、）
+Nested类型"/>
 
     <meta property="og:title" content="ElasticSearch 7.9 数据类型详解" />
 <meta property="og:description" content="基础类型 String keyword字段通常用于排序， 聚合和术语级查询 keyword类型
-（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）  constant_keyword类型
-提交的值只能是固定的或者没有该值 （constant_keyword类型可设置的属性：meta、value）  wildcard类型
+（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）
+constant_keyword类型
+提交的值只能是固定的或者没有该值 （constant_keyword类型可设置的属性：meta、value）
+wildcard类型
 存储为通配符grep式查询优化的值 （可设置的参数：ignore_above） wildcard 字段像关键字字段一样是未标记的，因此不支持依赖词位置的查询，例如短语查询
 text类型
 text将对字段值进行分析以进行全文本搜索 （可设置属性：analyzer、boost、eager_global_ordinals、fielddata、fielddata_frequency_filter、fields、index、index_options、index_prefixes、index_pharses、norms、position_increment_gap、store、search_analyzer、search_quote_analyzer、similarity、term_vector、meta）
@@ -81,7 +86,8 @@ ip_range类型
 复杂文档 Array数组类型
 没有特定的mapping类型，elasticsearch默认支持相同类型的多个值
 Object类型
-对象类型，可包含内部对象 （object对象可设置属性：dynamic、enabled、properties、）" />
+对象类型，可包含内部对象 （object对象可设置属性：dynamic、enabled、properties、）
+Nested类型" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://pangwawa.github.io/posts/elasticsearch/elasticsearch_datatype/" />
 <meta property="article:published_time" content="2020-02-10T09:23:44+08:00" />
@@ -158,12 +164,10 @@ Object类型
 <h4 id="string">String</h4>
 <p>keyword字段通常用于排序， 聚合和术语级查询
 <strong>keyword类型</strong></p>
-<pre><code>（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）
-</code></pre>
+<p>（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）</p>
 <p><strong>constant_keyword类型</strong></p>
-<pre><code>提交的值只能是固定的或者没有该值
-（constant_keyword类型可设置的属性：meta、value）
-</code></pre>
+<p>提交的值只能是固定的或者没有该值
+（constant_keyword类型可设置的属性：meta、value）</p>
 <p><strong>wildcard类型</strong></p>
 <p>存储为通配符grep式查询优化的值
 （可设置的参数：ignore_above）

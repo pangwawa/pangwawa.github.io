@@ -180,8 +180,10 @@ match_all 匹配所有的， 当不给查询条件时，默认全查 match</desc
       
       <guid>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_datatype/</guid>
       <description>基础类型 String keyword字段通常用于排序， 聚合和术语级查询 keyword类型
-（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）  constant_keyword类型
-提交的值只能是固定的或者没有该值 （constant_keyword类型可设置的属性：meta、value）  wildcard类型
+（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）
+constant_keyword类型
+提交的值只能是固定的或者没有该值 （constant_keyword类型可设置的属性：meta、value）
+wildcard类型
 存储为通配符grep式查询优化的值 （可设置的参数：ignore_above） wildcard 字段像关键字字段一样是未标记的，因此不支持依赖词位置的查询，例如短语查询
 text类型
 text将对字段值进行分析以进行全文本搜索 （可设置属性：analyzer、boost、eager_global_ordinals、fielddata、fielddata_frequency_filter、fields、index、index_options、index_prefixes、index_pharses、norms、position_increment_gap、store、search_analyzer、search_quote_analyzer、similarity、term_vector、meta）
@@ -212,7 +214,8 @@ ip_range类型
 复杂文档 Array数组类型
 没有特定的mapping类型，elasticsearch默认支持相同类型的多个值
 Object类型
-对象类型，可包含内部对象 （object对象可设置属性：dynamic、enabled、properties、）</description>
+对象类型，可包含内部对象 （object对象可设置属性：dynamic、enabled、properties、）
+Nested类型</description>
     </item>
     
     <item>

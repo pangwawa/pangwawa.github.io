@@ -11,12 +11,12 @@ draft: false
 keyword字段通常用于排序， 聚合和术语级查询
 **keyword类型**
 
-	（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）
+（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）
 	
 **constant_keyword类型**
 
-    提交的值只能是固定的或者没有该值
-	（constant_keyword类型可设置的属性：meta、value）
+提交的值只能是固定的或者没有该值
+（constant_keyword类型可设置的属性：meta、value）
 	
 **wildcard类型**
 
