@@ -6,7 +6,34 @@
     <description>Recent content in Tags on 小吴的工作手记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Thu, 22 Oct 2020 18:19:12 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Nov 2020 11:23:22 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java</title>
+      <link>https://pangwawa.github.io/tags/java/</link>
+      <pubDate>Mon, 02 Nov 2020 11:23:22 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mybatis</title>
+      <link>https://pangwawa.github.io/tags/mybatis/</link>
+      <pubDate>Mon, 02 Nov 2020 11:23:22 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/tags/mybatis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>框架</title>
+      <link>https://pangwawa.github.io/tags/%E6%A1%86%E6%9E%B6/</link>
+      <pubDate>Mon, 02 Nov 2020 11:23:22 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/tags/%E6%A1%86%E6%9E%B6/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Flink</title>
       <link>https://pangwawa.github.io/tags/flink/</link>
