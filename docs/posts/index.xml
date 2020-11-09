@@ -371,10 +371,22 @@ and lived to 90 years.
     <item>
       <title>Java各个版本的特性</title>
       <link>https://pangwawa.github.io/posts/java/java_vesrion/</link>
-      <pubDate>Sun, 06 Jan 2019 10:22:19 +0800</pubDate>
+      <pubDate>Wed, 06 Nov 2019 10:22:19 +0800</pubDate>
       
       <guid>https://pangwawa.github.io/posts/java/java_vesrion/</guid>
-      <description>Java各个版本的特性 </description>
+      <description>Java各个版本的特性 Java 5 1、泛型
+2、增强for循环
+3、自动装箱拆箱
+4、枚举
+5、可变参数
+6、静态导入
+7、自定义注解 关键字 @interface
+Java 6 1、集合框架增强 为了更好的支持双向访问集合。添加了许多新的类和接口。 新的数组拷贝方法。Arrays.copyOf和Arrays.copyOfRange
+2、为了更好的支持双向访问集合。添加了许多新的类和接口。 新的数组拷贝方法。Arrays.copyOf和Arrays.copyOfRange
+3、支持JDBC4.0规范
+Java 7 Swing
+新增 JLayer 类，是一个灵活而且功能强大的Swing组件修饰器，使用方法：How to Decorate Components with JLayer. Nimbus Look and Feel 外观从 com.sun.java.swing 包移到 javax.swing 包中，详情：javax.swing.plaf.nimbus 更轻松的重量级和轻量级组件的混合 支持透明窗体以及非矩形窗体的图形界面，请看 How to Create Translucent and Shaped Windows JColorChooser 类新增 HSV tab.  网络
+新增 URLClassLoader.close 方法，请看 Closing a URLClassLoader. 支持 Sockets Direct Protocol (SDP) 提供高性能网络连接，详情请看 Understanding the Sockets Direct Protocol.</description>
     </item>
     
     <item>
