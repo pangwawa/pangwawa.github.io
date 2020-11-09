@@ -124,5 +124,23 @@
       <description></description>
     </item>
     
+    <item>
+      <title>GC</title>
+      <link>https://pangwawa.github.io/tags/gc/</link>
+      <pubDate>Sun, 06 Jan 2019 09:31:57 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/tags/gc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JVM</title>
+      <link>https://pangwawa.github.io/tags/jvm/</link>
+      <pubDate>Sun, 06 Jan 2019 09:31:57 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/tags/jvm/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

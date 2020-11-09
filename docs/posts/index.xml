@@ -368,5 +368,70 @@ and lived to 90 years.
 有人依然单身，</description>
     </item>
     
+    <item>
+      <title>Java各个版本的特性</title>
+      <link>https://pangwawa.github.io/posts/java/java_vesrion/</link>
+      <pubDate>Sun, 06 Jan 2019 10:22:19 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/java/java_vesrion/</guid>
+      <description>Java各个版本的特性 </description>
+    </item>
+    
+    <item>
+      <title>深入理解Java虚拟机——JVM的GC详解</title>
+      <link>https://pangwawa.github.io/posts/java/java_memory_gc/</link>
+      <pubDate>Sun, 06 Jan 2019 09:31:57 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/java/java_memory_gc/</guid>
+      <description>JVM的GC有哪些 一、Serial收集器(jdk1.3) Serial收集器是最基本、发展历史最悠久的收集器，曾经（在JDK 1.3.1之前）是虚拟机新生代收集的唯一选择。
+特性： 这个收集器是一个单线程的收集器，但它的“单线程”的意义并不仅仅说明它只会使用一个CPU或一条收集线程去完成垃圾收集工作，更重要的是在它进行垃圾收集时，必须暂停其他所有的工作线程，直到它收集结束。Stop The World
+应用场景： Serial收集器是虚拟机运行在Client模式下的默认新生代收集器。
+优势： 简单而高效（与其他收集器的单线程比），对于限定单个CPU的环境来说，Serial收集器由于没有线程交互的开销，专心做垃圾收集自然可以获得最高的单线程收集效率。
+二、ParNew收集器(jdk1.4) 特性： ParNew收集器其实就是Serial收集器的多线程版本，除了使用多条线程进行垃圾收集之外，其余行为包括Serial收集器可用的所有控制参数、收集算法、Stop The World、对象分配规则、回收策略等都与Serial收集器完全一样，在实现上，这两种收集器也共用了相当多的代码。
+应用场景： ParNew收集器是许多运行在Server模式下的虚拟机中首选的新生代收集器。
+很重要的原因是：除了Serial收集器外，目前只有它能与CMS收集器配合工作。 在JDK 1.5时期，HotSpot推出了一款在强交互应用中几乎可认为有划时代意义的垃圾收集器——CMS收集器，这款收集器是HotSpot虚拟机中第一款真正意义上的并发收集器，它第一次实现了让垃圾收集线程与用户线程同时工作。 不幸的是，CMS作为老年代的收集器，却无法与JDK 1.4.0中已经存在的新生代收集器Parallel Scavenge配合工作，所以在JDK 1.5中使用CMS来收集老年代的时候，新生代只能选择ParNew或者Serial收集器中的一个。
+Serial收集器 VS ParNew收集器： ParNew收集器在单CPU的环境中绝对不会有比Serial收集器更好的效果，甚至由于存在线程交互的开销，该收集器在通过超线程技术实现的两个CPU的环境中都不能百分之百地保证可以超越Serial收集器。 然而，随着可以使用的CPU的数量的增加，它对于GC时系统资源的有效利用还是很有好处的。
+三、Parallel Scavenge收集器(jdk1.4) 特性： Parallel Scavenge收集器是一个新生代收集器，它也是使用复制算法的收集器，又是并行的多线程收集器。
+应用场景： 停顿时间越短就越适合需要与用户交互的程序，良好的响应速度能提升用户体验，而高吞吐量则可以高效率地利用CPU时间，尽快完成程序的运算任务，主要适合在后台运算而不需要太多交互的任务。
+对比分析：
+Parallel Scavenge收集器 VS CMS等收集器： Parallel Scavenge收集器的特点是它的关注点与其他收集器不同，CMS等收集器的关注点是尽可能地缩短垃圾收集时用户线程的停顿时间，而Parallel Scavenge收集器的目标则是达到一个可控制的吞吐量（Throughput）。 由于与吞吐量关系密切，Parallel Scavenge收集器也经常称为“吞吐量优先”收集器。
+Parallel Scavenge收集器 VS ParNew收集器： Parallel Scavenge收集器与ParNew收集器的一个重要区别是它具有自适应调节策略。
+GC自适应的调节策略： Parallel Scavenge收集器有一个参数-XX:+UseAdaptiveSizePolicy。当这个参数打开之后，就不需要手工指定新生代的大小、Eden与Survivor区的比例、晋升老年代对象年龄等细节参数了，虚拟机会根据当前系统的运行情况收集性能监控信息，动态调整这些参数以提供最合适的停顿时间或者最大的吞吐量，这种调节方式称为GC自适应的调节策略（GC Ergonomics）。
+四、Serial Old收集器(jdk1.5) 特性： Serial Old是Serial收集器的老年代版本，它同样是一个单线程收集器，使用标记－整理算法。
+应用场景：
+Client模式 Serial Old收集器的主要意义也是在于给Client模式下的虚拟机使用。
+Server模式 如果在Server模式下，那么它主要还有两大用途：一种用途是在JDK 1.5以及之前的版本中与Parallel Scavenge收集器搭配使用，另一种用途就是作为CMS收集器的后备预案，在并发收集发生Concurrent Mode Failure时使用。</description>
+    </item>
+    
+    <item>
+      <title>深入理解Java虚拟机——Java内存模型</title>
+      <link>https://pangwawa.github.io/posts/java/java_memory_model/</link>
+      <pubDate>Sun, 06 Jan 2019 09:31:45 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/java/java_memory_model/</guid>
+      <description>Java内存模型 java堆 线程共享 存放对象的实例
+java堆是JVM内存管理最大的一块区域 所有对象实例与数组都要在堆上分配内存。它也是垃圾收集器的主要管理区域。java对可以处于物理上不连续的空间，只要逻辑上是连续的即可。 如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，将抛出OutOfMemoryError异常。 为了支持垃圾收集（GC），堆内存通常被分为三块区域:新生代内存(young generation)、老年代内存(old generation,jdk8移除)、永久内存(Permanent Generation for VM Matedata),一个对象被创建以后首先被放到Nursery中的Eden内存中，假设存活期超两个Survivor之后就会被转移到长时内存中(Old Generation)中;永久内存中存放着对象的方法、变量等元数据信息。
+虚拟机栈 线程私有 栈中存放一个个栈帧，每个栈帧对应一个方法。一个栈帧包括（局部变量表，操作数栈，指向当前方法所属的类的运行时常量池，方法返回地址和一些额外的附加按信息。）
+局部变量表，就是用来存储方法中的局部变量（包括在方法中声明的非静态变量以及函数形参）对于基本数据类型的变量，则直接存储它的值，对于引用类型的变量，则存的是指向对象的引用。局部变量表的大小在编译器就可以确定其大小了，因此在程序执行期间局部变量表的大小是不会改变的。 操作数栈，程序中的所有计算过程都是在借助于操作数栈来完成的。 指向运行时常量池的引用，因为在方法执行的过程中有可能需要用到类中的常量，所以必须要有一个引用指向运行时常量。 方法返回地址，当一个方法执行完毕之后，要返回之前调用它的地方，因此在栈帧中必须保存一个方法返回地址 注意，当线程执行一个方法时，就会随之创建一个对应的栈帧，并将建立的栈帧压栈。当方法执行完毕之后，便会将栈帧出栈。因此可知，线程当前执行的方法所对应的栈帧必定位于Java栈的顶部。在这个区域规定了两种异常状况： 如果线程请求的栈深入大于虚拟机所允许的深度，将抛出StackOverFlowError异常！ 如果虚拟机栈可以动态扩展，当扩展到无法申请内存到足够的内存，就会抛出OutOfMemoryError异常!
+本地方法栈 线程私有 和虚拟站的区别是虚拟机栈为虚拟机执行Java方法（字节码）服务，而本地方法栈则为虚拟机使用到的Native方法服务。
+程序计数器 线程私有 记录当前线程的程序执行指令的计数器，通过改变这个计数器的值来选取下一条需要执行的字节码指令，各个线程间计数器互相独立
+方法区 线程共享 方法区在JVM中也是一个非常重要的区域，它与堆一样，是被线程共享的区域。在方法区中，存储了每个类的信息（包括类的名称、方法信息、字段信息）、静态变量、常量以及编译器编译后的代码等。方法区是堆的一个逻辑部分，为了区分Java堆，它还有一个别名Non-Heap（非堆）。相对而言，GC对于这个区域的收集是很少出现的。当方法区无法满足内存分配需求时，将抛出OutOfMemoryError异常。
+新生代内存、老年代内存和永久代内存 为了支持垃圾收集（GC），堆内存通常被分为三块区域:新生代内存(young generation)、老年代内存(old generation,jdk8移除)、永久内存(Permanent Generation for VM Matedata), 一个对象被创建以后首先被放到Nursery中的Eden内存中，假设存活期超两个Survivor之后就会被转移到长时内存中(Old Generation)中;永久内存中存放着对象的方法、变量等元数据信息。
+常见的内存溢出 JDK7和JDK8的JVM内存模型的区别：
+1、方法区变化。元数据区取代了永久代，就是JDK8没有了PermSize相关的参数配置了。元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代之间最大的区别在于：元数据空间并不在虚拟机中，而是使用本地内存。
+2、运行时常量池变化。在近三个JDK版本（1.6、1.7、1.8）中， 运行时常量池（Runtime Constant Pool）的所处区域一直在不断的变化，在JDK1.6时它是方法区的一部分；1.7又把他放到了堆内存中；1.8之后出现了元空间，它又回到了方法区。
+内存泄露（Memory Leak）：程序在申请内存后，对象没有被GC所回收，它始终占用内存，内存泄漏的堆积最终会造成内存溢出。
+内存溢出（Memory Overflow）：程序运行过程中无法申请到足够的内存而导致的一种错误。内存溢出通常发生于OLD段或Perm段垃圾回收后，仍然无内存空间容纳新的Java对象的情况。通常都是由于内存泄露导致堆栈内存不断增大，从而引发内存溢出。
+jmap -histo:live后相当于手动调用了一次GC
+这会导致由JVM根据运行情况去自动分配了内存，在物理内存足够的情况下，JVM出于对应用程序性能的考虑并没有调用FGC
+那些参数都是啥意思？ -Xmx指定堆内存最大值，这个是最常用的参数，实在懒得理解，光设置这个也凑合了。
+-XX:MaxMetaspaceSize指定非堆内存的元空间最大值，这个参数是java8之后才有的，不过现在应该没几个人用更早的版本了吧……对于学习、测试用的小应用，非堆内存基本都占用很小，但是如果不指定，最大值默认1024m，就算Xmx限制了也还会吃很多内存……
+-XX:CompressedClassSpaceSize这个是Metaspace的一部分，程序的代码被存储在这里，启动后几乎不会增长，可以根据自己的情况指定一个比较小的值，给Metaspace其他部分留够空间。
+其他jvm参数，
+如何知道自己java应用的内存占用来决定最佳分配？ jdk路径/bin/jstat -gccapacity pid 根据pid查看某个应用的当前内存和最大内存。可以知道内存占用量的情况，也可以看出来前面的jvm参数配置有没有生效。
+jstat还有很多参数，查出来的数值具体是什么意思也请自行搜索深入学习。
+如果是在windows上运行，还可以用jdk路径/bin/jconsole.exe查看可视化的内存使用情况。</description>
+    </item>
+    
   </channel>
 </rss>

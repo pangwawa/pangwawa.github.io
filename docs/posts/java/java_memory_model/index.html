@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <title>深入理解Java虚拟机——Java内存模型 // 小吴的工作手记</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.76.5" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Jack Wu" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://pangwawa.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+    <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="深入理解Java虚拟机——Java内存模型"/>
+<meta name="twitter:description" content="Java内存模型 java堆 线程共享 存放对象的实例
+java堆是JVM内存管理最大的一块区域 所有对象实例与数组都要在堆上分配内存。它也是垃圾收集器的主要管理区域。java对可以处于物理上不连续的空间，只要逻辑上是连续的即可。 如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，将抛出OutOfMemoryError异常。 为了支持垃圾收集（GC），堆内存通常被分为三块区域:新生代内存(young generation)、老年代内存(old generation,jdk8移除)、永久内存(Permanent Generation for VM Matedata),一个对象被创建以后首先被放到Nursery中的Eden内存中，假设存活期超两个Survivor之后就会被转移到长时内存中(Old Generation)中;永久内存中存放着对象的方法、变量等元数据信息。
+虚拟机栈 线程私有 栈中存放一个个栈帧，每个栈帧对应一个方法。一个栈帧包括（局部变量表，操作数栈，指向当前方法所属的类的运行时常量池，方法返回地址和一些额外的附加按信息。）
+局部变量表，就是用来存储方法中的局部变量（包括在方法中声明的非静态变量以及函数形参）对于基本数据类型的变量，则直接存储它的值，对于引用类型的变量，则存的是指向对象的引用。局部变量表的大小在编译器就可以确定其大小了，因此在程序执行期间局部变量表的大小是不会改变的。 操作数栈，程序中的所有计算过程都是在借助于操作数栈来完成的。 指向运行时常量池的引用，因为在方法执行的过程中有可能需要用到类中的常量，所以必须要有一个引用指向运行时常量。 方法返回地址，当一个方法执行完毕之后，要返回之前调用它的地方，因此在栈帧中必须保存一个方法返回地址 注意，当线程执行一个方法时，就会随之创建一个对应的栈帧，并将建立的栈帧压栈。当方法执行完毕之后，便会将栈帧出栈。因此可知，线程当前执行的方法所对应的栈帧必定位于Java栈的顶部。在这个区域规定了两种异常状况： 如果线程请求的栈深入大于虚拟机所允许的深度，将抛出StackOverFlowError异常！ 如果虚拟机栈可以动态扩展，当扩展到无法申请内存到足够的内存，就会抛出OutOfMemoryError异常!
+本地方法栈 线程私有 和虚拟站的区别是虚拟机栈为虚拟机执行Java方法（字节码）服务，而本地方法栈则为虚拟机使用到的Native方法服务。
+程序计数器 线程私有 记录当前线程的程序执行指令的计数器，通过改变这个计数器的值来选取下一条需要执行的字节码指令，各个线程间计数器互相独立
+方法区 线程共享 方法区在JVM中也是一个非常重要的区域，它与堆一样，是被线程共享的区域。在方法区中，存储了每个类的信息（包括类的名称、方法信息、字段信息）、静态变量、常量以及编译器编译后的代码等。方法区是堆的一个逻辑部分，为了区分Java堆，它还有一个别名Non-Heap（非堆）。相对而言，GC对于这个区域的收集是很少出现的。当方法区无法满足内存分配需求时，将抛出OutOfMemoryError异常。
+新生代内存、老年代内存和永久代内存 为了支持垃圾收集（GC），堆内存通常被分为三块区域:新生代内存(young generation)、老年代内存(old generation,jdk8移除)、永久内存(Permanent Generation for VM Matedata), 一个对象被创建以后首先被放到Nursery中的Eden内存中，假设存活期超两个Survivor之后就会被转移到长时内存中(Old Generation)中;永久内存中存放着对象的方法、变量等元数据信息。
+常见的内存溢出 JDK7和JDK8的JVM内存模型的区别：
+1、方法区变化。元数据区取代了永久代，就是JDK8没有了PermSize相关的参数配置了。元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代之间最大的区别在于：元数据空间并不在虚拟机中，而是使用本地内存。
+2、运行时常量池变化。在近三个JDK版本（1.6、1.7、1.8）中， 运行时常量池（Runtime Constant Pool）的所处区域一直在不断的变化，在JDK1.6时它是方法区的一部分；1.7又把他放到了堆内存中；1.8之后出现了元空间，它又回到了方法区。
+内存泄露（Memory Leak）：程序在申请内存后，对象没有被GC所回收，它始终占用内存，内存泄漏的堆积最终会造成内存溢出。
+内存溢出（Memory Overflow）：程序运行过程中无法申请到足够的内存而导致的一种错误。内存溢出通常发生于OLD段或Perm段垃圾回收后，仍然无内存空间容纳新的Java对象的情况。通常都是由于内存泄露导致堆栈内存不断增大，从而引发内存溢出。
+jmap -histo:live后相当于手动调用了一次GC
+这会导致由JVM根据运行情况去自动分配了内存，在物理内存足够的情况下，JVM出于对应用程序性能的考虑并没有调用FGC
+那些参数都是啥意思？ -Xmx指定堆内存最大值，这个是最常用的参数，实在懒得理解，光设置这个也凑合了。
+-XX:MaxMetaspaceSize指定非堆内存的元空间最大值，这个参数是java8之后才有的，不过现在应该没几个人用更早的版本了吧……对于学习、测试用的小应用，非堆内存基本都占用很小，但是如果不指定，最大值默认1024m，就算Xmx限制了也还会吃很多内存……
+-XX:CompressedClassSpaceSize这个是Metaspace的一部分，程序的代码被存储在这里，启动后几乎不会增长，可以根据自己的情况指定一个比较小的值，给Metaspace其他部分留够空间。
+其他jvm参数，
+如何知道自己java应用的内存占用来决定最佳分配？ jdk路径/bin/jstat -gccapacity pid 根据pid查看某个应用的当前内存和最大内存。可以知道内存占用量的情况，也可以看出来前面的jvm参数配置有没有生效。
+jstat还有很多参数，查出来的数值具体是什么意思也请自行搜索深入学习。
+如果是在windows上运行，还可以用jdk路径/bin/jconsole.exe查看可视化的内存使用情况。"/>
+
+    <meta property="og:title" content="深入理解Java虚拟机——Java内存模型" />
+<meta property="og:description" content="Java内存模型 java堆 线程共享 存放对象的实例
+java堆是JVM内存管理最大的一块区域 所有对象实例与数组都要在堆上分配内存。它也是垃圾收集器的主要管理区域。java对可以处于物理上不连续的空间，只要逻辑上是连续的即可。 如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，将抛出OutOfMemoryError异常。 为了支持垃圾收集（GC），堆内存通常被分为三块区域:新生代内存(young generation)、老年代内存(old generation,jdk8移除)、永久内存(Permanent Generation for VM Matedata),一个对象被创建以后首先被放到Nursery中的Eden内存中，假设存活期超两个Survivor之后就会被转移到长时内存中(Old Generation)中;永久内存中存放着对象的方法、变量等元数据信息。
+虚拟机栈 线程私有 栈中存放一个个栈帧，每个栈帧对应一个方法。一个栈帧包括（局部变量表，操作数栈，指向当前方法所属的类的运行时常量池，方法返回地址和一些额外的附加按信息。）
+局部变量表，就是用来存储方法中的局部变量（包括在方法中声明的非静态变量以及函数形参）对于基本数据类型的变量，则直接存储它的值，对于引用类型的变量，则存的是指向对象的引用。局部变量表的大小在编译器就可以确定其大小了，因此在程序执行期间局部变量表的大小是不会改变的。 操作数栈，程序中的所有计算过程都是在借助于操作数栈来完成的。 指向运行时常量池的引用，因为在方法执行的过程中有可能需要用到类中的常量，所以必须要有一个引用指向运行时常量。 方法返回地址，当一个方法执行完毕之后，要返回之前调用它的地方，因此在栈帧中必须保存一个方法返回地址 注意，当线程执行一个方法时，就会随之创建一个对应的栈帧，并将建立的栈帧压栈。当方法执行完毕之后，便会将栈帧出栈。因此可知，线程当前执行的方法所对应的栈帧必定位于Java栈的顶部。在这个区域规定了两种异常状况： 如果线程请求的栈深入大于虚拟机所允许的深度，将抛出StackOverFlowError异常！ 如果虚拟机栈可以动态扩展，当扩展到无法申请内存到足够的内存，就会抛出OutOfMemoryError异常!
+本地方法栈 线程私有 和虚拟站的区别是虚拟机栈为虚拟机执行Java方法（字节码）服务，而本地方法栈则为虚拟机使用到的Native方法服务。
+程序计数器 线程私有 记录当前线程的程序执行指令的计数器，通过改变这个计数器的值来选取下一条需要执行的字节码指令，各个线程间计数器互相独立
+方法区 线程共享 方法区在JVM中也是一个非常重要的区域，它与堆一样，是被线程共享的区域。在方法区中，存储了每个类的信息（包括类的名称、方法信息、字段信息）、静态变量、常量以及编译器编译后的代码等。方法区是堆的一个逻辑部分，为了区分Java堆，它还有一个别名Non-Heap（非堆）。相对而言，GC对于这个区域的收集是很少出现的。当方法区无法满足内存分配需求时，将抛出OutOfMemoryError异常。
+新生代内存、老年代内存和永久代内存 为了支持垃圾收集（GC），堆内存通常被分为三块区域:新生代内存(young generation)、老年代内存(old generation,jdk8移除)、永久内存(Permanent Generation for VM Matedata), 一个对象被创建以后首先被放到Nursery中的Eden内存中，假设存活期超两个Survivor之后就会被转移到长时内存中(Old Generation)中;永久内存中存放着对象的方法、变量等元数据信息。
+常见的内存溢出 JDK7和JDK8的JVM内存模型的区别：
+1、方法区变化。元数据区取代了永久代，就是JDK8没有了PermSize相关的参数配置了。元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代之间最大的区别在于：元数据空间并不在虚拟机中，而是使用本地内存。
+2、运行时常量池变化。在近三个JDK版本（1.6、1.7、1.8）中， 运行时常量池（Runtime Constant Pool）的所处区域一直在不断的变化，在JDK1.6时它是方法区的一部分；1.7又把他放到了堆内存中；1.8之后出现了元空间，它又回到了方法区。
+内存泄露（Memory Leak）：程序在申请内存后，对象没有被GC所回收，它始终占用内存，内存泄漏的堆积最终会造成内存溢出。
+内存溢出（Memory Overflow）：程序运行过程中无法申请到足够的内存而导致的一种错误。内存溢出通常发生于OLD段或Perm段垃圾回收后，仍然无内存空间容纳新的Java对象的情况。通常都是由于内存泄露导致堆栈内存不断增大，从而引发内存溢出。
+jmap -histo:live后相当于手动调用了一次GC
+这会导致由JVM根据运行情况去自动分配了内存，在物理内存足够的情况下，JVM出于对应用程序性能的考虑并没有调用FGC
+那些参数都是啥意思？ -Xmx指定堆内存最大值，这个是最常用的参数，实在懒得理解，光设置这个也凑合了。
+-XX:MaxMetaspaceSize指定非堆内存的元空间最大值，这个参数是java8之后才有的，不过现在应该没几个人用更早的版本了吧……对于学习、测试用的小应用，非堆内存基本都占用很小，但是如果不指定，最大值默认1024m，就算Xmx限制了也还会吃很多内存……
+-XX:CompressedClassSpaceSize这个是Metaspace的一部分，程序的代码被存储在这里，启动后几乎不会增长，可以根据自己的情况指定一个比较小的值，给Metaspace其他部分留够空间。
+其他jvm参数，
+如何知道自己java应用的内存占用来决定最佳分配？ jdk路径/bin/jstat -gccapacity pid 根据pid查看某个应用的当前内存和最大内存。可以知道内存占用量的情况，也可以看出来前面的jvm参数配置有没有生效。
+jstat还有很多参数，查出来的数值具体是什么意思也请自行搜索深入学习。
+如果是在windows上运行，还可以用jdk路径/bin/jconsole.exe查看可视化的内存使用情况。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pangwawa.github.io/posts/java/java_memory_model/" />
+<meta property="article:published_time" content="2019-01-06T09:31:45+08:00" />
+<meta property="article:modified_time" content="2019-01-06T09:31:45+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://pangwawa.github.io"><img class="app-header-avatar" style="border: 0.1rem none;" src="/avatar.jpg" alt="Jack Wu" /></a>
+      <h2>小吴的工作手记</h2>
+      
+      <nav  class="app-header-menu" style="font-size: 20px">
+        <div style="margin-top: 10px">
+          <a href="/">Home</a>
+        </div>
+        <div style="margin-top: 10px">
+          <a href="/tags/">Tags</a>
+        </div>
+        <div style="margin-top: 10px">
+          <a href="/about/about_me/">About</a>
+        </div>
+      </nav>
+      <p>Stay hungry, stay foolish.</p>
+      <p style="">Email：jackwu1024@163.com</p>
+      <img  src="/wechat.jpg" alt="扫一扫添加博主微信" />
+      <div class="app-header-social" style="margin-top: 20px">
+        
+        <a target="_blank" href="https://github.com/pangwawa" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+        <a target="_blank" href="https://blog.csdn.net/Jack__iT" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">深入理解Java虚拟机——Java内存模型</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jan 6, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://pangwawa.github.io/tags/jvm/">JVM</a>
+              <a class="tag" href="https://pangwawa.github.io/tags/gc/">GC</a>
+              <a class="tag" href="https://pangwawa.github.io/tags/java/">Java</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h2 id="java内存模型">Java内存模型</h2>
+<p>java堆       线程共享    存放对象的实例</p>
+<p>java堆是JVM内存管理最大的一块区域 所有对象实例与数组都要在堆上分配内存。它也是垃圾收集器的主要管理区域。java对可以处于物理上不连续的空间，只要逻辑上是连续的即可。
+如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，将抛出OutOfMemoryError异常。
+为了支持垃圾收集（GC），堆内存通常被分为三块区域:新生代内存(young generation)、老年代内存(old generation,jdk8移除)、永久内存(Permanent Generation for VM Matedata),一个对象被创建以后首先被放到Nursery中的Eden内存中，假设存活期超两个Survivor之后就会被转移到长时内存中(Old Generation)中;永久内存中存放着对象的方法、变量等元数据信息。</p>
+<p>虚拟机栈     线程私有    栈中存放一个个栈帧，每个栈帧对应一个方法。一个栈帧包括（局部变量表，操作数栈，指向当前方法所属的类的运行时常量池，方法返回地址和一些额外的附加按信息。）</p>
+<p>局部变量表，就是用来存储方法中的局部变量（包括在方法中声明的非静态变量以及函数形参）对于基本数据类型的变量，则直接存储它的值，对于引用类型的变量，则存的是指向对象的引用。局部变量表的大小在编译器就可以确定其大小了，因此在程序执行期间局部变量表的大小是不会改变的。
+操作数栈，程序中的所有计算过程都是在借助于操作数栈来完成的。
+指向运行时常量池的引用，因为在方法执行的过程中有可能需要用到类中的常量，所以必须要有一个引用指向运行时常量。
+方法返回地址，当一个方法执行完毕之后，要返回之前调用它的地方，因此在栈帧中必须保存一个方法返回地址
+注意，当线程执行一个方法时，就会随之创建一个对应的栈帧，并将建立的栈帧压栈。当方法执行完毕之后，便会将栈帧出栈。因此可知，线程当前执行的方法所对应的栈帧必定位于Java栈的顶部。在这个区域规定了两种异常状况：
+如果线程请求的栈深入大于虚拟机所允许的深度，将抛出StackOverFlowError异常！
+如果虚拟机栈可以动态扩展，当扩展到无法申请内存到足够的内存，就会抛出OutOfMemoryError异常!</p>
+<p>本地方法栈   线程私有    和虚拟站的区别是虚拟机栈为虚拟机执行Java方法（字节码）服务，而本地方法栈则为虚拟机使用到的Native方法服务。</p>
+<p>程序计数器   线程私有    记录当前线程的程序执行指令的计数器，通过改变这个计数器的值来选取下一条需要执行的字节码指令，各个线程间计数器互相独立</p>
+<p>方法区       线程共享    方法区在JVM中也是一个非常重要的区域，它与堆一样，是被线程共享的区域。在方法区中，存储了每个类的信息（包括类的名称、方法信息、字段信息）、静态变量、常量以及编译器编译后的代码等。方法区是堆的一个逻辑部分，为了区分Java堆，它还有一个别名Non-Heap（非堆）。相对而言，GC对于这个区域的收集是很少出现的。当方法区无法满足内存分配需求时，将抛出OutOfMemoryError异常。</p>
+<h2 id="新生代内存老年代内存和永久代内存">新生代内存、老年代内存和永久代内存</h2>
+<p>为了支持垃圾收集（GC），堆内存通常被分为三块区域:新生代内存(young generation)、老年代内存(old generation,jdk8移除)、永久内存(Permanent Generation for VM Matedata),
+一个对象被创建以后首先被放到Nursery中的Eden内存中，假设存活期超两个Survivor之后就会被转移到长时内存中(Old Generation)中;永久内存中存放着对象的方法、变量等元数据信息。</p>
+<h2 id="常见的内存溢出">常见的内存溢出</h2>
+<p>JDK7和JDK8的JVM内存模型的区别：</p>
+<p>1、方法区变化。元数据区取代了永久代，就是JDK8没有了PermSize相关的参数配置了。元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代之间最大的区别在于：元数据空间并不在虚拟机中，而是使用本地内存。</p>
+<p>2、运行时常量池变化。在近三个JDK版本（1.6、1.7、1.8）中， 运行时常量池（Runtime Constant Pool）的所处区域一直在不断的变化，在JDK1.6时它是方法区的一部分；1.7又把他放到了堆内存中；1.8之后出现了元空间，它又回到了方法区。</p>
+<p>内存泄露（Memory Leak）：程序在申请内存后，对象没有被GC所回收，它始终占用内存，内存泄漏的堆积最终会造成内存溢出。</p>
+<p>内存溢出（Memory Overflow）：程序运行过程中无法申请到足够的内存而导致的一种错误。内存溢出通常发生于OLD段或Perm段垃圾回收后，仍然无内存空间容纳新的Java对象的情况。通常都是由于内存泄露导致堆栈内存不断增大，从而引发内存溢出。</p>
+<p>jmap -histo:live后相当于手动调用了一次GC</p>
+<p>这会导致由JVM根据运行情况去自动分配了内存，在物理内存足够的情况下，JVM出于对应用程序性能的考虑并没有调用FGC</p>
+<p>那些参数都是啥意思？
+-Xmx指定堆内存最大值，这个是最常用的参数，实在懒得理解，光设置这个也凑合了。</p>
+<p>-XX:MaxMetaspaceSize指定非堆内存的元空间最大值，这个参数是java8之后才有的，不过现在应该没几个人用更早的版本了吧……对于学习、测试用的小应用，非堆内存基本都占用很小，但是如果不指定，最大值默认1024m，就算Xmx限制了也还会吃很多内存……</p>
+<p>-XX:CompressedClassSpaceSize这个是Metaspace的一部分，程序的代码被存储在这里，启动后几乎不会增长，可以根据自己的情况指定一个比较小的值，给Metaspace其他部分留够空间。</p>
+<p>其他jvm参数，</p>
+<p>如何知道自己java应用的内存占用来决定最佳分配？
+jdk路径/bin/jstat -gccapacity pid
+根据pid查看某个应用的当前内存和最大内存。可以知道内存占用量的情况，也可以看出来前面的jvm参数配置有没有生效。</p>
+<p>jstat还有很多参数，查出来的数值具体是什么意思也请自行搜索深入学习。</p>
+<p>如果是在windows上运行，还可以用jdk路径/bin/jconsole.exe查看可视化的内存使用情况。</p>
+<p>jps [options] [hostid]
+如果不指定hostid就默认为当前主机或服务器。</p>
+<pre><code>命令行参数选项说明如下：
+</code></pre>
+<p>-q 不输出类名、Jar名和传入main方法的参数
+-m 输出传入main方法的参数
+-l 输出main类或Jar的全限名
+-v 输出传入JVM的参数</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+    <p style="position: fixed; bottom: 0; width: 100%;text-align: center; color: gray; font-size: 13px;">Copyright &copy; 2020 Jack Wu All Rights Reserved.</p>
+  </body>
+</html>

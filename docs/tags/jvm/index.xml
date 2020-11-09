@@ -1,30 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Java on 小吴的工作手记</title>
-    <link>https://pangwawa.github.io/tags/java/</link>
-    <description>Recent content in Java on 小吴的工作手记</description>
+    <title>JVM on 小吴的工作手记</title>
+    <link>https://pangwawa.github.io/tags/jvm/</link>
+    <description>Recent content in JVM on 小吴的工作手记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Mon, 02 Nov 2020 11:23:22 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Mybatis源码分析—Mybatis架构与SQL处理过程</title>
-      <link>https://pangwawa.github.io/posts/mybatis/mybastis_structure/</link>
-      <pubDate>Mon, 02 Nov 2020 11:23:22 +0800</pubDate>
-      
-      <guid>https://pangwawa.github.io/posts/mybatis/mybastis_structure/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Java各个版本的特性</title>
-      <link>https://pangwawa.github.io/posts/java/java_vesrion/</link>
-      <pubDate>Sun, 06 Jan 2019 10:22:19 +0800</pubDate>
-      
-      <guid>https://pangwawa.github.io/posts/java/java_vesrion/</guid>
-      <description>Java各个版本的特性 </description>
-    </item>
-    
+    <lastBuildDate>Sun, 06 Jan 2019 09:31:57 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/tags/jvm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>深入理解Java虚拟机——JVM的GC详解</title>
       <link>https://pangwawa.github.io/posts/java/java_memory_gc/</link>
