@@ -6,34 +6,7 @@
     <description>Recent content in Posts on 小吴的工作手记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Thu, 12 Nov 2020 18:01:51 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Kubernetes_cli_order</title>
-      <link>https://pangwawa.github.io/posts/kubernetes/kubernetes_cli_order/</link>
-      <pubDate>Thu, 12 Nov 2020 18:01:51 +0800</pubDate>
-      
-      <guid>https://pangwawa.github.io/posts/kubernetes/kubernetes_cli_order/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Kubernetes_cluster_install</title>
-      <link>https://pangwawa.github.io/posts/kubernetes/kubernetes_cluster_install/</link>
-      <pubDate>Thu, 12 Nov 2020 17:46:07 +0800</pubDate>
-      
-      <guid>https://pangwawa.github.io/posts/kubernetes/kubernetes_cluster_install/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Kubernetes_basic_structure</title>
-      <link>https://pangwawa.github.io/posts/kubernetes/kubernetes_basic_structure/</link>
-      <pubDate>Thu, 12 Nov 2020 17:45:53 +0800</pubDate>
-      
-      <guid>https://pangwawa.github.io/posts/kubernetes/kubernetes_basic_structure/</guid>
-      <description></description>
-    </item>
-    
+    <lastBuildDate>Mon, 02 Nov 2020 11:23:22 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mybatis源码分析—Mybatis架构与SQL处理过程</title>
       <link>https://pangwawa.github.io/posts/mybatis/mybastis_structure/</link>
@@ -89,6 +62,18 @@ Clickhouse高性能存储和查询的实现原理 1、多核CPU并行计算，�
     </item>
     
     <item>
+      <title>Kubernetes资源对象详解</title>
+      <link>https://pangwawa.github.io/posts/kubernetes/kubernetes_resource_object/</link>
+      <pubDate>Mon, 26 Oct 2020 10:54:43 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/kubernetes/kubernetes_resource_object/</guid>
+      <description>Kubernetes 资源对象 Pod Pod 是最小的可部署的 Kubernetes 对象模型。Pod 表示集群上正在运行的进程。一个 Pod 由一个或多个容器组成，Pod 中容器共享存储和网络，在同一台 Docker 主机上运行。在 kubernetes 中，若要运行一个容器，则必须先创建 pod，让容器在 pod 中运行，可以把 Pod 看成是容器的运行环境。 Docker 是 Kubernetes Pod 中最常用的容器运行时，但 Pod 也能支持其他的容器运行时，如 rtk。 Kubernetes 集群中的 Pod 可被用于以下两个主要用途：
+运行单个容器的 Pod。”每个 Pod 一个容器”模型是最常见的 Kubernetes 用例；在这种情况下，可以将 Pod 看作单个容器的包装器，并且 Kubernetes 直接管理 Pod，而不是容器。
+运行多个协同工作的容器的 Pod。 Pod 可能封装由多个紧密耦合且需要共享资源的共处容器组成的应用程序。 这些位于同一位置的容器可能形成单个内聚的服务单元——一个容器将文件从共享卷提供给公众，而另一个单独的“挂斗”容器则刷新或更新这些文件。 Pod 将这些容器和存储资源打包为一个可管理的实体。
+ReplicationController  ReplicationController 简写 “RC” 或 “RCS”。译作“副本控制器”，“Replication” 就是“复制”、“副本”的意思。ReplicationController 确保在任何时候都有特定数量的 pod 副本处于运行状态。 换句话说，ReplicationController 确保一个 pod 或一组同类的 pod 总是可用的。 当 pods 数量过多时，ReplicationController 会终止多余的 pods。当 pods 数量太少时，ReplicationController 将会启动新的 pods。 与手动创建的 pod 不同，由 ReplicationController 创建的 pods 在失败、被删除或被终止时会被自动替换。</description>
+    </item>
+    
+    <item>
       <title>Flink编程模型详解</title>
       <link>https://pangwawa.github.io/posts/flink/flink_programing_model/</link>
       <pubDate>Thu, 22 Oct 2020 18:19:12 +0800</pubDate>
@@ -104,6 +89,80 @@ Flink程序的模块结构 如下图，Flink程序主要分为 source&amp;ndash;
 在获取执行环境后，程序从数据源中获取数据，并执行Transformation操作，最后将执行结果输出到指定的地方，如消息队列、文件系统、数据库等。
 下面这个简单的例子便包含了整个过程：
  public static void main(String[] args) throws Exception { // Checking input parameters final MultipleParameterTool params = MultipleParameterTool.</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes常用kubectl命令总结</title>
+      <link>https://pangwawa.github.io/posts/kubernetes/kubernetes_cli_order/</link>
+      <pubDate>Tue, 13 Oct 2020 18:01:51 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/kubernetes/kubernetes_cli_order/</guid>
+      <description>kubernetes 常用kubectl命令 基本命令 create get 用于获取一个或多个资源的信息，包括 Namespace、 Pod、 Node、 Deployment、 Service、 ReplicaSet
+如
+kubectl get cs # 查看集群状态
+kubectl get nodes # 查看集群节点信息
+kubectl get ns # 查看集群命名空间
+kubectl get svc -n kube-system # 查看指定命名空间的服务
+kubectl get pod -o wide # 查看Pod详细信息
+kubectl get pod -o yaml # 以yaml格式查看Pod详细信息
+kubectl get pods # 查看资源对象，查看所有Pod列表
+kubectl get rc,service # 查看资源对象，查看rc和service列表
+kubectl get pod,svc,ep &amp;ndash;show-labels # 查看pod,svc,ep能及标签信息
+kubectl get all &amp;ndash;all-namespaces # 查看所有的命名空间</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes v1.19.0集群部署</title>
+      <link>https://pangwawa.github.io/posts/kubernetes/kubernetes_cluster_install/</link>
+      <pubDate>Mon, 12 Oct 2020 17:46:07 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/kubernetes/kubernetes_cluster_install/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kubernetes基础概念与组件架构</title>
+      <link>https://pangwawa.github.io/posts/kubernetes/kubernetes_basic_structure/</link>
+      <pubDate>Fri, 09 Oct 2020 17:45:53 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/kubernetes/kubernetes_basic_structure/</guid>
+      <description>什么是Kubernetes Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。Kubernetes(k8s)是Google开源的容器集群管理系统（谷歌内部:Borg）在Docker技术的基础上，为容器化的应用提供部署运行、资源调度、服务发现和动态伸缩等一系列完整功能，提高了大规模容器集群管理的便捷性。
+核心概念与架构 service service 一个Service对象是对应用集群的抽象，比如一个Mysql集群，一个微服务的集群，都会被看做一个service
+特点： 拥有唯一指定的名称(比如mysql-server)。 拥有一个虚拟IP(Cluster lP、Service IP或VIP）和端口号。 能够提供某种远程服务能力。 被映射到提供这种服务能力的一组容器应用上。  pod k8s中的最小部署单元，不是一个程序/进程，而是一个环境(包括容器、存储、网络ip:port、容器配置)。其中可以运行1个或多个container（docker或其他容器），在一个pod内部的container共享所有资源，包括共享pod的ip:port和磁盘。
+pod是临时性的，用完即丢弃的，当pod中的进程结束、node故障，或者资源短缺时，pod会被干掉。基于此，用户很少直接创建一个独立的pods，而会通过k8s中的controller来对pod进行管理。 controller通过pod templates来创建pod，pod template是一个静态模板，创建出来之后的pod就跟模板没有关系了，模板的修改也不会影响现有的pod。
+Pod中封装着应用的容器（有的情况下是好几个容器），存储、独立的网络IP，管理容器如何运行的策略选项。Pod代表着部署的一个单位：kubernetes中应用的一个实例，可能由一个或者多个容器组合在一起共享资源。
+在Kubrenetes集群中Pod有如下两种使用方式：
+一个Pod中运行一个容器。“每个Pod中一个容器”的模式是最常见的用法；在这种使用方式中，你可以把Pod想象成是单个容器的封装，kuberentes管理的是Pod而不是直接管理容器。
+在一个Pod中同时运行多个容器。一个Pod中也可以同时封装几个需要紧密耦合互相协作的容器，它们之间共享资源。这些在同一个Pod中的容器可以互相协作成为一个service单位——一个容器共享文件，另一个“sidecar”容器来更新这些文件。Pod将这些容器的存储资源作为一个实体来管理。
+container 容器是独立运行的一个或一组应用，是镜像运行时的实体。
+pod 生命周期 需要注意的是pod的生命周期和container的生命周期有一定的联系，但是不能完全混淆一致。pod状态相对来说要简单一些。这里首先列出pod的状态
+1、pending：pod已经被系统认可了，但是内部的container还没有创建出来。这里包含调度到node上的时间以及下载镜像的时间，会持续一小段时间。 2、Running：pod已经与node绑定了（调度成功），而且pod中所有的container已经创建出来，至少有一个容器在运行中，或者容器的进程正在启动或者重启状态。&amp;ndash;这里需要注意pod虽然已经Running了，但是内部的container不一定完全可用。因此需要进一步检测container的状态。 3、Succeeded：这个状态很少出现，表明pod中的所有container已经成功的terminated了，而且不会再被拉起了。 4、Failed：pod中的所有容器都被terminated，至少一个container是非正常终止的。（退出的时候返回了一个非0的值或者是被系统直接终止） 5、unknown：由于某些原因pod的状态获取不到，有可能是由于通信问题。 一般情况下pod最常见的就是前两种状态。而且当Running的时候，需要进一步关注container的状态。下面就来看下container的状态有哪些：
+Container生命周期 1、Waiting：启动到运行中间的一个等待状态。 2、Running：运行状态。 3、Terminated：终止状态。 如果没有任何异常的情况下，container应该会从Waiting状态变为Running状态，这时容器可用。
+但如果长时间处于Waiting状态，container会有一个字段reason表明它所处的状态和原因，如果这个原因很容易能标识这个容器再也无法启动起来时，例如ContainerCannotRun，整个服务启动就会迅速返回。（这里是一个失败状态返回的特性，不详细阐述）
+当一个容器已经运行起来以后，pod和container的状态是如何关联起来的呢，下面给一些举例来更加形象化其中的关系。
+分层架构 Kubernetes设计理念和功能其实就是一个类似Linux的分层架构 核心层：Kubernetes最核心的功能，对外提供API构建高层的应用，对内提供插件式应用执行环境
+应用层：部署（无状态应用、有状态应用、批处理任务、集群应用等）和路由（服务发现、DNS解析等）
+管理层：系统度量（如基础设施、容器和网络的度量），自动化（如自动扩展、动态Provision等）以及策略管理（RBAC、Quota、PSP、NetworkPolicy等）
+接口层：kubectl命令行工具、客户端SDK以及集群联邦
+生态系统：在接口层之上的庞大容器集群管理调度的生态系统，可以划分为两个范畴
+Kubernetes外部：日志、监控、配置管理、CI、CD、Workflow、FaaS、OTS应用、ChatOps等
+Kubernetes内部：CRI、CNI、CVI、镜像仓库、Cloud Provider、集群自身的配置和管理等
+核心组件 Kubernetes主要由以下几个核心组件组成： etcd 保存了整个集群的状态；
+apiserver 提供了资源操作的唯一入口，并提供认证、授权、访问控制、API注册和发现等机制；
+controller manager 负责维护集群的状态，比如故障检测、自动扩展、滚动更新等；
+scheduler 负责资源的调度，按照预定的调度策略将Pod调度到相应的机器上；
+kubelet 负责维护容器的生命周期，同时也负责Volume（CVI）和网络（CNI）的管理；
+Container runtime 负责镜像管理以及Pod和容器的真正运行（CRI）；
+kube-proxy 负责为Service提供cluster内部的服务发现和负载均衡；</description>
+    </item>
+    
+    <item>
+      <title>容器、kubernetes、DevOps与云原生</title>
+      <link>https://pangwawa.github.io/posts/kubernetes/what_is_cloud_native/</link>
+      <pubDate>Wed, 16 Sep 2020 20:22:15 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/kubernetes/what_is_cloud_native/</guid>
+      <description></description>
     </item>
     
     <item>

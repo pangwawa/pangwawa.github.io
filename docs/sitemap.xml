@@ -3,31 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://pangwawa.github.io/posts/kubernetes/kubernetes_cli_order/</loc>
-    <lastmod>2020-11-12T18:01:51+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pangwawa.github.io/posts/</loc>
-    <lastmod>2020-11-12T18:01:51+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pangwawa.github.io/</loc>
-    <lastmod>2020-11-12T18:01:51+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pangwawa.github.io/posts/kubernetes/kubernetes_cluster_install/</loc>
-    <lastmod>2020-11-12T17:46:07+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pangwawa.github.io/posts/kubernetes/kubernetes_basic_structure/</loc>
-    <lastmod>2020-11-12T17:45:53+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://pangwawa.github.io/tags/java/</loc>
     <lastmod>2020-11-02T11:23:22+08:00</lastmod>
   </url>
@@ -43,7 +18,17 @@
   </url>
   
   <url>
+    <loc>https://pangwawa.github.io/posts/</loc>
+    <lastmod>2020-11-02T11:23:22+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://pangwawa.github.io/tags/</loc>
+    <lastmod>2020-11-02T11:23:22+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/</loc>
     <lastmod>2020-11-02T11:23:22+08:00</lastmod>
   </url>
   
@@ -55,6 +40,21 @@
   <url>
     <loc>https://pangwawa.github.io/posts/clickhouse/clickhouse_structure/</loc>
     <lastmod>2020-11-02T11:22:51+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/tags/devops/</loc>
+    <lastmod>2020-10-26T10:54:43+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/tags/kubernetes/</loc>
+    <lastmod>2020-10-26T10:54:43+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/posts/kubernetes/kubernetes_resource_object/</loc>
+    <lastmod>2020-10-26T10:54:43+08:00</lastmod>
   </url>
   
   <url>
@@ -70,6 +70,26 @@
   <url>
     <loc>https://pangwawa.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/</loc>
     <lastmod>2020-10-22T18:19:12+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/posts/kubernetes/kubernetes_cli_order/</loc>
+    <lastmod>2020-10-13T18:01:51+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/posts/kubernetes/kubernetes_cluster_install/</loc>
+    <lastmod>2020-10-12T17:46:07+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/posts/kubernetes/kubernetes_basic_structure/</loc>
+    <lastmod>2020-10-09T17:45:53+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pangwawa.github.io/posts/kubernetes/what_is_cloud_native/</loc>
+    <lastmod>2020-09-16T20:22:15+08:00</lastmod>
   </url>
   
   <url>
