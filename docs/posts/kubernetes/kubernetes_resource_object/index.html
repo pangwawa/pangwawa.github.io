@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hans">
   <head>
-    <title>Kubernetes资源对象详解 // 小吴的工作手记</title>
+    <title>Kubernetes对象详解 // 小吴的工作手记</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.76.5" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,14 +11,16 @@
     <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Kubernetes资源对象详解"/>
-<meta name="twitter:description" content="Kubernetes 资源对象 Pod Pod 是最小的可部署的 Kubernetes 对象模型。Pod 表示集群上正在运行的进程。一个 Pod 由一个或多个容器组成，Pod 中容器共享存储和网络，在同一台 Docker 主机上运行。在 kubernetes 中，若要运行一个容器，则必须先创建 pod，让容器在 pod 中运行，可以把 Pod 看成是容器的运行环境。 Docker 是 Kubernetes Pod 中最常用的容器运行时，但 Pod 也能支持其他的容器运行时，如 rtk。 Kubernetes 集群中的 Pod 可被用于以下两个主要用途：
+<meta name="twitter:title" content="Kubernetes对象详解"/>
+<meta name="twitter:description" content="Kubernetes对象的概念 在 Kubernetes 系统中，Kubernetes 对象 是持久化的实体。 Kubernetes 使用这些实体去表示整个集群的状态。它们主要描述了如下信息：
+哪些容器化应用在运行（以及在哪些节点上） 可以被应用使用的资源 关于应用运行时表现的策略，比如重启策略、升级策略，以及容错策略  kubernetes对象的类别 资源对象的类别 Pod Pod 是最小的可部署的 Kubernetes 对象模型。Pod 表示集群上正在运行的进程。一个 Pod 由一个或多个容器组成，Pod 中容器共享存储和网络，在同一台 Docker 主机上运行。在 kubernetes 中，若要运行一个容器，则必须先创建 pod，让容器在 pod 中运行，可以把 Pod 看成是容器的运行环境。 Docker 是 Kubernetes Pod 中最常用的容器运行时，但 Pod 也能支持其他的容器运行时，如 rtk。 Kubernetes 集群中的 Pod 可被用于以下两个主要用途：
 运行单个容器的 Pod。”每个 Pod 一个容器”模型是最常见的 Kubernetes 用例；在这种情况下，可以将 Pod 看作单个容器的包装器，并且 Kubernetes 直接管理 Pod，而不是容器。
 运行多个协同工作的容器的 Pod。 Pod 可能封装由多个紧密耦合且需要共享资源的共处容器组成的应用程序。 这些位于同一位置的容器可能形成单个内聚的服务单元——一个容器将文件从共享卷提供给公众，而另一个单独的“挂斗”容器则刷新或更新这些文件。 Pod 将这些容器和存储资源打包为一个可管理的实体。
 ReplicationController  ReplicationController 简写 “RC” 或 “RCS”。译作“副本控制器”，“Replication” 就是“复制”、“副本”的意思。ReplicationController 确保在任何时候都有特定数量的 pod 副本处于运行状态。 换句话说，ReplicationController 确保一个 pod 或一组同类的 pod 总是可用的。 当 pods 数量过多时，ReplicationController 会终止多余的 pods。当 pods 数量太少时，ReplicationController 将会启动新的 pods。 与手动创建的 pod 不同，由 ReplicationController 创建的 pods 在失败、被删除或被终止时会被自动替换。"/>
 
-    <meta property="og:title" content="Kubernetes资源对象详解" />
-<meta property="og:description" content="Kubernetes 资源对象 Pod Pod 是最小的可部署的 Kubernetes 对象模型。Pod 表示集群上正在运行的进程。一个 Pod 由一个或多个容器组成，Pod 中容器共享存储和网络，在同一台 Docker 主机上运行。在 kubernetes 中，若要运行一个容器，则必须先创建 pod，让容器在 pod 中运行，可以把 Pod 看成是容器的运行环境。 Docker 是 Kubernetes Pod 中最常用的容器运行时，但 Pod 也能支持其他的容器运行时，如 rtk。 Kubernetes 集群中的 Pod 可被用于以下两个主要用途：
+    <meta property="og:title" content="Kubernetes对象详解" />
+<meta property="og:description" content="Kubernetes对象的概念 在 Kubernetes 系统中，Kubernetes 对象 是持久化的实体。 Kubernetes 使用这些实体去表示整个集群的状态。它们主要描述了如下信息：
+哪些容器化应用在运行（以及在哪些节点上） 可以被应用使用的资源 关于应用运行时表现的策略，比如重启策略、升级策略，以及容错策略  kubernetes对象的类别 资源对象的类别 Pod Pod 是最小的可部署的 Kubernetes 对象模型。Pod 表示集群上正在运行的进程。一个 Pod 由一个或多个容器组成，Pod 中容器共享存储和网络，在同一台 Docker 主机上运行。在 kubernetes 中，若要运行一个容器，则必须先创建 pod，让容器在 pod 中运行，可以把 Pod 看成是容器的运行环境。 Docker 是 Kubernetes Pod 中最常用的容器运行时，但 Pod 也能支持其他的容器运行时，如 rtk。 Kubernetes 集群中的 Pod 可被用于以下两个主要用途：
 运行单个容器的 Pod。”每个 Pod 一个容器”模型是最常见的 Kubernetes 用例；在这种情况下，可以将 Pod 看作单个容器的包装器，并且 Kubernetes 直接管理 Pod，而不是容器。
 运行多个协同工作的容器的 Pod。 Pod 可能封装由多个紧密耦合且需要共享资源的共处容器组成的应用程序。 这些位于同一位置的容器可能形成单个内聚的服务单元——一个容器将文件从共享卷提供给公众，而另一个单独的“挂斗”容器则刷新或更新这些文件。 Pod 将这些容器和存储资源打包为一个可管理的实体。
 ReplicationController  ReplicationController 简写 “RC” 或 “RCS”。译作“副本控制器”，“Replication” 就是“复制”、“副本”的意思。ReplicationController 确保在任何时候都有特定数量的 pod 副本处于运行状态。 换句话说，ReplicationController 确保一个 pod 或一组同类的 pod 总是可用的。 当 pods 数量过多时，ReplicationController 会终止多余的 pods。当 pods 数量太少时，ReplicationController 将会启动新的 pods。 与手动创建的 pod 不同，由 ReplicationController 创建的 pods 在失败、被删除或被终止时会被自动替换。" />
@@ -66,7 +68,7 @@ ReplicationController  ReplicationController 简写 “RC” 或 “RCS”。�
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Kubernetes资源对象详解</h1>
+      <h1 class ="post-title">Kubernetes对象详解</h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -80,7 +82,7 @@ ReplicationController  ReplicationController 简写 “RC” 或 “RCS”。�
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          2 min read
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
@@ -93,7 +95,16 @@ ReplicationController  ReplicationController 简写 “RC” 或 “RCS”。�
       </div>
     </header>
     <div class="post-content">
-      <h2 id="kubernetes-资源对象">Kubernetes 资源对象</h2>
+      <h2 id="kubernetes对象的概念">Kubernetes对象的概念</h2>
+<p>在 Kubernetes 系统中，Kubernetes 对象 是持久化的实体。 Kubernetes 使用这些实体去表示整个集群的状态。它们主要描述了如下信息：</p>
+<pre><code>哪些容器化应用在运行（以及在哪些节点上）
+
+可以被应用使用的资源
+
+关于应用运行时表现的策略，比如重启策略、升级策略，以及容错策略
+</code></pre>
+<h2 id="kubernetes对象的类别">kubernetes对象的类别</h2>
+<h3 id="资源对象的类别">资源对象的类别</h3>
 <h4 id="pod">Pod</h4>
 <p>Pod 是最小的可部署的 Kubernetes 对象模型。Pod 表示集群上正在运行的进程。一个 Pod 由一个或多个容器组成，Pod 中容器共享存储和网络，在同一台 Docker 主机上运行。在 kubernetes 中，若要运行一个容器，则必须先创建 pod，让容器在 pod 中运行，可以把 Pod 看成是容器的运行环境。
   Docker 是 Kubernetes Pod 中最常用的容器运行时，但 Pod 也能支持其他的容器运行时，如 rtk。
@@ -132,7 +143,106 @@ RC与RS唯一区别就是lable selectore支持不同，RS支持新的基于集�
 <p>控制管理器开启–horizontal-pod-autoscaler-use-rest-clients</p>
 <p>控制管理器的–apiserver指向API Server Aggregator</p>
 <p>在API Server Aggregator中注册自定义的metrics API</p>
-<p>目前K8s中的业务主要可以分为长期伺服型（long-running）、批处理型（batch）、节点后台支撑型（node-daemon）和有状态应用型（stateful application）；分别对应的小机器人控制器为Deployment、Job、DaemonSet和PetSet，</p>
+<h3 id="配置对象">配置对象</h3>
+<p>Node、Namespace、Service、Secret、ConfigMap、Ingress、Label、ThirdPartyResource、 ServiceAccount</p>
+<h3 id="存储对象">存储对象</h3>
+<h4 id="volume">Volume</h4>
+<pre><code>volume是kubernetes为防止容器重新创建启动时导致的数据丢失、解决容器之间的文件数据共享问题而抽象出的对象。
+</code></pre>
+<h4 id="persistent-volume">Persistent Volume</h4>
+<pre><code>持久卷（PersistentVolume，PV）是集群中的一块存储，可以由管理员事先供应，或者 使用存储类（Storage Class）来动态供应。 持久卷是集群资源，就像节点也是集群资源一样。PV 持久卷和普通的 Volume 一样，也是使用 卷插件来实现的，只是它们拥有独立于任何使用 PV 的 Pod 的生命周期。
+</code></pre>
+<h3 id="策略对象">策略对象</h3>
+<p>SecurityContext、ResourceQuota、LimitRange</p>
+<h2 id="kubernetes对象的描述">Kubernetes对象的描述</h2>
+<p>必须字段：</p>
+<p>apiVersion - 创建该对象所使用的 Kubernetes API 的版本</p>
+<p>kind - 想要创建的对象的类别</p>
+<p>metadata - 帮助唯一性标识对象的一些数据，包括一个 name 字符串、UID 和可选的 namespace</p>
+<p>非必须字段：</p>
+<p>spec - 关于对象的更为详细的描述</p>
+<h3 id="示例">示例</h3>
+<p>apiVersion: v1 #指定api版本，此值必须在kubectl apiversion中<br>
+kind: Pod #指定创建资源的角色/类型<br>
+metadata: #资源的元数据/属性<br>
+name: test-pod #资源的名字，在同一个namespace中必须唯一<br>
+labels: #设定资源的标签
+k8s-app: apache<br>
+version: v1<br>
+kubernetes.io/cluster-service: &ldquo;true&rdquo;<br>
+annotations:            #自定义注解列表<br>
+- name: String        #自定义注解名字<br>
+spec: #specification of the resource content 指定该资源的内容<br>
+restartPolicy: Always #表明该容器一直运行，默认k8s的策略，在此容器退出后，会立即创建一个相同的容器<br>
+nodeSelector:     #节点选择，先给主机打标签kubectl label nodes kube-node1 zone=node1<br>
+zone: node1<br>
+containers:</p>
+<ul>
+<li>name: test-pod #容器的名字<br>
+image: 10.192.21.18:5000/test/chat:latest #容器使用的镜像地址<br>
+imagePullPolicy: Never #三个选择Always、Never、IfNotPresent，每次启动时检查和更新（从registery）images的策略，
+# Always，每次都检查
+# Never，每次都不检查（不管本地是否有）
+# IfNotPresent，如果本地有就不检查，如果没有就拉取
+command: [&lsquo;sh&rsquo;] #启动容器的运行命令，将覆盖容器中的Entrypoint,对应Dockefile中的ENTRYPOINT<br>
+args: [&quot;$(str)&quot;] #启动容器的命令参数，对应Dockerfile中CMD参数<br>
+env: #指定容器中的环境变量
+<ul>
+<li>name: str #变量的名字<br>
+value: &ldquo;/etc/run.sh&rdquo; #变量的值<br>
+resources: #资源管理
+requests: #容器运行时，最低资源需求，也就是说最少需要多少资源容器才能正常运行<br>
+cpu: 0.1 #CPU资源（核数），两种方式，浮点数或者是整数+m，0.1=100m，最少值为0.001核（1m）
+memory: 32Mi #内存使用量<br>
+limits: #资源限制<br>
+cpu: 0.5<br>
+memory: 1000Mi<br>
+ports:</li>
+<li>containerPort: 80 #容器开发对外的端口
+name: httpd  #名称
+protocol: TCP<br>
+livenessProbe: #pod内容器健康检查的设置
+httpGet: #通过httpget检查健康，返回200-399之间，则认为容器正常<br>
+path: / #URI地址<br>
+port: 80<br>
+#host: 127.0.0.1 #主机地址<br>
+scheme: HTTP<br>
+initialDelaySeconds: 180 #表明第一次检测在容器启动后多长时间后开始<br>
+timeoutSeconds: 5 #检测的超时时间<br>
+periodSeconds: 15  #检查间隔时间<br>
+#也可以用这种方法<br>
+#exec: 执行命令的方法进行监测，如果其退出码不为0，则认为容器正常
+<h1 id="command">command:</h1>
+<h1 id="--cat">- cat</h1>
+<h1 id="--tmphealth">- /tmp/health</h1>
+<p>#也可以用这种方法<br>
+#tcpSocket: //通过tcpSocket检查健康</p>
+<h1 id="port-number">port: number</h1>
+</li>
+</ul>
+<p>lifecycle: #生命周期管理<br>
+postStart: #容器运行之前运行的任务<br>
+exec:<br>
+command:<br>
+- &lsquo;sh&rsquo;<br>
+- &lsquo;yum upgrade -y&rsquo;<br>
+preStop:#容器关闭之前运行的任务<br>
+exec:<br>
+command: [&lsquo;service httpd stop&rsquo;]<br>
+volumeMounts:  #挂载持久存储卷</p>
+<ul>
+<li>name: volume #挂载设备的名字，与volumes[*].name 需要对应  <br>
+mountPath: /data #挂载到容器的某个路径下<br>
+readOnly: True<br>
+volumes: #定义一组挂载设备</li>
+</ul>
+</li>
+<li>name: volume #定义一个挂载设备的名字<br>
+#meptyDir: {}<br>
+hostPath:<br>
+path: /opt #挂载设备类型为hostPath，路径为宿主机下的/opt,这里设备类型支持很多种
+#nfs，</li>
+</ul>
 
     </div>
     <div class="post-footer">

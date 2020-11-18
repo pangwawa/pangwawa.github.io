@@ -8,12 +8,13 @@
     <language>zh-Hans</language>
     <lastBuildDate>Mon, 26 Oct 2020 10:54:43 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/tags/devops/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Kubernetes资源对象详解</title>
+      <title>Kubernetes对象详解</title>
       <link>https://pangwawa.github.io/posts/kubernetes/kubernetes_resource_object/</link>
       <pubDate>Mon, 26 Oct 2020 10:54:43 +0800</pubDate>
       
       <guid>https://pangwawa.github.io/posts/kubernetes/kubernetes_resource_object/</guid>
-      <description>Kubernetes 资源对象 Pod Pod 是最小的可部署的 Kubernetes 对象模型。Pod 表示集群上正在运行的进程。一个 Pod 由一个或多个容器组成，Pod 中容器共享存储和网络，在同一台 Docker 主机上运行。在 kubernetes 中，若要运行一个容器，则必须先创建 pod，让容器在 pod 中运行，可以把 Pod 看成是容器的运行环境。 Docker 是 Kubernetes Pod 中最常用的容器运行时，但 Pod 也能支持其他的容器运行时，如 rtk。 Kubernetes 集群中的 Pod 可被用于以下两个主要用途：
+      <description>Kubernetes对象的概念 在 Kubernetes 系统中，Kubernetes 对象 是持久化的实体。 Kubernetes 使用这些实体去表示整个集群的状态。它们主要描述了如下信息：
+哪些容器化应用在运行（以及在哪些节点上） 可以被应用使用的资源 关于应用运行时表现的策略，比如重启策略、升级策略，以及容错策略  kubernetes对象的类别 资源对象的类别 Pod Pod 是最小的可部署的 Kubernetes 对象模型。Pod 表示集群上正在运行的进程。一个 Pod 由一个或多个容器组成，Pod 中容器共享存储和网络，在同一台 Docker 主机上运行。在 kubernetes 中，若要运行一个容器，则必须先创建 pod，让容器在 pod 中运行，可以把 Pod 看成是容器的运行环境。 Docker 是 Kubernetes Pod 中最常用的容器运行时，但 Pod 也能支持其他的容器运行时，如 rtk。 Kubernetes 集群中的 Pod 可被用于以下两个主要用途：
 运行单个容器的 Pod。”每个 Pod 一个容器”模型是最常见的 Kubernetes 用例；在这种情况下，可以将 Pod 看作单个容器的包装器，并且 Kubernetes 直接管理 Pod，而不是容器。
 运行多个协同工作的容器的 Pod。 Pod 可能封装由多个紧密耦合且需要共享资源的共处容器组成的应用程序。 这些位于同一位置的容器可能形成单个内聚的服务单元——一个容器将文件从共享卷提供给公众，而另一个单独的“挂斗”容器则刷新或更新这些文件。 Pod 将这些容器和存储资源打包为一个可管理的实体。
 ReplicationController  ReplicationController 简写 “RC” 或 “RCS”。译作“副本控制器”，“Replication” 就是“复制”、“副本”的意思。ReplicationController 确保在任何时候都有特定数量的 pod 副本处于运行状态。 换句话说，ReplicationController 确保一个 pod 或一组同类的 pod 总是可用的。 当 pods 数量过多时，ReplicationController 会终止多余的 pods。当 pods 数量太少时，ReplicationController 将会启动新的 pods。 与手动创建的 pod 不同，由 ReplicationController 创建的 pods 在失败、被删除或被终止时会被自动替换。</description>
@@ -25,7 +26,8 @@ ReplicationController  ReplicationController 简写 “RC” 或 “RCS”。�
       <pubDate>Tue, 13 Oct 2020 18:01:51 +0800</pubDate>
       
       <guid>https://pangwawa.github.io/posts/kubernetes/kubernetes_cli_order/</guid>
-      <description>kubernetes 常用kubectl命令 基本命令 create get 用于获取一个或多个资源的信息，包括 Namespace、 Pod、 Node、 Deployment、 Service、 ReplicaSet
+      <description>kubernetes 常用kubectl命令 基本命令 create 通过文件名或控制台输入，创建资源。
+get 用于获取一个或多个资源的信息，包括 Namespace、 Pod、 Node、 Deployment、 Service、 ReplicaSet
 如
 kubectl get cs # 查看集群状态
 kubectl get nodes # 查看集群节点信息
