@@ -6,7 +6,67 @@
     <description>Recent content on 小吴的工作手记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Mon, 02 Nov 2020 11:23:22 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 26 Nov 2020 14:50:48 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Netty_reactor_model</title>
+      <link>https://pangwawa.github.io/posts/netty/netty_reactor_model/</link>
+      <pubDate>Thu, 26 Nov 2020 14:50:48 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/netty/netty_reactor_model/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Netty基础——从简单Echo程序分析Netty组件</title>
+      <link>https://pangwawa.github.io/posts/netty/netty_echo_sample/</link>
+      <pubDate>Thu, 26 Nov 2020 14:43:47 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/netty/netty_echo_sample/</guid>
+      <description>Bootstrap or ServerBootstrap
+EventLoop
+EventLoopGroup
+ChannelPipeline
+Channel
+Fture or ChannelFuture
+ChannelInitializer
+ChannelHandler
+详解：
+Bootstrap，一个Netty应用通常由一个Bootstrap开始，它主要作用是配置整个Netty程序，串联起各个组件。
+Handler，为了支持各种协议和处理数据的方式，便诞生了Handler组件。Handler主要用来处理各种事件，这里的事件很广泛，比如可以是连接、数据接收、异常、数据转换等。
+ChannelInboundHandler，一个最常用的Handler。这个Handler的作用就是处理接收到数据时的事件，也就是说，我们的业务逻辑一般就是写在这个Handler里面的，ChannelInboundHandler就是用来处理我们的核心业务逻辑。
+ChannelInitializer，当一个链接建立时，我们需要知道怎么来接收或者发送数据，当然，我们有各种各样的Handler实现来处理它，那么ChannelInitializer便是用来配置这些Handler，它会提供一ChannelPipeline，并把Handler加入到ChannelPipeline。ChannelPipeline，一个Netty应用基于ChannelPipeline机制，这种机制需要依赖于EventLoop和EventLoopGroup，因为它们三个都和事件或者事件处理相关。 ChannelPipeline负责安排Handler的顺序及其执行EventLoops的目的是为Channel处理IO操作，一个EventLoop可以为多个Channel服务。EventLoopGroup会包含多个EventLoop。
+Channel代表了一个Socket链接，或者其它和IO操作相关的组件，它和EventLoop一起用来参与IO处理。
+Future，在Netty中所有的IO操作都是异步的，因此，你不能立刻得知消息是否被正确处理，但是我们可以过一会等它执行完成或者直接注册一个监听，具体的实现就是通过Future和ChannelFutures,他们可以注册一个监听，当操作执行成功或失败时监听会自动触发。总之，所有的操作都会返回一个ChannelFuture。
+我们来看看如何配置一个Netty应用？ – BootsStrapping我们利用BootsStrapping来配置netty 应用，它有两种类型，一种用于Client端：BootsStrap，另一种用于Server端：ServerBootstrap，要想区别如何使用它们，你仅需要记住一个用在Client端，一个用在Server端。下面我们来详细介绍一下这两种类型的区别：1.第一个最明显的区别是，ServerBootstrap用于Server端，通过调用bind()方法来绑定到一个端口监听连接；Bootstrap用于Client端，需要调用connect()方法来连接服务器端，但我们也可以通过调用bind()方法返回的ChannelFuture中获取Channel去connect服务器端。
+一个Netty 简单Echo服务端程序实例 public class EchoServer { public static void main(String[] args) throws InterruptedException { /** * Bootstrap是应用程序的开始，作用是配置整个netty程序，串联各个组件 */ ServerBootstrap serverBootstrap=new ServerBootstrap(); NioEventLoopGroup nioEventLoopGroup=new NioEventLoopGroup(); serverBootstrap .group(nioEventLoopGroup) /** * Channel 代表一个Socket连接，或者其他和IO操作相关的组件，它和EventLoop一起参加IO处理 */ .channel(NioServerSocketChannel.class) .localAddress(new InetSocketAddress(9999)) /** * Handler 是为了支持各种协议和处理数据的方式; 主要是处理连接、数据接收、异常、数据转换等事件 * * ChannelInitializer 用于配置Handler， 它提供ChannelPipeline,并把设置的Handler加到ChannelPipeline */ .childHandler(new ChannelInitializer&amp;lt;SocketChannel&amp;gt;() { @Override protected void initChannel(SocketChannel socketChannel) throws Exception { /** * ChannelPipeline 一个Netty应用基于ChannelPipeline机制，这种机制依赖于EventLoop和EventLoopGroup */ socketChannel.</description>
+    </item>
+    
+    <item>
+      <title>Netty基础——基础概念与架构原理</title>
+      <link>https://pangwawa.github.io/posts/netty/netty_structure/</link>
+      <pubDate>Wed, 25 Nov 2020 14:41:07 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/netty/netty_structure/</guid>
+      <description>##Netty 一个NIO Java框架，对NIO底层进行了很好的封装 Netty提供异步的、事件驱动的网络应用程序框架和工具，用以快速开发高性能、高可靠性的网络服务器和客户端程序。 快速和简单的开发出一个网络应用，例如实现了某种协议的客户、服务端应用。Netty相当于简化和流线化了网络应用的编程开发过程，例如：基于TCP和UDP的socket服务开发。 etty 是一个吸收了多种协议（包括FTP、SMTP、HTTP等各种二进制文本协议）的实现经验，并经过相当精心设计的项目。最终，Netty 成功的找到了一种方式，在保证易于开发的同时还保证了其应用的性能，稳定性和伸缩性
+为什么使用Netty 有了Netty，你可以实现自己的HTTP服务器，FTP服务器，UDP服务器，RPC服务器，WebSocket服务器，Redis的Proxy服务器，MySQL的Proxy服务器等等。如果你想知道Nginx是怎么写出来的， 如果你想知道Tomcat和Jetty是如何实现的，如果你也想实现一个简单的Redis服务器，那都应该好好理解一下Netty，它们高性能的原理都是类似的
+Netty组成 核心组件包括：
+Bootstrap 和 ServerBootstrap 、 Channel、 ChannelHandler、 ChannelPipeline、 EventLoop、 ChannelFuture
+.Bootstrap，ServerBootstrap bootstrap意思是引导，一个Netty应用通常由一个Bootstrap开始，主要作用是配置整个netty程序，串联各个组件。ServerBootstrap是服务端启动引导类，Bootstrap是客户端启动引导类。该类提供了一个 用于应用程序网络层配置的容器
+Bootstrap: 用于客户端 示例：Bootstrap bootstrap=new Bootstrap(); ServerBootstrap：用于服务器端 示例： ServerBootstrap serverBootstrap=new ServerBootstrap();
+Channel Channel是Netty网络通信的通道，通过该通道可以执行网络I/O操作。主要作用是：
+维护当前网络连接的通道的状态（例如是否打开?是否已连接） 网络连接的配置参数（例如接收和发送缓冲区的大小） 提供异步的网络I/O操作（如建立连接，读写，绑定端口），异步意味着任何I/O操作都会立即返回，可以通过注册一个监听器来自定义操作结果的事件处理。 支持关联I/O操作与对应的处理程序  底层网络传输 API 必须提供给应用 I/O操作的接口，如读，写，连接，绑定等等。对于我们来说，这是结构几乎总是会成为一个“socket”。 Netty 中的接口 Channel 定义了与 socket 丰富交互的操作集： bind, close, config, connect, isActive, isOpen, isWritable, read, write 等等。 Netty 提供大量的 Channel 实现来专门使用。这些包括 AbstractChannel，AbstractNioByteChannel，AbstractNioChannel， EmbeddedChannel， LocalServerChannel，NioSocketChannel 等等。</description>
+    </item>
+    
+    <item>
+      <title>Netty入门——NIO </title>
+      <link>https://pangwawa.github.io/posts/netty/nio/</link>
+      <pubDate>Tue, 24 Nov 2020 14:40:15 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/netty/nio/</guid>
+      <description>NIO，全称 java-non-blocking IO ,jdk1.4开始支持，java.nio包下，面向块/缓冲区编程
+NIO三大核心部分： Channel、Buffer、Selector</description>
+    </item>
+    
     <item>
       <title>Mybatis源码分析—Mybatis架构与SQL处理过程</title>
       <link>https://pangwawa.github.io/posts/mybatis/mybastis_structure/</link>

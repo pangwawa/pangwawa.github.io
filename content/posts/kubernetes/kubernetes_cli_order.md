@@ -36,13 +36,67 @@ kubectl get pod,svc,ep --show-labels    # 查看pod,svc,ep能及标签信息
 
 kubectl get all --all-namespaces        # 查看所有的命名空间
 #### run
+#创建带有终端的pod
+kubectl run -i --tty busybox --image=busybox
+
+#启动一个 nginx 实例
+kubectl run nginx --image=nginx
+
+#启动多个副本的pod
+kubectl run mybusybox --image=busybox --replicas=5
 #### expose
+#为 nginx RC 创建服务，启用本地 80 端口连接到容器上的 8000 端口
+kubectl expose rc nginx --port=80 --target-port=8000
+
+kubectl expose（将资源暴露为新的 Service）
 #### delete
 通过文件名、控制台输入、资源名或者label selector删除资源。
+
+#删除基于nginx.yaml定义的名称
+kubectl delete -f nginx.yaml
+
+#删除基于Pod.yaml定义的名称
+kubectl delete -f pod.yaml
+
+#删除基于rc名定义的名称
+kubectl delete rc rc名
+
+#删除基于service定义的名称
+kubectl delete service service名
+
+#删除所有Pod
+kubectl delete pods --all
+
+#根据label删除
+kubectl delete pod -l app=flannel -n kube-system
+
+#删除 pod.json 文件中定义的类型和名称的 pod
+kubectl delete -f ./pod.json
+
+#删除名为“baz”的 pod 和名为“foo”的 service
+kubectl delete pod,service baz foo
+
+#删除具有 name=myLabel 标签的 pod 和 serivce
+kubectl delete pods,services -l name=myLabel
+
+#删除具有 name=myLabel 标签的 pod 和 service，包括尚未初始化的
+kubectl delete pods,services -l name=myLabel --include-uninitialized
+
+#删除 my-ns namespace下的所有 pod 和 serivce，包括尚未初始化的
+kubectl -n my-ns delete po,svc --all
+
+#强制删除
+kubectl delete pods prometheus-7fcfcb9f89-qkkf7 --grace-period=0 --force
+
+#卸载kubernetes-dashboard
+kubectl delete -f kubernetes-dashboard.yaml
 ###  App管理
 
 #### apply
 通过文件名或控制台输入，对资源进行配置
+
+#创建/更新
+kubectl apply -f xxx.yaml
 #### annotate
 更新资源的注解
 #### autoscale

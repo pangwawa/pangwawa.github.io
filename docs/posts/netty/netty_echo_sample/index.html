@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <title>Netty基础——从简单Echo程序分析Netty组件 // 小吴的工作手记</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.76.5" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Jack Wu" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://pangwawa.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+    <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Netty基础——从简单Echo程序分析Netty组件"/>
+<meta name="twitter:description" content="Bootstrap or ServerBootstrap
+EventLoop
+EventLoopGroup
+ChannelPipeline
+Channel
+Fture or ChannelFuture
+ChannelInitializer
+ChannelHandler
+详解：
+Bootstrap，一个Netty应用通常由一个Bootstrap开始，它主要作用是配置整个Netty程序，串联起各个组件。
+Handler，为了支持各种协议和处理数据的方式，便诞生了Handler组件。Handler主要用来处理各种事件，这里的事件很广泛，比如可以是连接、数据接收、异常、数据转换等。
+ChannelInboundHandler，一个最常用的Handler。这个Handler的作用就是处理接收到数据时的事件，也就是说，我们的业务逻辑一般就是写在这个Handler里面的，ChannelInboundHandler就是用来处理我们的核心业务逻辑。
+ChannelInitializer，当一个链接建立时，我们需要知道怎么来接收或者发送数据，当然，我们有各种各样的Handler实现来处理它，那么ChannelInitializer便是用来配置这些Handler，它会提供一ChannelPipeline，并把Handler加入到ChannelPipeline。ChannelPipeline，一个Netty应用基于ChannelPipeline机制，这种机制需要依赖于EventLoop和EventLoopGroup，因为它们三个都和事件或者事件处理相关。 ChannelPipeline负责安排Handler的顺序及其执行EventLoops的目的是为Channel处理IO操作，一个EventLoop可以为多个Channel服务。EventLoopGroup会包含多个EventLoop。
+Channel代表了一个Socket链接，或者其它和IO操作相关的组件，它和EventLoop一起用来参与IO处理。
+Future，在Netty中所有的IO操作都是异步的，因此，你不能立刻得知消息是否被正确处理，但是我们可以过一会等它执行完成或者直接注册一个监听，具体的实现就是通过Future和ChannelFutures,他们可以注册一个监听，当操作执行成功或失败时监听会自动触发。总之，所有的操作都会返回一个ChannelFuture。
+我们来看看如何配置一个Netty应用？ – BootsStrapping我们利用BootsStrapping来配置netty 应用，它有两种类型，一种用于Client端：BootsStrap，另一种用于Server端：ServerBootstrap，要想区别如何使用它们，你仅需要记住一个用在Client端，一个用在Server端。下面我们来详细介绍一下这两种类型的区别：1.第一个最明显的区别是，ServerBootstrap用于Server端，通过调用bind()方法来绑定到一个端口监听连接；Bootstrap用于Client端，需要调用connect()方法来连接服务器端，但我们也可以通过调用bind()方法返回的ChannelFuture中获取Channel去connect服务器端。
+一个Netty 简单Echo服务端程序实例 public class EchoServer { public static void main(String[] args) throws InterruptedException { /** * Bootstrap是应用程序的开始，作用是配置整个netty程序，串联各个组件 */ ServerBootstrap serverBootstrap=new ServerBootstrap(); NioEventLoopGroup nioEventLoopGroup=new NioEventLoopGroup(); serverBootstrap .group(nioEventLoopGroup) /** * Channel 代表一个Socket连接，或者其他和IO操作相关的组件，它和EventLoop一起参加IO处理 */ .channel(NioServerSocketChannel.class) .localAddress(new InetSocketAddress(9999)) /** * Handler 是为了支持各种协议和处理数据的方式; 主要是处理连接、数据接收、异常、数据转换等事件 * * ChannelInitializer 用于配置Handler， 它提供ChannelPipeline,并把设置的Handler加到ChannelPipeline */ .childHandler(new ChannelInitializer&lt;SocketChannel&gt;() { @Override protected void initChannel(SocketChannel socketChannel) throws Exception { /** * ChannelPipeline 一个Netty应用基于ChannelPipeline机制，这种机制依赖于EventLoop和EventLoopGroup */ socketChannel."/>
+
+    <meta property="og:title" content="Netty基础——从简单Echo程序分析Netty组件" />
+<meta property="og:description" content="Bootstrap or ServerBootstrap
+EventLoop
+EventLoopGroup
+ChannelPipeline
+Channel
+Fture or ChannelFuture
+ChannelInitializer
+ChannelHandler
+详解：
+Bootstrap，一个Netty应用通常由一个Bootstrap开始，它主要作用是配置整个Netty程序，串联起各个组件。
+Handler，为了支持各种协议和处理数据的方式，便诞生了Handler组件。Handler主要用来处理各种事件，这里的事件很广泛，比如可以是连接、数据接收、异常、数据转换等。
+ChannelInboundHandler，一个最常用的Handler。这个Handler的作用就是处理接收到数据时的事件，也就是说，我们的业务逻辑一般就是写在这个Handler里面的，ChannelInboundHandler就是用来处理我们的核心业务逻辑。
+ChannelInitializer，当一个链接建立时，我们需要知道怎么来接收或者发送数据，当然，我们有各种各样的Handler实现来处理它，那么ChannelInitializer便是用来配置这些Handler，它会提供一ChannelPipeline，并把Handler加入到ChannelPipeline。ChannelPipeline，一个Netty应用基于ChannelPipeline机制，这种机制需要依赖于EventLoop和EventLoopGroup，因为它们三个都和事件或者事件处理相关。 ChannelPipeline负责安排Handler的顺序及其执行EventLoops的目的是为Channel处理IO操作，一个EventLoop可以为多个Channel服务。EventLoopGroup会包含多个EventLoop。
+Channel代表了一个Socket链接，或者其它和IO操作相关的组件，它和EventLoop一起用来参与IO处理。
+Future，在Netty中所有的IO操作都是异步的，因此，你不能立刻得知消息是否被正确处理，但是我们可以过一会等它执行完成或者直接注册一个监听，具体的实现就是通过Future和ChannelFutures,他们可以注册一个监听，当操作执行成功或失败时监听会自动触发。总之，所有的操作都会返回一个ChannelFuture。
+我们来看看如何配置一个Netty应用？ – BootsStrapping我们利用BootsStrapping来配置netty 应用，它有两种类型，一种用于Client端：BootsStrap，另一种用于Server端：ServerBootstrap，要想区别如何使用它们，你仅需要记住一个用在Client端，一个用在Server端。下面我们来详细介绍一下这两种类型的区别：1.第一个最明显的区别是，ServerBootstrap用于Server端，通过调用bind()方法来绑定到一个端口监听连接；Bootstrap用于Client端，需要调用connect()方法来连接服务器端，但我们也可以通过调用bind()方法返回的ChannelFuture中获取Channel去connect服务器端。
+一个Netty 简单Echo服务端程序实例 public class EchoServer { public static void main(String[] args) throws InterruptedException { /** * Bootstrap是应用程序的开始，作用是配置整个netty程序，串联各个组件 */ ServerBootstrap serverBootstrap=new ServerBootstrap(); NioEventLoopGroup nioEventLoopGroup=new NioEventLoopGroup(); serverBootstrap .group(nioEventLoopGroup) /** * Channel 代表一个Socket连接，或者其他和IO操作相关的组件，它和EventLoop一起参加IO处理 */ .channel(NioServerSocketChannel.class) .localAddress(new InetSocketAddress(9999)) /** * Handler 是为了支持各种协议和处理数据的方式; 主要是处理连接、数据接收、异常、数据转换等事件 * * ChannelInitializer 用于配置Handler， 它提供ChannelPipeline,并把设置的Handler加到ChannelPipeline */ .childHandler(new ChannelInitializer&lt;SocketChannel&gt;() { @Override protected void initChannel(SocketChannel socketChannel) throws Exception { /** * ChannelPipeline 一个Netty应用基于ChannelPipeline机制，这种机制依赖于EventLoop和EventLoopGroup */ socketChannel." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pangwawa.github.io/posts/netty/netty_echo_sample/" />
+<meta property="article:published_time" content="2020-11-26T14:43:47+08:00" />
+<meta property="article:modified_time" content="2020-11-26T14:43:47+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://pangwawa.github.io"><img class="app-header-avatar" style="border: 0.1rem none;" src="/avatar.jpg" alt="Jack Wu" /></a>
+      <h2>小吴的工作手记</h2>
+      
+      <nav  class="app-header-menu" style="font-size: 20px">
+        <div style="margin-top: 10px">
+          <a href="/">Home</a>
+        </div>
+        <div style="margin-top: 10px">
+          <a href="/tags/">Tags</a>
+        </div>
+        <div style="margin-top: 10px">
+          <a href="/about/about_me/">About</a>
+        </div>
+      </nav>
+      <p>Stay hungry, stay foolish.</p>
+      <p style="">Email：jackwu1024@163.com</p>
+      <img  src="/wechat.jpg" alt="扫一扫添加博主微信" />
+      <div class="app-header-social" style="margin-top: 20px">
+        
+        <a target="_blank" href="https://github.com/pangwawa" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+        <a target="_blank" href="https://blog.csdn.net/Jack__iT" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Netty基础——从简单Echo程序分析Netty组件</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Nov 26, 2020
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://pangwawa.github.io/tags/netty/">Netty</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>Bootstrap or ServerBootstrap</p>
+<p>EventLoop</p>
+<p>EventLoopGroup</p>
+<p>ChannelPipeline</p>
+<p>Channel</p>
+<p>Fture or ChannelFuture</p>
+<p>ChannelInitializer</p>
+<p>ChannelHandler</p>
+<p>详解：</p>
+<p>Bootstrap，一个Netty应用通常由一个Bootstrap开始，它主要作用是配置整个Netty程序，串联起各个组件。</p>
+<p>Handler，为了支持各种协议和处理数据的方式，便诞生了Handler组件。Handler主要用来处理各种事件，这里的事件很广泛，比如可以是连接、数据接收、异常、数据转换等。</p>
+<p>ChannelInboundHandler，一个最常用的Handler。这个Handler的作用就是处理接收到数据时的事件，也就是说，我们的业务逻辑一般就是写在这个Handler里面的，ChannelInboundHandler就是用来处理我们的核心业务逻辑。</p>
+<p>ChannelInitializer，当一个链接建立时，我们需要知道怎么来接收或者发送数据，当然，我们有各种各样的Handler实现来处理它，那么ChannelInitializer便是用来配置这些Handler，它会提供一ChannelPipeline，并把Handler加入到ChannelPipeline。ChannelPipeline，一个Netty应用基于ChannelPipeline机制，这种机制需要依赖于EventLoop和EventLoopGroup，因为它们三个都和事件或者事件处理相关。 ChannelPipeline负责安排Handler的顺序及其执行EventLoops的目的是为Channel处理IO操作，一个EventLoop可以为多个Channel服务。EventLoopGroup会包含多个EventLoop。</p>
+<p>Channel代表了一个Socket链接，或者其它和IO操作相关的组件，它和EventLoop一起用来参与IO处理。</p>
+<p>Future，在Netty中所有的IO操作都是异步的，因此，你不能立刻得知消息是否被正确处理，但是我们可以过一会等它执行完成或者直接注册一个监听，具体的实现就是通过Future和ChannelFutures,他们可以注册一个监听，当操作执行成功或失败时监听会自动触发。总之，所有的操作都会返回一个ChannelFuture。</p>
+<p>我们来看看如何配置一个Netty应用？
+– BootsStrapping我们利用BootsStrapping来配置netty  应用，它有两种类型，一种用于Client端：BootsStrap，另一种用于Server端：ServerBootstrap，要想区别如何使用它们，你仅需要记住一个用在Client端，一个用在Server端。下面我们来详细介绍一下这两种类型的区别：1.第一个最明显的区别是，ServerBootstrap用于Server端，通过调用bind()方法来绑定到一个端口监听连接；Bootstrap用于Client端，需要调用connect()方法来连接服务器端，但我们也可以通过调用bind()方法返回的ChannelFuture中获取Channel去connect服务器端。</p>
+<h6 id="一个netty-简单echo服务端程序实例">一个Netty 简单Echo服务端程序实例</h6>
+<pre><code>public class EchoServer {
+    public static void main(String[] args) throws InterruptedException {
+        /**
+         * Bootstrap是应用程序的开始，作用是配置整个netty程序，串联各个组件
+         */
+        ServerBootstrap serverBootstrap=new ServerBootstrap();
+        NioEventLoopGroup nioEventLoopGroup=new NioEventLoopGroup();
+        serverBootstrap
+                .group(nioEventLoopGroup)
+                /**
+                 *  Channel  代表一个Socket连接，或者其他和IO操作相关的组件，它和EventLoop一起参加IO处理
+                 */
+                .channel(NioServerSocketChannel.class)
+                .localAddress(new InetSocketAddress(9999))
+                /**
+                 * Handler 是为了支持各种协议和处理数据的方式; 主要是处理连接、数据接收、异常、数据转换等事件
+                 *
+                 * ChannelInitializer 用于配置Handler， 它提供ChannelPipeline,并把设置的Handler加到ChannelPipeline
+                 */
+                .childHandler(new ChannelInitializer&lt;SocketChannel&gt;() {
+                    @Override
+                    protected void initChannel(SocketChannel socketChannel) throws Exception {
+                        /**
+                         * ChannelPipeline  一个Netty应用基于ChannelPipeline机制，这种机制依赖于EventLoop和EventLoopGroup 
+                         */
+                        socketChannel.pipeline().addLast(new EchoServerHandler());
+                    }
+                });
+        try {
+            /**
+             *  Future和ChannelFuture ，注册监听，当操作成功或失败时自动触发，所有的操作都会返回一个ChannelFuture
+             */
+            ChannelFuture channelFuture= serverBootstrap.bind().sync();
+            channelFuture.channel().closeFuture().sync();
+        } finally {
+            /**
+             * 关闭连接
+             */
+            nioEventLoopGroup.shutdownGracefully().sync();
+        }
+    }
+}
+</code></pre><h5 id="一个netty简单echo客户端程序实例">一个Netty简单Echo客户端程序实例</h5>
+<pre><code>public class EchoClient {
+    public static void main(String[] args) throws InterruptedException {
+        NioEventLoopGroup nioEventLoopGroup=new NioEventLoopGroup();
+        Bootstrap bootstrap=new Bootstrap();
+        bootstrap
+                .group(nioEventLoopGroup)
+                .channel(NioSocketChannel.class)
+                /**
+                 * 与服务端的localAddress不同，这里是remoteAddress，配置远程连接 服务器地址和端口
+                 */
+                .remoteAddress(new InetSocketAddress(9999))
+                .handler(new ChannelInitializer&lt;SocketChannel&gt;() {
+                    @Override
+                    protected void initChannel(SocketChannel socketChannel) throws Exception {
+                        /**
+                         * 这里配置的Handler是客户端需要使用的Handler
+                         */
+                        socketChannel.pipeline().addLast(new EchoClientHandler());
+                    }
+                });
+        try {
+            ChannelFuture channelFuture=bootstrap.connect().sync();
+            channelFuture.channel().closeFuture().sync();
+        } finally {
+            nioEventLoopGroup.shutdownGracefully().sync();
+        }
+
+    }
+}
+</code></pre>
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+    <p style="position: fixed; bottom: 0; width: 100%;text-align: center; color: gray; font-size: 13px;">Copyright &copy; 2020 Jack Wu All Rights Reserved.</p>
+  </body>
+</html>
