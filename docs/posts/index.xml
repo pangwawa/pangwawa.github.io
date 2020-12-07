@@ -68,6 +68,25 @@ NIO三大核心部分： Channel、Buffer、Selector</description>
     </item>
     
     <item>
+      <title>Netty进阶——基于Netty协议栈进行私有协议的定制开发 </title>
+      <link>https://pangwawa.github.io/posts/netty/netty_private_protocol_base/</link>
+      <pubDate>Tue, 24 Nov 2020 14:40:15 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/netty/netty_private_protocol_base/</guid>
+      <description>私有协议栈和Netty协议栈 绝大多数数私有协议的传输层是基于TCP/IP，利用Netty的TCP/IP协议栈可以非常方便的进行私有协议栈的定制开发
+Netty协议栈用于内部各模块间的通信，基于TCP/IP协议，是个类HTTP协议的应用层协议栈，比传统的标准协议栈更轻巧灵活和实用
+Netty协议栈承载了业务内部各模块之间的消息交互和服务调用，它的主要功能如下。 (1）基于Netty 的NIO通信框架，提供高性能的异步通信能力; (2）提供消息的编解码框架，可以实现POJO的序列化和反序列化; (3)提供基于IP地址的白名单接入认证机制; (4）链路的有效性校验机制; (5)链路的断连重连机制。
+Netty协议 通信模型与步骤 考虑到安全，链路建立需要通过基于IP地址或者号段的黑白名单安全认证机制 为样例，本协议使用基于IP地址的安全认证，如果有多个IP，通过逗号进行分割。在实际商用项目中，安全认证机制会更加严格，例如通过密钥对用户名和密码进行安全认证。
+消息定义 header crcCode : int 32 位 netty消息的校验码，由三部分组成 ： 1、0xABEF （固定值，表面是netty协议，2个字节） ；2、主版本号 1~255，1个字节；3、次版本号，1~255，1个字节。也就是： crcCode= 0xABEF + 主版本号 + 次版本号
+length : int 32
+sessionID : long 64 节点内全局唯一，由会话ID生成器生成
+type : Byte 8
+ 0:业务请求消息1:业务响应消息2:业务ONE WAY消息（既是请求又是响应消息)3:握手请求消息4:握手应答消息5:心跳请求消息6:心跳应答消息 priority: Byte 8 消息优先级 0~255
+attachment : Map&amp;lt;String , Object&amp;gt; 可选字段，用于扩展请求头
+body Object 消息体， 对于请求消息，是参数数据，对于相应消息，是返回的数据</description>
+    </item>
+    
+    <item>
       <title>Mybatis源码分析—Mybatis架构与SQL处理过程</title>
       <link>https://pangwawa.github.io/posts/mybatis/mybastis_structure/</link>
       <pubDate>Mon, 02 Nov 2020 11:23:22 +0800</pubDate>
