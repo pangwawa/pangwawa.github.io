@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <title>Java并发编程 juc包——Atomic包 // 小吴的工作手记</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.76.5" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Jack Wu" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://pangwawa.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+    <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java并发编程 juc包——Atomic包"/>
+<meta name="twitter:description" content="CAS unsafe Atomic包 Atomic的核心操作就是CAS（compareandset,利用CMPXCHG指令实现，它是一个原子指令）,该指令有三个操作数，变量的内存值V（value的缩写），变量的当前预期值E（exception的缩写）， 变量想要更新的值U（update的缩写），当内存值和当前预期值相同时，将变量的更新值覆盖内存值
+Atomic系列的类中的核心方法都会调用unsafe类中的几个本地方法。我们需要先知道一个东西就是Unsafe类，全名为：sun.misc.Unsafe，这个类包含了大量的对C代码的操作， 包括很多直接内存分配以及原子操作的调用，而它之所以标记为非安全的，是告诉你这个里面大量的方法调用都会存在安全隐患，需要小心使用，否则会导致严重的后果，例如在通过unsafe分配内存的时候， 如果自己指定某些区域可能会导致一些类似C&#43;&#43;一样的指针越界到其他进程的问题。
+Atomic包中的类按照操作的数据类型可以分成4组
+AtomicBoolean，AtomicInteger，AtomicLong 线程安全的基本类型的原子性操作
+AtomicIntegerArray，AtomicLongArray，AtomicReferenceArray 线程安全的数组类型的原子性操作，它操作的不是整个数组，而是数组中的单个元素
+AtomicLongFieldUpdater，AtomicIntegerFieldUpdater，AtomicReferenceFieldUpdater 基于反射原理对象中的基本类型（长整型、整型和引用类型）进行线程安全的操作
+AtomicReference，AtomicMarkableReference，AtomicStampedReference ABA问题的解决方法 使用AtomicMarkableReference，AtomicStampedReference。使用上述两个Atomic类进行操作。他们在实现compareAndSet指令的时候除了要比较当对象的前值和预期值以外， 还要比较当前（操作的）戳值和预期（操作的）戳值，当全部相同时，compareAndSet方法才能成功。每次更新成功，戳值都会发生变化，戳值的设置是由编程人员自己控制的。
+Atomic包的相关类 AtomicBoolean
+Atomiclnteger
+AtomiclntegerArray
+AtomiclntegerFieldUpdater 原子更新整型的字段的更新器。 AtomicLong
+AtomicLongArray
+AtomicLongFieldUpdater
+AtomicMarkableReference 原子更新带有标记位的引用类型。可以原子的更新一个布尔类型的标记位和引用类型。构造方法是AtomicMarkableReference(V initialRef, boolean initialMark)
+AtomicReference 原子更新引用类型。
+AtomicReferenceArray 原子更新引用类型数组里的元素。 AtomicReferenceFieldUpdater 原子更新引用类型里的字段
+AtomicStampedReference 原子更新带有版本号的引用类型。该类将整数值与引用关联起来，可用于原子的更数据和数据的版本号，可以解决使用CAS进行原子更新时，可能出现的ABA问题。
+DoubleAccumulator （jdk1.8新增）
+DoubleAdder （jdk1.8新增）
+LongAccumulator （jdk1.8新增）
+LongAdder （jdk1.8新增）
+Striped64
+除了atomic包提供的， Java的基本类型里还有char，float和double等 如何实现Atomic包的原子性 Atomic包里的类基本都是使用Unsafe实现的，让我们一起看下Unsafe的源码，发现Unsafe只提供了三种CAS方法，compareAndSwapObject，compareAndSwapInt和compareAndSwapLong， 再看AtomicBoolean源码，发现其是先把Boolean转换成整型，再使用compareAndSwapInt进行CAS， 所以原子更新double也可以用类似的思路来实现。"/>
+
+    <meta property="og:title" content="Java并发编程 juc包——Atomic包" />
+<meta property="og:description" content="CAS unsafe Atomic包 Atomic的核心操作就是CAS（compareandset,利用CMPXCHG指令实现，它是一个原子指令）,该指令有三个操作数，变量的内存值V（value的缩写），变量的当前预期值E（exception的缩写）， 变量想要更新的值U（update的缩写），当内存值和当前预期值相同时，将变量的更新值覆盖内存值
+Atomic系列的类中的核心方法都会调用unsafe类中的几个本地方法。我们需要先知道一个东西就是Unsafe类，全名为：sun.misc.Unsafe，这个类包含了大量的对C代码的操作， 包括很多直接内存分配以及原子操作的调用，而它之所以标记为非安全的，是告诉你这个里面大量的方法调用都会存在安全隐患，需要小心使用，否则会导致严重的后果，例如在通过unsafe分配内存的时候， 如果自己指定某些区域可能会导致一些类似C&#43;&#43;一样的指针越界到其他进程的问题。
+Atomic包中的类按照操作的数据类型可以分成4组
+AtomicBoolean，AtomicInteger，AtomicLong 线程安全的基本类型的原子性操作
+AtomicIntegerArray，AtomicLongArray，AtomicReferenceArray 线程安全的数组类型的原子性操作，它操作的不是整个数组，而是数组中的单个元素
+AtomicLongFieldUpdater，AtomicIntegerFieldUpdater，AtomicReferenceFieldUpdater 基于反射原理对象中的基本类型（长整型、整型和引用类型）进行线程安全的操作
+AtomicReference，AtomicMarkableReference，AtomicStampedReference ABA问题的解决方法 使用AtomicMarkableReference，AtomicStampedReference。使用上述两个Atomic类进行操作。他们在实现compareAndSet指令的时候除了要比较当对象的前值和预期值以外， 还要比较当前（操作的）戳值和预期（操作的）戳值，当全部相同时，compareAndSet方法才能成功。每次更新成功，戳值都会发生变化，戳值的设置是由编程人员自己控制的。
+Atomic包的相关类 AtomicBoolean
+Atomiclnteger
+AtomiclntegerArray
+AtomiclntegerFieldUpdater 原子更新整型的字段的更新器。 AtomicLong
+AtomicLongArray
+AtomicLongFieldUpdater
+AtomicMarkableReference 原子更新带有标记位的引用类型。可以原子的更新一个布尔类型的标记位和引用类型。构造方法是AtomicMarkableReference(V initialRef, boolean initialMark)
+AtomicReference 原子更新引用类型。
+AtomicReferenceArray 原子更新引用类型数组里的元素。 AtomicReferenceFieldUpdater 原子更新引用类型里的字段
+AtomicStampedReference 原子更新带有版本号的引用类型。该类将整数值与引用关联起来，可用于原子的更数据和数据的版本号，可以解决使用CAS进行原子更新时，可能出现的ABA问题。
+DoubleAccumulator （jdk1.8新增）
+DoubleAdder （jdk1.8新增）
+LongAccumulator （jdk1.8新增）
+LongAdder （jdk1.8新增）
+Striped64
+除了atomic包提供的， Java的基本类型里还有char，float和double等 如何实现Atomic包的原子性 Atomic包里的类基本都是使用Unsafe实现的，让我们一起看下Unsafe的源码，发现Unsafe只提供了三种CAS方法，compareAndSwapObject，compareAndSwapInt和compareAndSwapLong， 再看AtomicBoolean源码，发现其是先把Boolean转换成整型，再使用compareAndSwapInt进行CAS， 所以原子更新double也可以用类似的思路来实现。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pangwawa.github.io/posts/java/juc/atomic/" />
+<meta property="article:published_time" content="2019-02-08T09:31:57+08:00" />
+<meta property="article:modified_time" content="2019-02-08T09:31:57+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://pangwawa.github.io"><img class="app-header-avatar" style="border: 0.1rem none;" src="/avatar.jpg" alt="Jack Wu" /></a>
+      <h2>小吴的工作手记</h2>
+      
+      <nav  class="app-header-menu" style="font-size: 20px ;margin-top: 10px">
+        <div style="display: inline-block;">
+          <a href="/">Home</a>
+        </div>
+        <div style="display: inline-block;margin-left: 10px">
+          <a href="/tags/">Tags</a>
+        </div>
+        <div style="display: inline-block;margin-left: 10px">
+          <a href="/about/about_me/">About</a>
+        </div>
+      </nav>
+      <p>Stay hungry, stay foolish.</p>
+      <p style="">Email：jackwu1024@163.com</p>
+      
+      <div class="app-header-social" style="margin-top: 20px">
+        
+        <a target="_blank" href="https://github.com/pangwawa" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+        <a target="_blank" href="https://blog.csdn.net/Jack__iT" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Java并发编程 juc包——Atomic包</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Feb 8, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          1 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://pangwawa.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>
+              <a class="tag" href="https://pangwawa.github.io/tags/java/">Java</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h2 id="cas">CAS</h2>
+<h2 id="unsafe">unsafe</h2>
+<h2 id="atomic包">Atomic包</h2>
+<p>Atomic的核心操作就是CAS（compareandset,利用CMPXCHG指令实现，它是一个原子指令）,该指令有三个操作数，变量的内存值V（value的缩写），变量的当前预期值E（exception的缩写），
+变量想要更新的值U（update的缩写），当内存值和当前预期值相同时，将变量的更新值覆盖内存值</p>
+<p>Atomic系列的类中的核心方法都会调用unsafe类中的几个本地方法。我们需要先知道一个东西就是Unsafe类，全名为：sun.misc.Unsafe，这个类包含了大量的对C代码的操作，
+包括很多直接内存分配以及原子操作的调用，而它之所以标记为非安全的，是告诉你这个里面大量的方法调用都会存在安全隐患，需要小心使用，否则会导致严重的后果，例如在通过unsafe分配内存的时候，
+如果自己指定某些区域可能会导致一些类似C++一样的指针越界到其他进程的问题。</p>
+<p>Atomic包中的类按照操作的数据类型可以分成4组</p>
+<h3 id="atomicbooleanatomicintegeratomiclong">AtomicBoolean，AtomicInteger，AtomicLong</h3>
+<p>线程安全的基本类型的原子性操作</p>
+<h3 id="atomicintegerarrayatomiclongarrayatomicreferencearray">AtomicIntegerArray，AtomicLongArray，AtomicReferenceArray</h3>
+<p>线程安全的数组类型的原子性操作，它操作的不是整个数组，而是数组中的单个元素</p>
+<h3 id="atomiclongfieldupdateratomicintegerfieldupdateratomicreferencefieldupdater">AtomicLongFieldUpdater，AtomicIntegerFieldUpdater，AtomicReferenceFieldUpdater</h3>
+<p>基于反射原理对象中的基本类型（长整型、整型和引用类型）进行线程安全的操作</p>
+<h3 id="atomicreferenceatomicmarkablereferenceatomicstampedreference">AtomicReference，AtomicMarkableReference，AtomicStampedReference</h3>
+<h2 id="aba问题的解决方法">ABA问题的解决方法</h2>
+<p>使用AtomicMarkableReference，AtomicStampedReference。使用上述两个Atomic类进行操作。他们在实现compareAndSet指令的时候除了要比较当对象的前值和预期值以外，
+还要比较当前（操作的）戳值和预期（操作的）戳值，当全部相同时，compareAndSet方法才能成功。每次更新成功，戳值都会发生变化，戳值的设置是由编程人员自己控制的。</p>
+<h2 id="atomic包的相关类">Atomic包的相关类</h2>
+<p>AtomicBoolean</p>
+<p>Atomiclnteger</p>
+<p>AtomiclntegerArray</p>
+<p>AtomiclntegerFieldUpdater
+原子更新整型的字段的更新器。
+AtomicLong</p>
+<p>AtomicLongArray</p>
+<p>AtomicLongFieldUpdater</p>
+<p>AtomicMarkableReference
+原子更新带有标记位的引用类型。可以原子的更新一个布尔类型的标记位和引用类型。构造方法是AtomicMarkableReference(V initialRef, boolean initialMark)</p>
+<p>AtomicReference
+原子更新引用类型。</p>
+<p>AtomicReferenceArray
+原子更新引用类型数组里的元素。
+AtomicReferenceFieldUpdater
+原子更新引用类型里的字段</p>
+<p>AtomicStampedReference
+原子更新带有版本号的引用类型。该类将整数值与引用关联起来，可用于原子的更数据和数据的版本号，可以解决使用CAS进行原子更新时，可能出现的ABA问题。</p>
+<p>DoubleAccumulator  （jdk1.8新增）</p>
+<p>DoubleAdder （jdk1.8新增）</p>
+<p>LongAccumulator （jdk1.8新增）</p>
+<p>LongAdder （jdk1.8新增）</p>
+<p>Striped64</p>
+<h2 id="除了atomic包提供的-java的基本类型里还有charfloat和double等-如何实现atomic包的原子性">除了atomic包提供的， Java的基本类型里还有char，float和double等 如何实现Atomic包的原子性</h2>
+<p>Atomic包里的类基本都是使用Unsafe实现的，让我们一起看下Unsafe的源码，发现Unsafe只提供了三种CAS方法，compareAndSwapObject，compareAndSwapInt和compareAndSwapLong，
+再看AtomicBoolean源码，发现其是先把Boolean转换成整型，再使用compareAndSwapInt进行CAS，
+所以原子更新double也可以用类似的思路来实现。</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+    <p style="position: fixed; bottom: 0; width: 100%;text-align: center; color: gray; font-size: 13px;">Copyright &copy; 2020 Jack Wu All Rights Reserved.</p>
+  </body>
+</html>

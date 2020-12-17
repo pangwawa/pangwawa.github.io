@@ -9,10 +9,10 @@
     <lastBuildDate>Sun, 06 Jan 2019 09:31:57 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/tags/gc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>深入理解Java虚拟机——JVM的GC详解</title>
-      <link>https://pangwawa.github.io/posts/java/java_memory_gc/</link>
+      <link>https://pangwawa.github.io/posts/java/juc/java_memory_gc/</link>
       <pubDate>Sun, 06 Jan 2019 09:31:57 +0800</pubDate>
       
-      <guid>https://pangwawa.github.io/posts/java/java_memory_gc/</guid>
+      <guid>https://pangwawa.github.io/posts/java/juc/java_memory_gc/</guid>
       <description>JVM的GC有哪些 一、Serial收集器(jdk1.3) Serial收集器是最基本、发展历史最悠久的收集器，曾经（在JDK 1.3.1之前）是虚拟机新生代收集的唯一选择。
 特性： 这个收集器是一个单线程的收集器，但它的“单线程”的意义并不仅仅说明它只会使用一个CPU或一条收集线程去完成垃圾收集工作，更重要的是在它进行垃圾收集时，必须暂停其他所有的工作线程，直到它收集结束。Stop The World
 应用场景： Serial收集器是虚拟机运行在Client模式下的默认新生代收集器。
@@ -35,10 +35,10 @@ Server模式 如果在Server模式下，那么它主要还有两大用途：一�
     
     <item>
       <title>深入理解Java虚拟机——Java内存模型</title>
-      <link>https://pangwawa.github.io/posts/java/java_memory_model/</link>
+      <link>https://pangwawa.github.io/posts/java/juc/java_memory_model/</link>
       <pubDate>Sun, 06 Jan 2019 09:31:45 +0800</pubDate>
       
-      <guid>https://pangwawa.github.io/posts/java/java_memory_model/</guid>
+      <guid>https://pangwawa.github.io/posts/java/juc/java_memory_model/</guid>
       <description>Java内存模型 java堆 线程共享 存放对象的实例
 java堆是JVM内存管理最大的一块区域 所有对象实例与数组都要在堆上分配内存。它也是垃圾收集器的主要管理区域。java对可以处于物理上不连续的空间，只要逻辑上是连续的即可。 如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，将抛出OutOfMemoryError异常。 为了支持垃圾收集（GC），堆内存通常被分为三块区域:新生代内存(young generation)、老年代内存(old generation,jdk8移除)、永久内存(Permanent Generation for VM Matedata),一个对象被创建以后首先被放到Nursery中的Eden内存中，假设存活期超两个Survivor之后就会被转移到长时内存中(Old Generation)中;永久内存中存放着对象的方法、变量等元数据信息。
 虚拟机栈 线程私有 栈中存放一个个栈帧，每个栈帧对应一个方法。一个栈帧包括（局部变量表，操作数栈，指向当前方法所属的类的运行时常量池，方法返回地址和一些额外的附加按信息。）

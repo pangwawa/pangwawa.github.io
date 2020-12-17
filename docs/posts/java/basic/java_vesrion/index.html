@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <title>Java各个版本的特性 // 小吴的工作手记</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.76.5" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Jack Wu" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="https://pangwawa.github.io/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+    <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java各个版本的特性"/>
+<meta name="twitter:description" content="Java各个版本的特性 Java 5 1、泛型
+2、增强for循环
+3、自动装箱拆箱
+4、枚举
+5、可变参数
+6、静态导入
+7、自定义注解 关键字 @interface
+Java 6 1、集合框架增强 为了更好的支持双向访问集合。添加了许多新的类和接口。 新的数组拷贝方法。Arrays.copyOf和Arrays.copyOfRange
+2、为了更好的支持双向访问集合。添加了许多新的类和接口。 新的数组拷贝方法。Arrays.copyOf和Arrays.copyOfRange
+3、支持JDBC4.0规范
+Java 7 Swing
+新增 JLayer 类，是一个灵活而且功能强大的Swing组件修饰器，使用方法：How to Decorate Components with JLayer. Nimbus Look and Feel 外观从 com.sun.java.swing 包移到 javax.swing 包中，详情：javax.swing.plaf.nimbus 更轻松的重量级和轻量级组件的混合 支持透明窗体以及非矩形窗体的图形界面，请看 How to Create Translucent and Shaped Windows JColorChooser 类新增 HSV tab.  网络
+新增 URLClassLoader.close 方法，请看 Closing a URLClassLoader. 支持 Sockets Direct Protocol (SDP) 提供高性能网络连接，详情请看 Understanding the Sockets Direct Protocol."/>
+
+    <meta property="og:title" content="Java各个版本的特性" />
+<meta property="og:description" content="Java各个版本的特性 Java 5 1、泛型
+2、增强for循环
+3、自动装箱拆箱
+4、枚举
+5、可变参数
+6、静态导入
+7、自定义注解 关键字 @interface
+Java 6 1、集合框架增强 为了更好的支持双向访问集合。添加了许多新的类和接口。 新的数组拷贝方法。Arrays.copyOf和Arrays.copyOfRange
+2、为了更好的支持双向访问集合。添加了许多新的类和接口。 新的数组拷贝方法。Arrays.copyOf和Arrays.copyOfRange
+3、支持JDBC4.0规范
+Java 7 Swing
+新增 JLayer 类，是一个灵活而且功能强大的Swing组件修饰器，使用方法：How to Decorate Components with JLayer. Nimbus Look and Feel 外观从 com.sun.java.swing 包移到 javax.swing 包中，详情：javax.swing.plaf.nimbus 更轻松的重量级和轻量级组件的混合 支持透明窗体以及非矩形窗体的图形界面，请看 How to Create Translucent and Shaped Windows JColorChooser 类新增 HSV tab.  网络
+新增 URLClassLoader.close 方法，请看 Closing a URLClassLoader. 支持 Sockets Direct Protocol (SDP) 提供高性能网络连接，详情请看 Understanding the Sockets Direct Protocol." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pangwawa.github.io/posts/java/basic/java_vesrion/" />
+<meta property="article:published_time" content="2019-11-06T10:22:19+08:00" />
+<meta property="article:modified_time" content="2019-11-06T10:22:19+08:00" />
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://pangwawa.github.io"><img class="app-header-avatar" style="border: 0.1rem none;" src="/avatar.jpg" alt="Jack Wu" /></a>
+      <h2>小吴的工作手记</h2>
+      
+      <nav  class="app-header-menu" style="font-size: 20px ;margin-top: 10px">
+        <div style="display: inline-block;">
+          <a href="/">Home</a>
+        </div>
+        <div style="display: inline-block;margin-left: 10px">
+          <a href="/tags/">Tags</a>
+        </div>
+        <div style="display: inline-block;margin-left: 10px">
+          <a href="/about/about_me/">About</a>
+        </div>
+      </nav>
+      <p>Stay hungry, stay foolish.</p>
+      <p style="">Email：jackwu1024@163.com</p>
+      
+      <div class="app-header-social" style="margin-top: 20px">
+        
+        <a target="_blank" href="https://github.com/pangwawa" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg></a>
+        
+        <a target="_blank" href="https://blog.csdn.net/Jack__iT" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Java各个版本的特性</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Nov 6, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
+  <title>tag</title>
+  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line>
+</svg>
+              <a class="tag" href="https://pangwawa.github.io/tags/java/">Java</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h2 id="java各个版本的特性">Java各个版本的特性</h2>
+<h4 id="java-5">Java 5</h4>
+<p>1、泛型</p>
+<p>2、增强for循环</p>
+<p>3、自动装箱拆箱</p>
+<p>4、枚举</p>
+<p>5、可变参数</p>
+<p>6、静态导入</p>
+<p>7、自定义注解 关键字 @interface</p>
+<h4 id="java-6">Java 6</h4>
+<p>1、集合框架增强
+为了更好的支持双向访问集合。添加了许多新的类和接口。
+新的数组拷贝方法。Arrays.copyOf和Arrays.copyOfRange</p>
+<p>2、为了更好的支持双向访问集合。添加了许多新的类和接口。
+新的数组拷贝方法。Arrays.copyOf和Arrays.copyOfRange</p>
+<p>3、支持JDBC4.0规范</p>
+<h4 id="java-7">Java 7</h4>
+<p>Swing</p>
+<pre><code>新增 JLayer 类，是一个灵活而且功能强大的Swing组件修饰器，使用方法：How to Decorate Components with JLayer.
+Nimbus Look and Feel 外观从 com.sun.java.swing 包移到 javax.swing 包中，详情：javax.swing.plaf.nimbus
+更轻松的重量级和轻量级组件的混合
+支持透明窗体以及非矩形窗体的图形界面，请看 How to Create Translucent and Shaped Windows
+JColorChooser 类新增 HSV tab.
+</code></pre>
+<p>网络</p>
+<pre><code>新增 URLClassLoader.close 方法，请看 Closing a URLClassLoader.
+支持 Sockets Direct Protocol (SDP) 提供高性能网络连接，详情请看 Understanding the Sockets Direct Protocol.
+</code></pre>
+<p>集合</p>
+<pre><code>新增 TransferQueue 接口，是 BlockingQueue 的改进版，实现类为 LinkedTransferQueue
+</code></pre>
+<p>RIA/发布</p>
+<pre><code>拖拽的小程序使用一个默认或者定制的标题进行修饰
+</code></pre>
+<p>XML</p>
+<pre><code>包含 Java API for XML Processing (JAXP) 1.4.5, 支持 Java Architecture for XML Binding (JAXB) 2.2.3, 和 Java API for XML Web Services (JAX-WS) 2.2.4.
+</code></pre>
+<p>java.lang 包</p>
+<pre><code>消除了在多线程环境下的非层次话类加载时导致的潜在死锁，详情：Multithreaded Custom Class Loaders in Java SE 7.
+</code></pre>
+<p>Java 虚拟机</p>
+<pre><code>支持非 Java 语言: Java SE 7 引入一个新的 JVM 指令用于简化实现动态类型编程语言
+Garbage-First Collector 是一个服务器端的垃圾收集器用于替换 Concurrent Mark-Sweep Collector (CMS).
+提升了 Java HotSpot 虚拟机的性能
+</code></pre>
+<p>Java I/O</p>
+<pre><code>java.nio.file 包以及相关的包 java.nio.file.attribute 提供对文件 I/O 以及访问文件系统的全面支持，请看 File I/O (featuring NIO.2).
+目录 /sample/nio/chatserver/ 包含使用 java.nio.file 包的演示程序
+目录 /demo/nio/zipfs/ 包含 NIO.2 NFS 文件系统的演示程序
+</code></pre>
+<p>安全性</p>
+<pre><code>新的内置对多个基于 ECC 算法(ECDSA/ECDH)的支持，详情请看：Sun PKCS#11 Provider's Supported Algorithms in Java PKCS#11 Reference Guide.
+禁用了一些弱加密算法，详情请看 Appendix D: Disabling Cryptographic Algorithms in Java PKI Programmer's Guide and Disabled Cryptographic Algorithms in Java Secure Socket Extension (JSSE) Reference Guide.
+Java 安全套接字扩展中对 SSL/TLS 的增强
+</code></pre>
+<p>并发</p>
+<pre><code>fork/join 框架，基于 ForkJoinPool 类，是 Executor 接口的实现，设计它用来进行高效的运行大量任务；使用 work-stealing 技术用来保证大量的 worker 线程工作，特别适合多处理器环境，详情请看 Fork/Join目录/sample/forkjoin/ 包含了 fork/join 框架的演示程序
+ThreadLocalRandom 类class 消除了使用伪随机码线程的竞争，请看 Concurrent Random Numbers.
+Phaser 类是一个新的同步的屏障，与 CyclicBarrier 类似.Java 2D
+一个新的基于 XRender 的 Java 2D 渲染管道支持现在的 X11 桌面，改善了图形性能，请看 System Properties for Java 2D Technology 中的 xrender .
+JDK 可枚举并显示出已安装的 OpenType/CFF 字体，通过 GraphicsEnvironment.getAvailableFontFamilyNames 方法 See Selecting a Font.
+TextLayout 类支持西藏语脚本
+libfontconfig, 是一个字体配置 api ，see Fontconfig.
+</code></pre>
+<p>国际化</p>
+<pre><code>支持 Unicode 6.0.0目录 /demo/jfc/Font2DTest/ 包含 Unicode 6.0 的演示程序Java SE 7 可容纳在 ISO 4217 中新的货币，详情请看 Currency 类.
+</code></pre>
+<p>Java 编程语言特性</p>
+<pre><code>二进制数字表达方式
+使用下划线对数字进行分隔表达，例如 1_322_222
+switch 语句支持字符串变量
+泛型实例创建的类型推断
+使用可变参数时，提升编译器的警告和错误信息
+try-with-resources 语句
+同时捕获多个异常处理
+</code></pre>
+<p>JDBC 4.1
+支持使用 try-with-resources 语句进行自动的资源释放，包括连接、语句和结果集
+支持 RowSet 1.1</p>
+<h4 id="java-8">Java 8</h4>
+<p>1、lambada表达式(Lambda Expressions)。Lambda允许把函数作为一个方法的参数（函数作为参数传递进方法中)。</p>
+<p>2、方法引用（Method references）。方法引用提供了非常有用的语法，可以直接引用已有Java类或对象（实例）的方法或构造器。与lambda联合使用，可以使语言的构造更紧凑简洁，减少冗余代码。</p>
+<p>3、默认方法（Default methods）。默认方法允许将新功能添加到库的接口中，并确保兼容实现老版本接口的旧有代码。</p>
+<p>4、重复注解（Repeating Annotations）。重复注解提供了在同一声明或类型中多次应用相同注解类型的能力。</p>
+<p>5、类型注解（Type Annotation）。在任何地方都能使用注解，而不是在声明的地方。</p>
+<p>6、类型推断增强。</p>
+<p>7、方法参数反射（Method Parameter Reflection）。</p>
+<p>8、Stream API 。新添加的Stream API（java.util.stream） 把真正的函数式编程风格引入到Java中。Stream API集成到了Collections API里。</p>
+<p>9、HashMap改进，在键值哈希冲突时能有更好表现。</p>
+<p>10、Date Time API。加强对日期和时间的处理。LocateDateTime</p>
+<p>11、java.util 包下的改进，提供了几个实用的工具类。</p>
+<p>并行数组排序。
+标准的Base64编解码。
+支持无符号运算。</p>
+<p>12.java.util.concurrent 包下增加了新的类和方法。</p>
+<pre><code>java.util.concurrent.ConcurrentHashMap 类添加了新的方法以支持新的StreamApi和lambada表达式。
+java.util.concurrent.atomic 包下新增了类以支持可伸缩可更新的变量。
+java.util.concurrent.ForkJoinPool类新增了方法以支持 common pool。
+新增了java.util.concurrent.locks.StampedLock类，为控制读/写访问提供了一个基于性能的锁，且有三种模式可供选择。  
+</code></pre>
+<p>13.HotSpot</p>
+<p>删除了 永久代（PermGen）.
+方法调用的字节码指令支持默认方法。</p>
+<p>使用Metaspace（JEP 122）代替持久代（PermGen space）。在JVM参数方面，使用-XX:MetaSpaceSize和-XX:MaxMetaspaceSize代替原来的-XX:PermSize和-XX:MaxPermSize</p>
+<h4 id="java-9-新特性">Java 9 新特性</h4>
+<p>1、模块系统  JPMS</p>
+<p>2、G1 成为默认垃圾回收器</p>
+<p>3、HTTP/2 Client</p>
+<p>4、JShell</p>
+<p>5、集合相关，更便捷的方法</p>
+<p>6、Process API Updates</p>
+<p>7、Stack-Walking API</p>
+<p>8、Variable Handles</p>
+<p>9、Docker方面支持</p>
+<h4 id="java-10-新特性">Java 10 新特性</h4>
+<p>1、var 局部变量类型推断。</p>
+<p>2、统一的 GC 接口</p>
+<p>3、 应用程序类数据（AppCDS）共享</p>
+<ol start="4">
+<li>JEP314，使用附加的 Unicode 语言标记扩展。</li>
+</ol>
+<h4 id="java-11-新特性">Java 11 新特性</h4>
+<p>局部类型推断</p>
+<p>集合、字符串新API</p>
+<p>HTTP API</p>
+<p>Epsilon垃圾收集器
+JDK上对这个特性的描述是：开发一个处理内存分配但不实现任何实际内存回收机制的GC，一旦可用堆内存用完，JVM就会退出。</p>
+<pre><code>性能测试(它可以帮助过滤掉GC引起的性能假象)
+内存压力测试
+非常短的JOB任务
+VM接口测试
+</code></pre>
+<p>ZGC 垃圾回收器</p>
+<pre><code>GC暂停时间不会超过10毫秒
+既能处理几百兆的小堆，也能处理几个T的大堆
+和G1相比，应用吞吐能力不会下降超过15%
+为未来的GC功能和利用colord指针以及Load barriers优化奠定了基础
+</code></pre>
+<p>ZGC是一个并发、基于region、压缩型的垃圾收集器，只有root扫描阶段会STW(strop the world，停止所有线程)，因此ZGC的停顿时间不会随着堆的增长和存活对象的增长而变长。
+用法：-XX:UnlockExperimentalVMOptions -XX:+UseZGC
+虽然功能如此强大，但很遗憾的是，在Windows系统的JDK中并没有提供ZGC</p>
+<p>Flight Recorder</p>
+<p>这是一个记录仪，用于诊断程序运行过程，那么在之前这是一个商业版的特性，是要收费的，从Java11开始，Fight Recorder免费提供使用并开源。它可以导出事件到文件中，
+之后可以用Java Mission Control来分析，也可以在应用启动时配置java -XX:StartFlightRecording或者在应用启动之后使用jcmd来录制，</p>
+<h4 id="java-12-新特性">Java 12 新特性</h4>
+<p>1、switch表达式</p>
+<p>2 默认CDS归档</p>
+<p>3 Shenandoah GC</p>
+<p>Shenandoah是一种垃圾收集（GC）算法，旨在保证低延迟（10 - 500 ms的下限）。 它通过在运行Java工作线程的同时执行GC操作减少GC暂停时间。
+使用Shenandoah，暂停时间不依赖于堆的大小。 这意味着无论堆的大小如何，暂停时间都是差不多的。
+这是一个实验性功能，不包含在默认（Oracle）的OpenJDK版本中。</p>
+<p>4 JMH 基准测试</p>
+<p>此功能为JDK源代码添加了一套微基准测试（大约100个），简化了现有微基准测试的运行和新基准测试的创建过程。 它基于Java Microbenchmark Harness（JMH）并支持JMH更新。</p>
+<p>此功能使开发人员可以轻松运行当前的微基准测试并为JDK源代码添加新的微基准测试。 可以基于Java Microbenchmark Harness（JMH）轻松测试JDK性能。 它将支持JMH更新，并在套件中包含一组（约100个）基准测试。</p>
+<p>5 JVM 常量 API</p>
+<p>JEP 334引入了一个API，用于建模关键类文件和运行时artifacts，例如常量池。 此API将包括ClassDesc，MethodTypeDesc，MethodHandleDesc和DynamicConstantDesc等类。此 API 对于操作类和方法的工具很有帮助。</p>
+<p>6 G1的可中断 mixed GC</p>
+<p>此功能通过将Mixed GC集拆分为强制部分和可选部分，使G1垃圾收集器更有效地中止垃圾收集过程。通过允许垃圾收集过程优先处理强制集，g1可以更多满足满足暂停时间目标。</p>
+<p>G1是一个垃圾收集器，设计用于具有大量内存的多处理器机器。由于它提高了性能效率，g1垃圾收集器最终将取代cms垃圾收集器。</p>
+<p>G1垃圾收集器的主要目标之一是满足用户设置的暂停时间。G1采用一个分析引擎来选择在收集期间要处理的工作量。此选择过程的结果是一组称为GC集的区域。一旦GC集建立并且GC已经开始，那么G1就无法停止。</p>
+<p>如果G1发现GC集选择选择了错误的区域，它会将GC区域的拆分为两部分（强制部分和可选部分）来切换到处理Mix GC的增量模式。如果未达到暂停时间目标，则停止对可选部分的垃圾收集。</p>
+<p>7 G1归还不使用的内存</p>
+<p>此功能的主要目标是改进G1垃圾收集器，以便在不活动时将Java堆内存归还给操作系统。 为实现此目标，G1将在低应用程序活动期间定期生成或持续循环检查完整的Java堆使用情况。</p>
+<p>这将立即归还未使用的部分Java堆内存给操作系统。 用户可以选择执行FULL GC以最大化返回的内存量。</p>
+<p>8 移除多余ARM64实现</p>
+<p>Java 12将只有一个ARM 64位实现（aarch64）。 目标是删除所有与arm64实现相关的代码，同时保留32位ARM端口和64位aarch64实现。</p>
+<p>这将把重点转移到单个64位ARM实现，并消除维护两个实现所需的重复工作。 当前的JDK 11实现中有两个64位ARM实现。</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+    <p style="position: fixed; bottom: 0; width: 100%;text-align: center; color: gray; font-size: 13px;">Copyright &copy; 2020 Jack Wu All Rights Reserved.</p>
+  </body>
+</html>

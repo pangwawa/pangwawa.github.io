@@ -552,10 +552,10 @@ and lived to 90 years.
     
     <item>
       <title>Java各个版本的特性</title>
-      <link>https://pangwawa.github.io/posts/java/java_vesrion/</link>
+      <link>https://pangwawa.github.io/posts/java/basic/java_vesrion/</link>
       <pubDate>Wed, 06 Nov 2019 10:22:19 +0800</pubDate>
       
-      <guid>https://pangwawa.github.io/posts/java/java_vesrion/</guid>
+      <guid>https://pangwawa.github.io/posts/java/basic/java_vesrion/</guid>
       <description>Java各个版本的特性 Java 5 1、泛型
 2、增强for循环
 3、自动装箱拆箱
@@ -572,11 +572,131 @@ Java 7 Swing
     </item>
     
     <item>
+      <title>Java并发编程 juc包——ForkJoin</title>
+      <link>https://pangwawa.github.io/posts/java/juc/forkjoin/</link>
+      <pubDate>Mon, 18 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/java/juc/forkjoin/</guid>
+      <description>ForkJoin 特性 使用 提供两个抽象类继承ForkJoinTask ，分别是RecursiveAction和RecursiveTask.他们的区别在于：RecursiveTask有返回值，RecursiveAction无返回值。 ForkJoinPool pool = new ForkJoinPool();
+ForkJoinPool的submit、invoke和execute的区别
+execute 异步执行tasks，没有返回结果 submit会把任务对象本身返回，返回后我们可以通过get()获取方法执行结果，带Task返回值，可通过task.get 实现同步到主线程</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程 juc包——线程池</title>
+      <link>https://pangwawa.github.io/posts/java/juc/threadpool/</link>
+      <pubDate>Sun, 17 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/java/juc/threadpool/</guid>
+      <description>线程池 JUC Executors 通过JUC的ThreadPoolExecutor类创建各种类型线程池，包括了
+Executors.newCachedThreadPool(); 可缓存的线程池，可以进行缓存的线程池，意味着它的线程数是最大的，无限的。但是核心线程数为 0，这没关系。这里要考虑线程的摧毁，因为不能够无限的创建新的线程，所以在一定时间内要摧毁空闲的线程。
+ public static ExecutorService newCachedThreadPool() {return new ThreadPoolExecutor(0, Integer.MAX_VALUE,60L, TimeUnit.SECONDS,new SynchronousQueue&amp;lt;Runnable&amp;gt;());}public static ExecutorService newCachedThreadPool(ThreadFactory threadFactory) {return new ThreadPoolExecutor(0, Integer.MAX_VALUE,60L, TimeUnit.SECONDS,new SynchronousQueue&amp;lt;Runnable&amp;gt;(),threadFactory);}Executors.newFixedThreadPool(); 传入一个固定的核心线程数，并且核心线程数等于最大线程数，而且它们的线程数存活时间都是无限的
+ public static ExecutorService newFixedThreadPool(int nThreads) {return new ThreadPoolExecutor(nThreads, nThreads,0L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue&amp;lt;Runnable&amp;gt;());} public static ExecutorService newFixedThreadPool(int nThreads, ThreadFactory threadFactory) {return new ThreadPoolExecutor(nThreads, nThreads,0L, TimeUnit.</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程 juc包——并发容器</title>
+      <link>https://pangwawa.github.io/posts/java/juc/concurrent_container/</link>
+      <pubDate>Sun, 10 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/java/juc/concurrent_container/</guid>
+      <description>容器的线程安全
+同步容器 同步容器可实现线程安全 ArrayList Vector（使用synchronized实现线程安全） , Stack （使用synchronized实现线程安全） HashMap HashTable （使用synchronized修饰，线程安全，key,value不能为空） Collections.synchronizedXXX（如Set，Map）来实现线程安全
+并发容器J.U.C AQS ——AbstractQueuedSynchronizedr，提供基于FIFO的队列，双向链表实现队列 Java.util.concurrent包的 ArrayList CopyOnWriteArrayList 线程安全，1、消耗内存2、不能用于实时读场景，更适合读多写少的场景，读写分离，最终一致性， HashSet TreeSet CopyOnWriteArraySet ConcurrentSkipListSet
+HashMap,TreeMap ConcurrentHashMap（速度快，支持更快并发）, ConcurrentSkipListMap（key排序）
+安全共享对象的策略 1、线程安全对象 2、被守护对象 3、线程限制 4、共享只读
+AQS并发容器的同步器，AbstractQueuedSynchronizer 使用Node实现FIFO队列 利用int类型表示状态 使用方法是继承 排它锁和共享锁
+HashMap的底层原理 ConcurrentHashMap的底层原理 </description>
+    </item>
+    
+    <item>
+      <title>Java并发编程 juc包——Atomic包</title>
+      <link>https://pangwawa.github.io/posts/java/juc/atomic/</link>
+      <pubDate>Fri, 08 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/java/juc/atomic/</guid>
+      <description>CAS unsafe Atomic包 Atomic的核心操作就是CAS（compareandset,利用CMPXCHG指令实现，它是一个原子指令）,该指令有三个操作数，变量的内存值V（value的缩写），变量的当前预期值E（exception的缩写）， 变量想要更新的值U（update的缩写），当内存值和当前预期值相同时，将变量的更新值覆盖内存值
+Atomic系列的类中的核心方法都会调用unsafe类中的几个本地方法。我们需要先知道一个东西就是Unsafe类，全名为：sun.misc.Unsafe，这个类包含了大量的对C代码的操作， 包括很多直接内存分配以及原子操作的调用，而它之所以标记为非安全的，是告诉你这个里面大量的方法调用都会存在安全隐患，需要小心使用，否则会导致严重的后果，例如在通过unsafe分配内存的时候， 如果自己指定某些区域可能会导致一些类似C++一样的指针越界到其他进程的问题。
+Atomic包中的类按照操作的数据类型可以分成4组
+AtomicBoolean，AtomicInteger，AtomicLong 线程安全的基本类型的原子性操作
+AtomicIntegerArray，AtomicLongArray，AtomicReferenceArray 线程安全的数组类型的原子性操作，它操作的不是整个数组，而是数组中的单个元素
+AtomicLongFieldUpdater，AtomicIntegerFieldUpdater，AtomicReferenceFieldUpdater 基于反射原理对象中的基本类型（长整型、整型和引用类型）进行线程安全的操作
+AtomicReference，AtomicMarkableReference，AtomicStampedReference ABA问题的解决方法 使用AtomicMarkableReference，AtomicStampedReference。使用上述两个Atomic类进行操作。他们在实现compareAndSet指令的时候除了要比较当对象的前值和预期值以外， 还要比较当前（操作的）戳值和预期（操作的）戳值，当全部相同时，compareAndSet方法才能成功。每次更新成功，戳值都会发生变化，戳值的设置是由编程人员自己控制的。
+Atomic包的相关类 AtomicBoolean
+Atomiclnteger
+AtomiclntegerArray
+AtomiclntegerFieldUpdater 原子更新整型的字段的更新器。 AtomicLong
+AtomicLongArray
+AtomicLongFieldUpdater
+AtomicMarkableReference 原子更新带有标记位的引用类型。可以原子的更新一个布尔类型的标记位和引用类型。构造方法是AtomicMarkableReference(V initialRef, boolean initialMark)
+AtomicReference 原子更新引用类型。
+AtomicReferenceArray 原子更新引用类型数组里的元素。 AtomicReferenceFieldUpdater 原子更新引用类型里的字段
+AtomicStampedReference 原子更新带有版本号的引用类型。该类将整数值与引用关联起来，可用于原子的更数据和数据的版本号，可以解决使用CAS进行原子更新时，可能出现的ABA问题。
+DoubleAccumulator （jdk1.8新增）
+DoubleAdder （jdk1.8新增）
+LongAccumulator （jdk1.8新增）
+LongAdder （jdk1.8新增）
+Striped64
+除了atomic包提供的， Java的基本类型里还有char，float和double等 如何实现Atomic包的原子性 Atomic包里的类基本都是使用Unsafe实现的，让我们一起看下Unsafe的源码，发现Unsafe只提供了三种CAS方法，compareAndSwapObject，compareAndSwapInt和compareAndSwapLong， 再看AtomicBoolean源码，发现其是先把Boolean转换成整型，再使用compareAndSwapInt进行CAS， 所以原子更新double也可以用类似的思路来实现。</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程 juc包——AQS</title>
+      <link>https://pangwawa.github.io/posts/java/juc/aqs/</link>
+      <pubDate>Wed, 06 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/java/juc/aqs/</guid>
+      <description>AQS AbstractQueuedSynchronizer,抽象的队列式同步器。是除了java自带的synchronized关键字之外的锁机制
+使用Node实现FIFO队列 利用int类型表示状态 使用方法是继承 排它锁和共享锁
+核心思想是，如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的工作线程，并将共享资源设置为锁定状态，如果被请求的共享资源被占用，那么就需要一套线程阻塞等待以及被唤醒时锁分配的机制， 这个机制AQS是用CLH队列锁实现的，即将暂时获取不到锁的线程加入到队列中。 CLH（Craig，Landin，and Hagersten）队列是一个虚拟的双向队列，虚拟的双向队列即不存在队列实例，仅存在节点之间的关联关系。 AQS是将每一条请求共享资源的线程封装成一个CLH锁队列的一个结点（Node），来实现锁的分配。
+用大白话来说，AQS就是基于CLH队列，用volatile修饰共享变量state，线程通过CAS去改变状态符，成功则获取锁成功，失败则进入等待队列，等待被唤醒。
+**注意：AQS是自旋锁： **在等待唤醒的时候，经常会使用自旋（while(!cas())）的方式，不停地尝试获取锁，直到被其他线程获取成功
+实现了AQS的锁有：自旋锁、互斥锁、读锁写锁、条件产量、信号量、栅栏都是AQS的衍生物
+另外 AQS 还维护了一个很重要的变量exclusiveOwnerThread，它表示的是获得锁的线程，也叫独占线程。AQS中还有一个用来存储获取锁失败线程的队列，以及head 和 tail 结点
+AQS构建锁和其他同步组件 CountDownLatch （计数器，执行countDown方法后会减一，await()方法保证countDown减为0） CountDownLatch latch=new CountDownLatch(100); latch.countDown(); latch.await();
+同步辅助类，非常实用的多线程控制工具类， CountDownLatch(int count) //实例化一个倒计数器，count指定计数个数 countDown() // 计数减一 await() //等待，当计数减到0时，所有线程并行执行
+Semaphore信号量 控制同时并发访问的个数 final Semaphore semaphore=new Semaphore(3); semaphore.acquire(3); semaphore.release(3);
+semaphore.tryAcquire(3，……);尝试获取许可，能获取则执行，设置等待时间和获取个数
+CyclicBarrier 设置计数器等待其他符合数量条件线程就绪再继续执行之后的操作，可循环使用
+ReentrantLock与锁 可重入锁，JDK实现，对指定代码枷锁 与synchronized锁的区别
+public class ReentrantLockExample { //请求总数 private static int clientcount=5000; //并发数 public static int threadTotal=200; //计数器 public static int count=0;</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程——synchronized关键字</title>
+      <link>https://pangwawa.github.io/posts/java/synchronized/</link>
+      <pubDate>Wed, 06 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/java/synchronized/</guid>
+      <description>CAS CAS : compare and swap 或者 compare and exchange 比较交换。 当我们需要对内存中的数据进行修改操作时，为了避免多线程并发修改的情况，我们在对他进行修改操作前，先读取他原来的值E，然后进行计算得出新的的值V，在修改前去比较当前内存中的值N是否和我之前读到的E相同， 如果相同，认为其他线程没有修改过内存中的值，如果不同，说明被其他线程修改了，这时，要继续循环去获取最新的值E，再进行计算和比较，直到我们预期的值和当前内存中的值相等时，再对数据执行修改操作。
+synchronize synchronize具有原子性、有序性、可见性和可重入性 有序性： synchronized和volatile都具有有序性 有序性： synchronized和volatile都具有可见性 原子性： volatile不具备原子性
+synchronize 锁的实现 synchronized有两种形式上锁，一个是对方法上锁，一个是构造同步代码块。他们的底层实现其实都一样，在进入同步代码之前先获取锁，获取到锁之后锁的计数器+1， 同步代码执行完锁的计数器-1，如果获取失败就阻塞式等待锁的释放
+在JVM中，对象是分成三部分存在的：对象头、实例数据、对其填充
+对象头是我们需要关注的重点，它是synchronized实现锁的基础，因为synchronized申请锁、上锁、释放锁都与对象头有关。对象头主要结构是由Mark Word 和 Class Metadata Address组成， 其中Mark Word存储对象的hashCode、锁信息或分代年龄或GC标志等信息，Class Metadata Address是类型指针指向对象的类元数据，JVM通过该指针确定该对象是哪个类的实例。
+锁也分不同状态，JDK6之前只有两个状态：无锁、有锁（重量级锁），而在JDK6之后对synchronized进行了优化，新增了两种状态，总共就是四个状态：无锁状态、偏向锁、轻量级锁、重量级锁， 其中无锁就是一种状态了。锁的类型和状态在对象头Mark Word中都有记录，在申请锁、锁升级等过程中JVM都需要读取对象的Mark Word数据。
+每一个锁都对应一个monitor对象，在HotSpot虚拟机中它是由ObjectMonitor实现的（C++实现）。每个对象都存在着一个monitor与之关联，对象与其monitor之间的关系有存在多种实现方式， 如monitor可以与对象一起创建销毁或当线程试图获取对象锁时自动生成，但当一个monitor被某个线程持有后，它便处于锁定状态。
+在jdk6的时候，新增了两个锁状态，通过锁消除、锁粗化、自旋锁等方法使用各种场景，给synchronized性能带来了很大的提升。
+锁状态 无锁状态、偏向锁（单线程多次申请同一锁对象）、轻量级锁（第二个线程申请同一锁对象交替进行而不是同时进行）、重量级锁（同一时间多个线程申请，）
+锁膨胀
+上面讲到锁有四种状态，并且会因实际情况进行膨胀升级，其膨胀方向是：无锁——&amp;gt;偏向锁——&amp;gt;轻量级锁——&amp;gt;重量级锁，并且膨胀方向不可逆。
+偏向锁
+一句话总结它的作用：减少统一线程获取锁的代价。在大多数情况下，锁不存在多线程竞争，总是由同一线程多次获得，那么此时就是偏向锁。
+核心思想：如果一个线程获得了锁，那么锁就进入偏向模式，此时Mark Word的结构也就变为偏向锁结构，当该线程再次请求锁时，无需再做任何同步操作，即获取锁的过程只需要检查Mark Word的锁标记位为偏向锁以及当前线程ID等于Mark Word的ThreadID即可，这样就省去了大量有关锁申请的操作。获取过程当一个线程访问同步块时，会先判断锁标志位是否为01，如果是01，则判断是否为偏向锁，如果是，会先判断当前锁对象头中是否存储了当前的线程id，如果存储了，则直接获得锁。如果对象头中指向不是当前线程id，则通过CAS尝试将自己的线程id存储进当前锁对象的对象头中来获取偏向锁。当cas尝试获取偏向锁成功后则继续执行同步代码块，否则等待安全点的到来撤销原来线程的偏向锁，撤销时需要暂停原持有偏向锁的线程，判断线程是否活动状态，如果已经退出同步代码块则唤醒新的线程开始获取偏向锁，否则开始锁竞争进行锁升级过程，升级为轻量级锁。 轻量级锁
+轻量级锁是由偏向锁升级而来，当存在第二个线程申请同一个锁对象时，偏向锁就会立即升级为轻量级锁。注意这里的第二个线程只是申请锁，不存在两个线程同时竞争锁，可以是一前一后地交替执行同步块。
+锁消除 JVM对运行上下文进行扫描，去除不可能存在竞争的锁
+锁粗化 锁粗化是虚拟机对另一种极端情况的优化处理，通过扩大锁的范围，避免反复加锁和释放锁。比如下面method3经过锁粗化优化之后就和method4执行效率一样了
+自旋锁与自适应锁
+轻量级锁失败后，虚拟机为了避免线程真实地在操作系统层面挂起，还会进行一项称为自旋锁的优化手段。
+自旋锁：许多情况下，共享数据的锁定状态持续时间较短，切换线程不值得，通过让线程执行循环等待锁的释放，不让出CPU。如果得到锁，就顺利进入临界区。如果还不能获得锁，那就会将线程在操作系统层面挂起，这就是自旋锁的优化方式。但是它也存在缺点：如果锁被其他线程长时间占用，一直不释放CPU，会带来许多的性能开销。
+自适应自旋锁：这种相当于是对上面自旋锁优化方式的进一步优化，它的自旋的次数不再固定，其自旋的次数由前一次在同一个锁上的自旋时间及锁的拥有者的状态来决定，这就解决了自旋锁带来的缺点。</description>
+    </item>
+    
+    <item>
       <title>深入理解Java虚拟机——JVM的GC详解</title>
-      <link>https://pangwawa.github.io/posts/java/java_memory_gc/</link>
+      <link>https://pangwawa.github.io/posts/java/juc/java_memory_gc/</link>
       <pubDate>Sun, 06 Jan 2019 09:31:57 +0800</pubDate>
       
-      <guid>https://pangwawa.github.io/posts/java/java_memory_gc/</guid>
+      <guid>https://pangwawa.github.io/posts/java/juc/java_memory_gc/</guid>
       <description>JVM的GC有哪些 一、Serial收集器(jdk1.3) Serial收集器是最基本、发展历史最悠久的收集器，曾经（在JDK 1.3.1之前）是虚拟机新生代收集的唯一选择。
 特性： 这个收集器是一个单线程的收集器，但它的“单线程”的意义并不仅仅说明它只会使用一个CPU或一条收集线程去完成垃圾收集工作，更重要的是在它进行垃圾收集时，必须暂停其他所有的工作线程，直到它收集结束。Stop The World
 应用场景： Serial收集器是虚拟机运行在Client模式下的默认新生代收集器。
@@ -599,10 +719,10 @@ Server模式 如果在Server模式下，那么它主要还有两大用途：一�
     
     <item>
       <title>深入理解Java虚拟机——Java内存模型</title>
-      <link>https://pangwawa.github.io/posts/java/java_memory_model/</link>
+      <link>https://pangwawa.github.io/posts/java/juc/java_memory_model/</link>
       <pubDate>Sun, 06 Jan 2019 09:31:45 +0800</pubDate>
       
-      <guid>https://pangwawa.github.io/posts/java/java_memory_model/</guid>
+      <guid>https://pangwawa.github.io/posts/java/juc/java_memory_model/</guid>
       <description>Java内存模型 java堆 线程共享 存放对象的实例
 java堆是JVM内存管理最大的一块区域 所有对象实例与数组都要在堆上分配内存。它也是垃圾收集器的主要管理区域。java对可以处于物理上不连续的空间，只要逻辑上是连续的即可。 如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，将抛出OutOfMemoryError异常。 为了支持垃圾收集（GC），堆内存通常被分为三块区域:新生代内存(young generation)、老年代内存(old generation,jdk8移除)、永久内存(Permanent Generation for VM Matedata),一个对象被创建以后首先被放到Nursery中的Eden内存中，假设存活期超两个Survivor之后就会被转移到长时内存中(Old Generation)中;永久内存中存放着对象的方法、变量等元数据信息。
 虚拟机栈 线程私有 栈中存放一个个栈帧，每个栈帧对应一个方法。一个栈帧包括（局部变量表，操作数栈，指向当前方法所属的类的运行时常量池，方法返回地址和一些额外的附加按信息。）
