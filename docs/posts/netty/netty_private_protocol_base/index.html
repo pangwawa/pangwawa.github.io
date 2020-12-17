@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hans">
   <head>
-    <title>Netty进阶——基于Netty协议栈进行私有协议的定制开发  // 小吴的工作手记</title>
+    <title>Netty进阶——基于Netty协议栈进行Protobuf私有协议的定制开发  // 小吴的工作手记</title>
     <meta charset="utf-8" />
     <meta name="generator" content="Hugo 0.76.5" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,7 +11,7 @@
     <link rel="Shortcut Icon" href="favicon.ico" type="image/x-icon" />
     
     <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Netty进阶——基于Netty协议栈进行私有协议的定制开发 "/>
+<meta name="twitter:title" content="Netty进阶——基于Netty协议栈进行Protobuf私有协议的定制开发 "/>
 <meta name="twitter:description" content="私有协议栈和Netty协议栈 绝大多数数私有协议的传输层是基于TCP/IP，利用Netty的TCP/IP协议栈可以非常方便的进行私有协议栈的定制开发
 Netty协议栈用于内部各模块间的通信，基于TCP/IP协议，是个类HTTP协议的应用层协议栈，比传统的标准协议栈更轻巧灵活和实用
 Netty协议栈承载了业务内部各模块之间的消息交互和服务调用，它的主要功能如下。 (1）基于Netty 的NIO通信框架，提供高性能的异步通信能力; (2）提供消息的编解码框架，可以实现POJO的序列化和反序列化; (3)提供基于IP地址的白名单接入认证机制; (4）链路的有效性校验机制; (5)链路的断连重连机制。
@@ -24,7 +24,7 @@ type : Byte 8
 attachment : Map&lt;String , Object&gt; 可选字段，用于扩展请求头
 body Object 消息体， 对于请求消息，是参数数据，对于相应消息，是返回的数据"/>
 
-    <meta property="og:title" content="Netty进阶——基于Netty协议栈进行私有协议的定制开发 " />
+    <meta property="og:title" content="Netty进阶——基于Netty协议栈进行Protobuf私有协议的定制开发 " />
 <meta property="og:description" content="私有协议栈和Netty协议栈 绝大多数数私有协议的传输层是基于TCP/IP，利用Netty的TCP/IP协议栈可以非常方便的进行私有协议栈的定制开发
 Netty协议栈用于内部各模块间的通信，基于TCP/IP协议，是个类HTTP协议的应用层协议栈，比传统的标准协议栈更轻巧灵活和实用
 Netty协议栈承载了业务内部各模块之间的消息交互和服务调用，它的主要功能如下。 (1）基于Netty 的NIO通信框架，提供高性能的异步通信能力; (2）提供消息的编解码框架，可以实现POJO的序列化和反序列化; (3)提供基于IP地址的白名单接入认证机制; (4）链路的有效性校验机制; (5)链路的断连重连机制。
@@ -61,7 +61,7 @@ body Object 消息体， 对于请求消息，是参数数据，对于相应消�
       </nav>
       <p>Stay hungry, stay foolish.</p>
       <p style="">Email：jackwu1024@163.com</p>
-      <img  src="/wechat.jpg" alt="扫一扫添加博主微信" />
+      
       <div class="app-header-social" style="margin-top: 20px">
         
         <a target="_blank" href="https://github.com/pangwawa" rel="noreferrer noopener"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
@@ -80,7 +80,7 @@ body Object 消息体， 对于请求消息，是参数数据，对于相应消�
       
   <article class="post">
     <header class="post-header">
-      <h1 class ="post-title">Netty进阶——基于Netty协议栈进行私有协议的定制开发 </h1>
+      <h1 class ="post-title">Netty进阶——基于Netty协议栈进行Protobuf私有协议的定制开发 </h1>
       <div class="post-meta">
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
@@ -94,7 +94,7 @@ body Object 消息体， 对于请求消息，是参数数据，对于相应消�
   <title>clock</title>
   <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
 </svg>
-          1 min read
+          4 min read
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
@@ -172,7 +172,260 @@ body Object 消息体， 对于请求消息，是参数数据，对于相应消�
 <p>Netty协议需要具备一定的扩展能力，业务可以在消息头中自定义业务域字段，例如消息流水号、业务自定义消息头等。通过Netty消息头中的可选附件 attachment字段,
 务可以方便地进行自定义扩展。
 Netty 协议栈架构需要具备一定的扩展能力，例如统一的消息拦截、接口日志、安全、加解密等可以被方便地添加和删除，不需要修改之前的逻辑代码，类似Servlet 的FilterChain和AOP，但考虑到性能因素，不推荐通过AOP来实现功能的扩展。</p>
+<h2 id="自定义消息">自定义消息</h2>
+<pre><code>syntax=&quot;proto3&quot;;
+option java_package=&quot;fun.codenow.netty.privateprotocol.protobuf&quot;;
+option java_outer_classname=&quot;CustomMessageProto&quot;;
+import &quot;google/protobuf/any.proto&quot;;
 
+message CustomMessage{
+	CustomHeader header=1;
+	google.protobuf.Any body=2;
+	message CustomHeader{
+		int32 crcCode=1;
+		int32 length=2;
+		int64 sessionId=3;
+		enum MessgeType{
+			SERVICE_REQ = 0;  
+		SERVICE_RESP = 1;  
+		ONE_WAY = 2;  
+		LOGIN_REQ = 3; 
+	    LOGIN_RESP = 4; 
+	    PING =  5; 
+	    PONG =  6; 
+		}
+		MessgeType type=4;
+		int32 priority=5;
+		map&lt;string,google.protobuf.Any&gt;  attachment=6;
+	}
+}
+</code></pre><p>Protobuf编码</p>
+<pre><code>public class ProtobufDecoder extends MessageToMessageDecoder&lt;ByteBuf&gt; {
+    private static final boolean HAS_PARSER;
+    private final MessageLite prototype;
+    private final ExtensionRegistryLite extensionRegistry;
+
+    public ProtobufDecoder(MessageLite prototype) {
+        this(prototype, (ExtensionRegistry)null);
+    }
+
+    public ProtobufDecoder(MessageLite prototype, ExtensionRegistry extensionRegistry) {
+        this(prototype, (ExtensionRegistryLite)extensionRegistry);
+    }
+
+    public ProtobufDecoder(MessageLite prototype, ExtensionRegistryLite extensionRegistry) {
+        this.prototype = ((MessageLite)ObjectUtil.checkNotNull(prototype, &quot;prototype&quot;)).getDefaultInstanceForType();
+        this.extensionRegistry = extensionRegistry;
+    }
+
+    protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List&lt;Object&gt; out) throws Exception {
+        int length = msg.readableBytes();
+        byte[] array;
+        int offset;
+        if (msg.hasArray()) {
+            array = msg.array();
+            offset = msg.arrayOffset() + msg.readerIndex();
+        } else {
+            array = ByteBufUtil.getBytes(msg, msg.readerIndex(), length, false);
+            offset = 0;
+        }
+
+        if (this.extensionRegistry == null) {
+            if (HAS_PARSER) {
+                out.add(this.prototype.getParserForType().parseFrom(array, offset, length));
+            } else {
+                out.add(this.prototype.newBuilderForType().mergeFrom(array, offset, length).build());
+            }
+        } else if (HAS_PARSER) {
+            out.add(this.prototype.getParserForType().parseFrom(array, offset, length, this.extensionRegistry));
+        } else {
+            out.add(this.prototype.newBuilderForType().mergeFrom(array, offset, length, this.extensionRegistry).build());
+        }
+
+    }
+
+    static {
+        boolean hasParser = false;
+
+        try {
+            MessageLite.class.getDeclaredMethod(&quot;getParserForType&quot;);
+            hasParser = true;
+        } catch (Throwable var2) {
+        }
+
+        HAS_PARSER = hasParser;
+    }
+}
+</code></pre><p>解码</p>
+<pre><code>public class ProtobufDecoder extends MessageToMessageDecoder&lt;ByteBuf&gt; {
+    private static final boolean HAS_PARSER;
+    private final MessageLite prototype;
+    private final ExtensionRegistryLite extensionRegistry;
+
+    public ProtobufDecoder(MessageLite prototype) {
+        this(prototype, (ExtensionRegistry)null);
+    }
+
+    public ProtobufDecoder(MessageLite prototype, ExtensionRegistry extensionRegistry) {
+        this(prototype, (ExtensionRegistryLite)extensionRegistry);
+    }
+
+    public ProtobufDecoder(MessageLite prototype, ExtensionRegistryLite extensionRegistry) {
+        this.prototype = ((MessageLite)ObjectUtil.checkNotNull(prototype, &quot;prototype&quot;)).getDefaultInstanceForType();
+        this.extensionRegistry = extensionRegistry;
+    }
+
+    protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List&lt;Object&gt; out) throws Exception {
+        int length = msg.readableBytes();
+        byte[] array;
+        int offset;
+        if (msg.hasArray()) {
+            array = msg.array();
+            offset = msg.arrayOffset() + msg.readerIndex();
+        } else {
+            array = ByteBufUtil.getBytes(msg, msg.readerIndex(), length, false);
+            offset = 0;
+        }
+
+        if (this.extensionRegistry == null) {
+            if (HAS_PARSER) {
+                out.add(this.prototype.getParserForType().parseFrom(array, offset, length));
+            } else {
+                out.add(this.prototype.newBuilderForType().mergeFrom(array, offset, length).build());
+            }
+        } else if (HAS_PARSER) {
+            out.add(this.prototype.getParserForType().parseFrom(array, offset, length, this.extensionRegistry));
+        } else {
+            out.add(this.prototype.newBuilderForType().mergeFrom(array, offset, length, this.extensionRegistry).build());
+        }
+
+    }
+
+    static {
+        boolean hasParser = false;
+
+        try {
+            MessageLite.class.getDeclaredMethod(&quot;getParserForType&quot;);
+            hasParser = true;
+        } catch (Throwable var2) {
+        }
+
+        HAS_PARSER = hasParser;
+    }
+}
+</code></pre><p>粘包拆包问题</p>
+<pre><code>public class ProtobufVarint32FrameDecoder extends ByteToMessageDecoder {
+    public ProtobufVarint32FrameDecoder() {
+    }
+
+    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List&lt;Object&gt; out) throws Exception {
+        in.markReaderIndex();
+        int preIndex = in.readerIndex();
+        int length = readRawVarint32(in);
+        if (preIndex != in.readerIndex()) {
+            if (length &lt; 0) {
+                throw new CorruptedFrameException(&quot;negative length: &quot; + length);
+            } else {
+                if (in.readableBytes() &lt; length) {
+                    in.resetReaderIndex();
+                } else {
+                    out.add(in.readRetainedSlice(length));
+                }
+
+            }
+        }
+    }
+
+    private static int readRawVarint32(ByteBuf buffer) {
+        if (!buffer.isReadable()) {
+            return 0;
+        } else {
+            buffer.markReaderIndex();
+            byte tmp = buffer.readByte();
+            if (tmp &gt;= 0) {
+                return tmp;
+            } else {
+                int result = tmp &amp; 127;
+                if (!buffer.isReadable()) {
+                    buffer.resetReaderIndex();
+                    return 0;
+                } else {
+                    if ((tmp = buffer.readByte()) &gt;= 0) {
+                        result |= tmp &lt;&lt; 7;
+                    } else {
+                        result |= (tmp &amp; 127) &lt;&lt; 7;
+                        if (!buffer.isReadable()) {
+                            buffer.resetReaderIndex();
+                            return 0;
+                        }
+
+                        if ((tmp = buffer.readByte()) &gt;= 0) {
+                            result |= tmp &lt;&lt; 14;
+                        } else {
+                            result |= (tmp &amp; 127) &lt;&lt; 14;
+                            if (!buffer.isReadable()) {
+                                buffer.resetReaderIndex();
+                                return 0;
+                            }
+
+                            if ((tmp = buffer.readByte()) &gt;= 0) {
+                                result |= tmp &lt;&lt; 21;
+                            } else {
+                                result |= (tmp &amp; 127) &lt;&lt; 21;
+                                if (!buffer.isReadable()) {
+                                    buffer.resetReaderIndex();
+                                    return 0;
+                                }
+
+                                result |= (tmp = buffer.readByte()) &lt;&lt; 28;
+                                if (tmp &lt; 0) {
+                                    throw new CorruptedFrameException(&quot;malformed varint.&quot;);
+                                }
+                            }
+                        }
+                    }
+
+                    return result;
+                }
+            }
+        }
+    }
+}
+
+</code></pre><pre><code>public class ProtobufVarint32LengthFieldPrepender extends MessageToByteEncoder&lt;ByteBuf&gt; {
+    public ProtobufVarint32LengthFieldPrepender() {
+    }
+
+    protected void encode(ChannelHandlerContext ctx, ByteBuf msg, ByteBuf out) throws Exception {
+        int bodyLen = msg.readableBytes();
+        int headerLen = computeRawVarint32Size(bodyLen);
+        out.ensureWritable(headerLen + bodyLen);
+        writeRawVarint32(out, bodyLen);
+        out.writeBytes(msg, msg.readerIndex(), bodyLen);
+    }
+
+    static void writeRawVarint32(ByteBuf out, int value) {
+        while((value &amp; -128) != 0) {
+            out.writeByte(value &amp; 127 | 128);
+            value &gt;&gt;&gt;= 7;
+        }
+
+        out.writeByte(value);
+    }
+
+    static int computeRawVarint32Size(int value) {
+        if ((value &amp; -128) == 0) {
+            return 1;
+        } else if ((value &amp; -16384) == 0) {
+            return 2;
+        } else if ((value &amp; -2097152) == 0) {
+            return 3;
+        } else {
+            return (value &amp; -268435456) == 0 ? 4 : 5;
+        }
+    }
+}
+</code></pre>
     </div>
     <div class="post-footer">
       

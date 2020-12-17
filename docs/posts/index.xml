@@ -6,7 +6,16 @@
     <description>Recent content in Posts on 小吴的工作手记</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-Hans</language>
-    <lastBuildDate>Thu, 26 Nov 2020 14:50:48 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 28 Nov 2020 14:40:15 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Netty进阶—— 心跳检测实现与优化</title>
+      <link>https://pangwawa.github.io/posts/netty/netty_heartbeat/</link>
+      <pubDate>Sat, 28 Nov 2020 14:40:15 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/netty/netty_heartbeat/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Netty_reactor_model</title>
       <link>https://pangwawa.github.io/posts/netty/netty_reactor_model/</link>
@@ -68,7 +77,7 @@ NIO三大核心部分： Channel、Buffer、Selector</description>
     </item>
     
     <item>
-      <title>Netty进阶——基于Netty协议栈进行私有协议的定制开发 </title>
+      <title>Netty进阶——基于Netty协议栈进行Protobuf私有协议的定制开发 </title>
       <link>https://pangwawa.github.io/posts/netty/netty_private_protocol_base/</link>
       <pubDate>Tue, 24 Nov 2020 14:40:15 +0800</pubDate>
       

@@ -1,5 +1,5 @@
 ---
-title: "Netty进阶——基于Netty协议栈进行私有协议的定制开发 "
+title: "Netty进阶——基于Netty协议栈进行Protobuf私有协议的定制开发 "
 tags: ["Netty"]
 author: "Jack Wu"
 date: 2020-11-24T14:40:15+08:00
@@ -101,3 +101,268 @@ Netty协议栈承载了业务内部各模块之间的消息交互和服务调用
 Netty协议需要具备一定的扩展能力，业务可以在消息头中自定义业务域字段，例如消息流水号、业务自定义消息头等。通过Netty消息头中的可选附件 attachment字段,
 务可以方便地进行自定义扩展。
 Netty 协议栈架构需要具备一定的扩展能力，例如统一的消息拦截、接口日志、安全、加解密等可以被方便地添加和删除，不需要修改之前的逻辑代码，类似Servlet 的FilterChain和AOP，但考虑到性能因素，不推荐通过AOP来实现功能的扩展。
+
+## 自定义消息
+```
+syntax="proto3";
+option java_package="fun.codenow.netty.privateprotocol.protobuf";
+option java_outer_classname="CustomMessageProto";
+import "google/protobuf/any.proto";
+
+message CustomMessage{
+	CustomHeader header=1;
+	google.protobuf.Any body=2;
+	message CustomHeader{
+		int32 crcCode=1;
+		int32 length=2;
+		int64 sessionId=3;
+		enum MessgeType{
+			SERVICE_REQ = 0;  
+		SERVICE_RESP = 1;  
+		ONE_WAY = 2;  
+		LOGIN_REQ = 3; 
+	    LOGIN_RESP = 4; 
+	    PING =  5; 
+	    PONG =  6; 
+		}
+		MessgeType type=4;
+		int32 priority=5;
+		map<string,google.protobuf.Any>  attachment=6;
+	}
+}
+```
+Protobuf编码
+```
+public class ProtobufDecoder extends MessageToMessageDecoder<ByteBuf> {
+    private static final boolean HAS_PARSER;
+    private final MessageLite prototype;
+    private final ExtensionRegistryLite extensionRegistry;
+
+    public ProtobufDecoder(MessageLite prototype) {
+        this(prototype, (ExtensionRegistry)null);
+    }
+
+    public ProtobufDecoder(MessageLite prototype, ExtensionRegistry extensionRegistry) {
+        this(prototype, (ExtensionRegistryLite)extensionRegistry);
+    }
+
+    public ProtobufDecoder(MessageLite prototype, ExtensionRegistryLite extensionRegistry) {
+        this.prototype = ((MessageLite)ObjectUtil.checkNotNull(prototype, "prototype")).getDefaultInstanceForType();
+        this.extensionRegistry = extensionRegistry;
+    }
+
+    protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
+        int length = msg.readableBytes();
+        byte[] array;
+        int offset;
+        if (msg.hasArray()) {
+            array = msg.array();
+            offset = msg.arrayOffset() + msg.readerIndex();
+        } else {
+            array = ByteBufUtil.getBytes(msg, msg.readerIndex(), length, false);
+            offset = 0;
+        }
+
+        if (this.extensionRegistry == null) {
+            if (HAS_PARSER) {
+                out.add(this.prototype.getParserForType().parseFrom(array, offset, length));
+            } else {
+                out.add(this.prototype.newBuilderForType().mergeFrom(array, offset, length).build());
+            }
+        } else if (HAS_PARSER) {
+            out.add(this.prototype.getParserForType().parseFrom(array, offset, length, this.extensionRegistry));
+        } else {
+            out.add(this.prototype.newBuilderForType().mergeFrom(array, offset, length, this.extensionRegistry).build());
+        }
+
+    }
+
+    static {
+        boolean hasParser = false;
+
+        try {
+            MessageLite.class.getDeclaredMethod("getParserForType");
+            hasParser = true;
+        } catch (Throwable var2) {
+        }
+
+        HAS_PARSER = hasParser;
+    }
+}
+```
+解码
+```
+public class ProtobufDecoder extends MessageToMessageDecoder<ByteBuf> {
+    private static final boolean HAS_PARSER;
+    private final MessageLite prototype;
+    private final ExtensionRegistryLite extensionRegistry;
+
+    public ProtobufDecoder(MessageLite prototype) {
+        this(prototype, (ExtensionRegistry)null);
+    }
+
+    public ProtobufDecoder(MessageLite prototype, ExtensionRegistry extensionRegistry) {
+        this(prototype, (ExtensionRegistryLite)extensionRegistry);
+    }
+
+    public ProtobufDecoder(MessageLite prototype, ExtensionRegistryLite extensionRegistry) {
+        this.prototype = ((MessageLite)ObjectUtil.checkNotNull(prototype, "prototype")).getDefaultInstanceForType();
+        this.extensionRegistry = extensionRegistry;
+    }
+
+    protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
+        int length = msg.readableBytes();
+        byte[] array;
+        int offset;
+        if (msg.hasArray()) {
+            array = msg.array();
+            offset = msg.arrayOffset() + msg.readerIndex();
+        } else {
+            array = ByteBufUtil.getBytes(msg, msg.readerIndex(), length, false);
+            offset = 0;
+        }
+
+        if (this.extensionRegistry == null) {
+            if (HAS_PARSER) {
+                out.add(this.prototype.getParserForType().parseFrom(array, offset, length));
+            } else {
+                out.add(this.prototype.newBuilderForType().mergeFrom(array, offset, length).build());
+            }
+        } else if (HAS_PARSER) {
+            out.add(this.prototype.getParserForType().parseFrom(array, offset, length, this.extensionRegistry));
+        } else {
+            out.add(this.prototype.newBuilderForType().mergeFrom(array, offset, length, this.extensionRegistry).build());
+        }
+
+    }
+
+    static {
+        boolean hasParser = false;
+
+        try {
+            MessageLite.class.getDeclaredMethod("getParserForType");
+            hasParser = true;
+        } catch (Throwable var2) {
+        }
+
+        HAS_PARSER = hasParser;
+    }
+}
+```
+粘包拆包问题
+```
+public class ProtobufVarint32FrameDecoder extends ByteToMessageDecoder {
+    public ProtobufVarint32FrameDecoder() {
+    }
+
+    protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+        in.markReaderIndex();
+        int preIndex = in.readerIndex();
+        int length = readRawVarint32(in);
+        if (preIndex != in.readerIndex()) {
+            if (length < 0) {
+                throw new CorruptedFrameException("negative length: " + length);
+            } else {
+                if (in.readableBytes() < length) {
+                    in.resetReaderIndex();
+                } else {
+                    out.add(in.readRetainedSlice(length));
+                }
+
+            }
+        }
+    }
+
+    private static int readRawVarint32(ByteBuf buffer) {
+        if (!buffer.isReadable()) {
+            return 0;
+        } else {
+            buffer.markReaderIndex();
+            byte tmp = buffer.readByte();
+            if (tmp >= 0) {
+                return tmp;
+            } else {
+                int result = tmp & 127;
+                if (!buffer.isReadable()) {
+                    buffer.resetReaderIndex();
+                    return 0;
+                } else {
+                    if ((tmp = buffer.readByte()) >= 0) {
+                        result |= tmp << 7;
+                    } else {
+                        result |= (tmp & 127) << 7;
+                        if (!buffer.isReadable()) {
+                            buffer.resetReaderIndex();
+                            return 0;
+                        }
+
+                        if ((tmp = buffer.readByte()) >= 0) {
+                            result |= tmp << 14;
+                        } else {
+                            result |= (tmp & 127) << 14;
+                            if (!buffer.isReadable()) {
+                                buffer.resetReaderIndex();
+                                return 0;
+                            }
+
+                            if ((tmp = buffer.readByte()) >= 0) {
+                                result |= tmp << 21;
+                            } else {
+                                result |= (tmp & 127) << 21;
+                                if (!buffer.isReadable()) {
+                                    buffer.resetReaderIndex();
+                                    return 0;
+                                }
+
+                                result |= (tmp = buffer.readByte()) << 28;
+                                if (tmp < 0) {
+                                    throw new CorruptedFrameException("malformed varint.");
+                                }
+                            }
+                        }
+                    }
+
+                    return result;
+                }
+            }
+        }
+    }
+}
+
+```
+
+```
+public class ProtobufVarint32LengthFieldPrepender extends MessageToByteEncoder<ByteBuf> {
+    public ProtobufVarint32LengthFieldPrepender() {
+    }
+
+    protected void encode(ChannelHandlerContext ctx, ByteBuf msg, ByteBuf out) throws Exception {
+        int bodyLen = msg.readableBytes();
+        int headerLen = computeRawVarint32Size(bodyLen);
+        out.ensureWritable(headerLen + bodyLen);
+        writeRawVarint32(out, bodyLen);
+        out.writeBytes(msg, msg.readerIndex(), bodyLen);
+    }
+
+    static void writeRawVarint32(ByteBuf out, int value) {
+        while((value & -128) != 0) {
+            out.writeByte(value & 127 | 128);
+            value >>>= 7;
+        }
+
+        out.writeByte(value);
+    }
+
+    static int computeRawVarint32Size(int value) {
+        if ((value & -128) == 0) {
+            return 1;
+        } else if ((value & -16384) == 0) {
+            return 2;
+        } else if ((value & -2097152) == 0) {
+            return 3;
+        } else {
+            return (value & -268435456) == 0 ? 4 : 5;
+        }
+    }
+}
+```
