@@ -1,8 +1,7 @@
 ---
-title: "Netty进阶—— 心跳检测实现与优化"
+title: "Netty实战——基于netty实现心跳检测、消息编解码和断连重连"
 tags: ["Netty"]
 author: "Jack Wu"
-date: 2020-11-28T14:40:15+08:00
+date: 2020-11-26T14:43:47+08:00
 draft: false
 ---
-
