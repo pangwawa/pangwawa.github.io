@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>大数据 on 小吴的工作手记</title>
+    <link>https://pangwawa.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/</link>
+    <description>Recent content in 大数据 on 小吴的工作手记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Thu, 22 Oct 2020 18:19:12 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Flink编程模型详解</title>
+      <link>https://pangwawa.github.io/posts/flink/flink_programing_model/</link>
+      <pubDate>Thu, 22 Oct 2020 18:19:12 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/flink/flink_programing_model/</guid>
+      <description>Flink 为流式/批式处理应用程序的开发提供了Stateful Stream Processing、DataStream/DataSet ApI 、Table API和SQL这四个不同级别的抽象，如下如所示：
+1、SQL 这层抽象在语义和程序表达式上都类似于 Table API，但是其程序实现都是 SQL 查询表达式。SQL 抽象与 Table API 抽象之间的关联是非常紧密的，并且 SQL 查询语句可以在 Table API 中定义的表上执行。
+2、Table API 以表（Table）为中心的声明式编程（DSL）API，例如在流式数据场景下，它可以表示一张正在动态改变的表。Table API 遵循（扩展）关系模型：即表拥有 schema（类似于关系型数据库中的 schema），并且 Table API 也提供了类似于关系模型中的操作，比如 select、project、join、group-by 和 aggregate 等
+3、Datastream、DataSet API 核心 API，包含 DataStream API（应用于有界/无界数据流场景）和 DataSet API（应用于有界数据集场景）两部分。Core APIs 提供的流式 API（Fluent API）为数据处理提供了通用的模块组件，例如各种形式的用户自定义转换（transformations）、联接（joins）、聚合（aggregations）、窗口（windows）和状态（state）操作等。此层 API 中处理的数据类型在每种编程语言中都有其对应的类。
+4、Stateful Stream Processing（有状态实时流处理） 允许用户在应用程序中自由地处理来自单流或多流的事件（数据），并提供具有全局一致性和容错保障的状态。此外，用户可以在此层抽象中注册事件时间（event time）和处理时间（processing time）回调方法，从而允许程序可以实现复杂计算。
+这4层中，一般用于开发的是第三层，即DataStrem/DataSetAPI。用户可以使用DataStream API处理无界数据流，使用DataSet API处理有界数据流。同时这两个API都提供了各种各样的接口来处理数据。
+Flink程序的模块结构 如下图，Flink程序主要分为 source&amp;ndash;&amp;gt;transformation&amp;ndash;&amp;gt;sink 这三个模块
+在获取执行环境后，程序从数据源中获取数据，并执行Transformation操作，最后将执行结果输出到指定的地方，如消息队列、文件系统、数据库等。
+下面这个简单的例子便包含了整个过程：
+ public static void main(String[] args) throws Exception { // Checking input parameters final MultipleParameterTool params = MultipleParameterTool.</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch数据的写入、读取与检索过程详解</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_read_write_search_process/</link>
+      <pubDate>Sat, 07 Mar 2020 18:25:18 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_read_write_search_process/</guid>
+      <description>ElasticSearch写过程 分片
+一个分片就是一个运行的Lucenes实例，个节点可以包含多个分片，Es中所有数据均衡的存储在集群中各个节点的分片中
+主分片和副本分片
+注意
+1、默认索引是5个分片
+2、分片一定设置是不可以修改的，只能新建新索引解决
+数据写入过程:
+ES的任意节点都可以作为协调节点(coordinating node)接受请求，当协调节点接受到请求后进行一系列处理，然后通过_routing字段找到对应的primary shard，并将请求转发给primary shard, primary shard完成写入后， 将写入并发发送给各replica， raplica执行写入操作后返回给primary shard， primary shard再将请求返回给协调节点
+数据持久化步骤如下：write -&amp;gt; refresh -&amp;gt; flush -&amp;gt; merge
+write:一个新文档过来，会存储在 in-memory buffer 内存缓存区中，顺便会记录 Translog。(这时候数据还没到 segment ，是搜不到这个新文档的。数据只有被 refresh 后，才可以被搜索到,设置了refresh时间，所以是准实时)
+refresh: 1、in-memory buffer 中的文档写入到新的 segment 中，但 segment 是存储在文件系统的缓存中。此时文档可以被搜索到; 2、最后清空 in-memory buffer。注意: Translog 没有被清空，为了将 segment 数据写到磁盘
+flush:将segment从文件系统缓存写入磁盘。最后清空translog。translog 作用很大：保证文件缓存中的文档不丢失；系统重启时，从 translog 中恢复；新的 segment 收录到 commit point 中
+merge： 当磁盘中的segment越来越多，会导致搜索速度变慢，通过merge将小段文件合并为大文件。
+ElasticSearch读过程 客户端发送请求到任意一个node，成为coordinate node
+coordinate node对document进行路由，将请求转发到对应的node，此时会使用round-robin随机轮询算法，在primary shard以及其所有replica中随机选择一个，让读请求负载均衡
+接收请求的node返回document给coordinate node
+coordinate node返回document给客户端</description>
+    </item>
+    
+    <item>
+      <title>Kibana可视化展示的各种形式汇总</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch/kibana_visualization_type/</link>
+      <pubDate>Sat, 07 Mar 2020 17:09:39 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch/kibana_visualization_type/</guid>
+      <description>常用可视化形式 折线图（Line, area, and bar charts），面积图和条形图—比较X / Y图表中的不同系列。
+饼图（Pie chart ）-显示每个来源总计。
+数据表（Data table ）-将聚合展平为表格式。
+公制（Data table ）—显示一个数字。
+目标和计量器（Goal and gauge ）—显示带有进度指示器的数字。
+标签云（Goal and gauge ）—在云中显示单词，单词的大小与其重要性相对应。
+Lens 快速可视化，拖放需要统计的字段即可快速构建可视化
+TSVB 使用管道聚合可视化时间序列数据
+Timelion 计算和合并来自多个时间序列数据集的数据
+Maps 地图
+Heat Map 热图 显示矩阵内的阴影单元格
+Dashboard tools 文字信息部件（Markdown widget）显示自由格式的信息或说明。
+控件（ Controls）： 将交互式输入添加到仪表板
+Vega 完成对查询和显示的控制</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch聚合—桶（bucket）和指标（metric）</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_buckets_metrics/</link>
+      <pubDate>Thu, 05 Mar 2020 17:07:30 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_buckets_metrics/</guid>
+      <description>聚合的两个核心概念：桶（bucket）和指标（metric）
+　桶（bucket）: 满足特定条件的文档的集合
+指标（metric）: 对桶内的文档进行聚合分析的操作
+桶在概念上类似于SQL的分组（GROUP BY）,而指标则类似于COUNT()、SUM()、MAX()等统计方法。
+2、桶和指标的深入理解
+（1）桶　　a、简单来说桶就是满足特定条件的文档的集合。
+　b、当聚合开始被执行，每个文档里面的值通过计算来决定符合哪个桶的条件，如果匹配到，文档将放入相应的桶并接着开始聚合操作。
+　c、桶也可以被嵌套在其他桶里面。
+（2）指标
+　a、桶能让我们划分文档到有意义的集合，但是最终我们需要的是对这些桶内的文档进行一些指标的计算。分桶是一种达到目的地的手段：它提供了一种给文档分组的方法来让我们可以计算感兴趣的指标。
+　b、大多数指标是简单的数学运算（如：最小值、平均值、最大值、汇总），这些是通过文档的值来计算的。
+（3）桶和指标的组合
+　聚合是由桶和指标组成的。聚合可能只有一个桶，可能只有一个指标，或者可能两个都有。也有可能一些桶嵌套在其他桶里面。</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch倒排索引原理探索</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_inverted_index/</link>
+      <pubDate>Thu, 05 Mar 2020 11:20:35 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_inverted_index/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch集群与调优</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_cluster/</link>
+      <pubDate>Sat, 29 Feb 2020 11:10:33 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_cluster/</guid>
+      <description>1.1、设计阶段调优
+（1）根据业务增量需求，采取基于日期模板创建索引，通过roll over API滚动索引； （2）使用别名进行索引管理； （3）每天凌晨定时对索引做force_merge操作，以释放空间； （4）采取冷热分离机制，热数据存储到SSD，提高检索效率；冷数据定期进行shrink操作，以缩减存储； （5）采取curator进行索引的生命周期管理； （6）仅针对需要分词的字段，合理的设置分词器； （7）Mapping阶段充分结合各个字段的属性，是否需要检索、是否需要存储等。……..
+1.2、写入调优
+（1）写入前副本数设置为0； （2）写入前关闭refresh_interval设置为-1，禁用刷新机制； （3）写入过程中：采取bulk批量写入； （4）写入后恢复副本数和刷新间隔； （5）尽量使用自动生成的id。
+1.3、查询调优
+（1）禁用wildcard； （2）、禁用批量terms（成百上千的场景）； （3）充分利用倒排索引机制，能keyword类型尽量keyword； （4）数据量大时候，可以先基于时间敲定索引再检索； （5）设置合理的路由机制。
+1.4、其他调优 部署调优，业务调优等。 上面的提及一部分，面试者就基本对你之前的实践或者运维经验有所评估了。</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch 数据导入方案</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_data_input/</link>
+      <pubDate>Tue, 25 Feb 2020 11:08:58 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_data_input/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch用户权限与安全机制</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_account_management_and_security/</link>
+      <pubDate>Sat, 22 Feb 2020 10:32:21 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_account_management_and_security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch基础概念与架构原理</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch/elasticsearch__structure/</link>
+      <pubDate>Thu, 20 Feb 2020 11:14:21 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch/elasticsearch__structure/</guid>
+      <description>基本概念 集群(cluster)：有一个主节点，通过选举产生，从外部来看es集群，在逻辑上是个整体，你与任何一个节点的通信和与整个es集群通信是等价的。
+索引(index)：数据可以存储在不同索引中，索引可以看做是传统中的数据库，可以在索引中写入文档和搜索文档
+文档(document)，文档由字段组成，是ES索引中数据存储的基本单位
+映射(mapping)：所有文档写进索引之前都会先进行分析，如何将输入的文本分割为词条、哪些词条又会被过滤，这种行为叫做映射（mapping）。一般由用户自己定义规则。
+分片(shards)：一个完整索引可以分成多个分片分布到不同节点，分布式存储分布式搜索分片的数量只能在索引创建前指定，并且索引创建后不能更改。5.X默认不能通过配置文件定义分片
+副本(replicas)：代表索引副本，可设置多个，提高系统容错性（分片损坏可从副本恢复），还能通过对副本自动请求搜索负载均衡，提高ES查询效率
+数据恢复(Discovery)：当挂掉的节点重新启动加入，会进行数据恢复
+数据源(River)：ES数据的来源，它是以插件方式存在的一个es服务，通过读取river中的数据并把它索引到es中，官方的river有couchDB的，RabbitMQ的，Twitter的，Wikipedia的，river这个功能将会在后面的文件中重点说到。
+网关（gateway）：代表es索引的持久化存储方式，es默认是先把索引存放到内存中，当内存满了时再持久化到硬盘。当这个es集群关闭再重新启动时就会从gateway中读取索引数据。es支持多种类型的gateway，有本地文件系统（默认），分布式文件系统，Hadoop的HDFS和amazon的s3云存储服务。
+自动发现（discovery.zen）：代表es的自动发现节点机制，es是一个基于p2p的系统，它先通过广播寻找存在的节点，再通过多播协议来进行节点之间的通信，同时也支持点对点的交互。5.X关闭广播，需要自定义
+通信（Transport） ：代表es内部节点或集群与客户端的交互方式，默认内部是使用tcp协议进行交互，同时它支持http协议（json格式）、thrift、servlet、memcached、zeroMQ等的传输协议（通过插件方式集成）。节点间通信端口默认：9300-9400
+分片和复制（shards and replicas） ：一个索引可以存储超出单个结点硬件限制的大量数据。比如，一个具有10亿文档的索引占据1TB的磁盘空间，而任一节点可能没有这样大的磁盘空间来存储或者单个节点处理搜索请求，响应会太慢。
+为了解决这个问题，Elasticsearch提供了将索引划分成多片的能力，这些片叫做分片。当你创建一个索引的时候，你可以指定你想要的分片的数量。每个分片本身也是一个功能完善并且独立的“索引”，这个“索引” 可以被放置到集群中的任何节点上。
+分片之所以重要，主要有两方面的原因：
+1、允许你水平分割/扩展你的内容容量
+2、允许你在分片（位于多个节点上）之上进行分布式的、并行的操作，进而提高性能/吞吐量
+至于一个分片怎样分布，它的文档怎样聚合回搜索请求，是完全由Elasticsearch管理的，对于作为用户的你来说，这些都是透明的。
+在一个网络/云的环境里，失败随时都可能发生。在某个分片/节点因为某些原因处于离线状态或者消失的情况下，故障转移机制是非常有用且强烈推荐的。为此， Elasticsearch允许你创建分片的一份或多份拷贝，这些拷贝叫做复制分片，或者直接叫复制。
+复制之所以重要，有两个主要原因：
+在分片/节点失败的情况下，复制提供了高可用性。复制分片不与原/主要分片置于同一节点上是非常重要的。因为搜索可以在所有的复制上并行运行，提高搜索速度。</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch Mapping 数据建模规范与建模过程</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_data_modeling/</link>
+      <pubDate>Sun, 16 Feb 2020 09:41:35 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_data_modeling/</guid>
+      <description>Mapping数据建模 数据建模即创建数据模型的过程，它主要分为以下的步骤
+概念分析：确定系统的核心需求和范围边界，设计实现和实体间的关系 逻辑模型：进一步梳理业务需求，确定每个实体的属性、关系和约束等 物理模型：结合具体的数据库产品，在满足业务读写性能等需求的前提下确定最终的定义
+ElasticSearch索引建立可以遵循一个流程：字段类型——是否要搜索及分词——是否要聚合及排序——是否要额外的存储
+是何种类型？ 字符串类型：需要分词设定为text类型，否则设置为keyword类型 枚举类型：基于性能考虑将其设定为keyword类型，即便该数据为整型（如状态码） 数值类型：尽量选择贴近的类型，比如byte即可表示所有数值时，即选用byte,不要用long 其他类型：比如布尔类型、日期、地理位置数据等
+是否需要检索？ 完全不需要检索、排序、聚合分析的字段：enable设置为false 不需要检索的字段：index设置为false 需要检索的字段，可以通过如下配置设定需要的存储粒度 index_options: 结合需要设定 norms: 不需要归一化数据时关闭即可 ####是否需要排序和聚合分析？ 不需要排序或者聚合分析功能：
+doc_values设定为false fielddata设定为false ####是否需要专门存储当前字段的数据？ store设定为true,即可存储该字段的原始内容（与_source中的不相关） 一般结合_source的enabled设定为false时使用
+索引建立Mapping的过程如下图所示
+mapping 设计非常重要，需要从两个维度进行考虑：
+功能：搜索、排序、聚合 性能：存储的开锁、内存的开销、搜索的性能 mapping 注意事项： 加入新字段很容易（必要时需要 update_by_query） 更新删除字段不允许（需要 reindex 重建数据）
+下面列出Mapping 字段的相关设置：
+   参数 取值 说明     enabled ture/false 默认为true, false：仅存储，不做搜索或聚合分析(比如cookie/session字段)   index ture/false 控制当前字段是否索引，默认为true,即记录索引，false不记录，即不可搜索   index_options docs/freqs/positions/offsets 存储倒排索引的哪些信息,text类型默认配置为positions,其他默认为docs ,记录内容越多，占用空间越大。   norms true/false 是否存储归一化相关参数，如果字段仅用于过滤和聚合分析，可关闭   doc_values true/false 是否启用doc_values,用于排序和聚合分析   field_data true/false 是否为text类型启用fielddata,实现排序和聚合分析   store true/false 是否存储该字段值,默认是false   coerce true/false 是否开启自动数据类型转换功能，比如字符串转换为数字、浮点转换为整型等（默认是true   multifields - 多字段-灵活使用多字段特性来解决多样的业务需求   dynamic true/false/strict 控制mapping自动更新   date_detection true/false 是否自动识别日期类型    常用规则   如果索引不允许自动新增字段，将 dynamic 设置成 strict。默认为 true；</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch的DSL——常用检索、复合检索、高级检索</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_query_dsl/</link>
+      <pubDate>Sat, 15 Feb 2020 17:49:40 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_query_dsl/</guid>
+      <description>简单查询 精准查询term （完全匹配，不使用分词器） term单值查询
+{ &amp;quot;query&amp;quot;: { &amp;quot;term&amp;quot;: { &amp;quot;productType&amp;quot;: { &amp;quot;value&amp;quot;: &amp;quot;101&amp;quot; } } } } term多值查询
+GET /test/_search { &amp;quot;query&amp;quot;: { &amp;quot;bool&amp;quot;: { &amp;quot;must&amp;quot;: [ { &amp;quot;term&amp;quot;: { &amp;quot;mac&amp;quot;: { &amp;quot;value&amp;quot;: &amp;quot;2541229&amp;quot; } } }, { &amp;quot;term&amp;quot;: { &amp;quot;productType&amp;quot;: { &amp;quot;value&amp;quot;: &amp;quot;1&amp;quot; } } } ] } } } terms查询多值
+{ &amp;quot;query&amp;quot;: { &amp;quot;terms&amp;quot;: { &amp;quot;productType&amp;quot;:[&amp;quot;101&amp;quot;,&amp;quot;102&amp;quot;] } } } 模糊查询 （模糊匹配，使用分词器） match 、 match_all、multi_match、match_phrase
+match_all 匹配所有的， 当不给查询条件时，默认全查 match</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch 生命周期管理——索引生命周期与冷热数据分离</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_lifecycle_management/</link>
+      <pubDate>Tue, 11 Feb 2020 09:46:25 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_lifecycle_management/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch 7.9 数据类型和Mapping参数详解</title>
+      <link>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_datatype/</link>
+      <pubDate>Mon, 10 Feb 2020 09:23:44 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/elasticsearch/elasticsearch_datatype/</guid>
+      <description>ElasticSearch数据类型 基础类型 String keyword字段通常用于排序， 聚合和术语级查询
+keyword类型
+（keyword类型可设置属性：boost、doc_values、eager_global_ordinals、fields、ignore_above、index、index_options、norms、null_value、store、similarity、normalizer、split_queries_on_whitespace、meta）
+constant_keyword类型
+提交的值只能是固定的或者没有该值 （constant_keyword类型可设置的属性：meta、value）
+wildcard类型
+存储为通配符grep式查询优化的值 （可设置的参数：ignore_above） wildcard 字段像关键字字段一样是未标记的，因此不支持依赖词位置的查询，例如短语查询
+text类型
+text将对字段值进行分析以进行全文本搜索 （可设置属性：analyzer、boost、eager_global_ordinals、fielddata、fielddata_frequency_filter、fields、index、index_options、index_prefixes、index_pharses、norms、position_increment_gap、store、search_analyzer、search_quote_analyzer、similarity、term_vector、meta）
+数字 long类型
+integer类型
+short类型
+byte类型
+double类型
+float类型
+half float类型
+scaled float类型
+（数字类型可设置参数：coerce、boost、doc_values、ignore_malformed、index、null_value、source、meta；scaled_float 接受一个附加参数：scaling_factor）
+时间 date类型
+（date类型可设置的属性：boost、doc_values、index、null_value、store、meta、format、locale、ignore_malformed） **日期格式可以自定义，但是如果未format指定，则使用默认格式：“ strict_date_optional_time || epoch_millis”
+date_nanos类型
+date_nanos类型（是date的补充，增加了纳秒级别的时间戳和格式时间支持，1420070400 ） **日期格式可以自定义，但是如果未format指定，则使用默认格式：“ strict_date_optional_time || epoch_millis”
+布尔 boolean类型
+（boolean可设置属性：boost、doc_values、index、null_value、store、meta）
+二进制 binary类型
+（binary类型可设置的属性，doc_values，store）
+区间 integer range类型
+float range类型
+long ranage类型
+double range类型
+date range类型
+ip_range类型
+（可设置属性：coerce、boost、index、store）
+复杂文档 Array数组类型
+没有特定的mapping类型，elasticsearch默认支持相同类型的多个值
+Object类型
+对象类型，可包含内部对象 （object对象可设置属性：dynamic、enabled、properties、）</description>
+    </item>
+    
+  </channel>
+</rss>

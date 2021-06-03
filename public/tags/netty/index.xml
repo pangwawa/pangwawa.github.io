@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Netty on 小吴的工作手记</title>
+    <link>https://pangwawa.github.io/tags/netty/</link>
+    <description>Recent content in Netty on 小吴的工作手记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Thu, 26 Nov 2020 14:50:48 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/tags/netty/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Netty_reactor_model</title>
+      <link>https://pangwawa.github.io/posts/netty/netty_reactor_model/</link>
+      <pubDate>Thu, 26 Nov 2020 14:50:48 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/netty/netty_reactor_model/</guid>
+      <description>Netty线程模型 Netty主要是基于主从Reactors多线程模型(如下图)做了一些修改，其中主从reactor多线程模型有多个reactor：
+MainReactor负责客户端的连接请求，并将请求转交给SubReactor SubReactor负责相应通道的IO读写请求 非IO请求(具体逻辑处理)的任务则会直接进入写入队列，等到worker threads进行处理
+特别说明的是：虽然Netty的线程模型基于主从Reactor多线程，借用了MainReactor和SubReactor的结构。但是实际实现上SubReactor和Worker线程在同一个线程池中
+bossGroup线程池则只是在bind某个端口后，获得其中一个线程作为MainReactor，专门处理端口的Accept事件，每个端口对应一个boss线程 workerGroup线程池会被各个SubReactor和Worker线程充分利用
+异常处理
+异步的概念和同步相对。当一个异步过程调用发出后，调用者不能立刻得到结果。实际处理这个调用的部件在完成后，通过状态、通知和回调来通知调用者 Netty中的IO操作是异步的，包括Bind、Write、Connect等操作会简单的返回一个channelFuture 调用者并不能立刻获得结果，而是通过Future-Listener机制，用户可以方便的主动获取或通过通知机制来获得IO操作结果 当future对象刚刚创建时，处于非完成状态，调用者可以通过返回的ChannelFuture来获取操作执行的状态，注册监听函数来执行完成后的操作
+ChannelHandler的方法 通过ChannelHandler处理IO操作
+ChannelPipeline可以动态添加、删除、替换其中的ChannelHandler，这样的机制可以提高灵活性。
+ChannelInitializer用来初始化ChannelHandler，将自定义的各种ChannelHandler添加到ChannelPipeline中。
+ChannelPipeline提供的方法
+• addFirst(&amp;hellip;)，添加ChannelHandler在ChannelPipeline的第一个位置 • addBefore(&amp;hellip;)，在ChannelPipeline中指定的ChannelHandler名称之前添加ChannelHandler • addAfter(&amp;hellip;)，在ChannelPipeline中指定的ChannelHandler名称之后添加ChannelHandler • addLast(ChannelHandler&amp;hellip;)，在ChannelPipeline的末尾添加ChannelHandler • remove(&amp;hellip;)，删除ChannelPipeline中指定的ChannelHandler • replace(&amp;hellip;)，替换ChannelPipeline中指定的ChannelHandler
+Netty中有3个实现了ChannelHandler接口的类，其中2个是接口（ChannelInboundHandler用来处理入站数据也就是接收数据、ChannelOutboundHandler用来处理出站数据也就是写数据），一个是抽象类ChannelHandlerAdapter类。 ChannelHandler提供了在它的生命周期内添加或从ChannelPipeline中删除的方法： 1.handlerAdded:ChannelHandler添加到实际上下文中准备处理事件。 2.handlerRemoved：将ChannelHandler从实际上下文中删除，不再处理事件。 3.exceptionCaught：处理跑出的异常。
+ChannelInboundHandler类的用法 它提供了一些方法来接收数据或Channel状态改变时被调用，下面是一些常用方法： 1.channelRegistered:ChannelHandlerContext的Channel被注册到EventLoop中。 2.channelUnregistered：ChannelHandlerContext的channel从eventloop中注销。 3.channelActive方法：ChannelHandlerContext的channel已被激活。 4.channelInactive方法：ChannelHandlerContext的channel结束生命周期。 5.channelRead方法：从当前Channel的对端读取消息。 6.channelReadComplete方法：消息读取完毕有执行。 7.userEventTriggered方法：一个用户事件被触发。 8.channelWritabilityChanned方法：改变通道的可写状态，可以使用Channel.isWritable检查。 9.exceptionCaught，重写父类ChannelHandler的方法，处理异常.
+Netty自带 Handler SslHandler:负责对请求进行加密和解密，是放在ChannelPipeline中的第一个ChannelHandler
+HttpClientCodec和HttpServerCodec:HttpClientCodec负责将请求字节解码为HttpRequest、HttpContent和LastHttpContent消息，以及对应的转为字节；HttpServerCodec负责服务端中将字节码解析成HttpResponse、HttpContent和LastHttpContent消息，以及对应的将它转为字节 HttpServerCodec 里面组合了HttpResponseEncoder和HttpRequestDecoder
+HttpClientCodec 里面组合了HttpRequestEncoder和HttpResponseDecoder
+HttpObjectAggregator: 负责将http聚合成完整的消息，而不是原始的多个部分 HttpContentCompressor和HttpContentDecompressor:HttpContentCompressor用于服务器压缩数据，HttpContentDecompressor用于客户端解压数据 IdleStateHandler:连接空闲时间过长，触发IdleStateEvent事件 ReadTimeoutHandler:指定时间内没有收到任何的入站数据，抛出ReadTimeoutException异常,并关闭channel WriteTimeoutHandler:指定时间内没有任何出站数据写入，抛出WriteTimeoutException异常，并关闭channel DelimiterBasedFrameDecoder:使用任何用户提供的分隔符来提取帧的通用解码器 FixedLengthFrameDecoder:提取在调用构造函数时的定长帧 ChunkedWriteHandler：将大型文件从文件系统复制到内存【DefaultFileRegion进行大型文件传输】 WebSocketServerProtocolHandler：处理websocket协议，将HttpServerCodec转为websocketFrame,处理websocket握手
+线程的工作模式：
+在此类中，有两种类型的线程，一种是boss线程，另一种是worker线程
+Boss线程：
+每个server服务器都会有一个boss线程，每绑定一个InetSocketAddress都会产生一个boss线程，比如：我们开启了两个服务器端口80和443，则我们会有两个boss线程。一个boss线程在端口绑定后，会接收传进来的连接，一旦连接接收成功，boss线程会指派一个worker线程处理连接。
+Worker线程：</description>
+    </item>
+    
+    <item>
+      <title>Netty基础——从简单Echo程序分析Netty组件</title>
+      <link>https://pangwawa.github.io/posts/netty/netty_echo_sample/</link>
+      <pubDate>Thu, 26 Nov 2020 14:43:47 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/netty/netty_echo_sample/</guid>
+      <description>Bootstrap or ServerBootstrap
+EventLoop
+EventLoopGroup
+ChannelPipeline
+Channel
+Fture or ChannelFuture
+ChannelInitializer
+ChannelHandler
+详解：
+Bootstrap，一个Netty应用通常由一个Bootstrap开始，它主要作用是配置整个Netty程序，串联起各个组件。
+Handler，为了支持各种协议和处理数据的方式，便诞生了Handler组件。Handler主要用来处理各种事件，这里的事件很广泛，比如可以是连接、数据接收、异常、数据转换等。
+ChannelInboundHandler，一个最常用的Handler。这个Handler的作用就是处理接收到数据时的事件，也就是说，我们的业务逻辑一般就是写在这个Handler里面的，ChannelInboundHandler就是用来处理我们的核心业务逻辑。
+ChannelInitializer，当一个链接建立时，我们需要知道怎么来接收或者发送数据，当然，我们有各种各样的Handler实现来处理它，那么ChannelInitializer便是用来配置这些Handler，它会提供一ChannelPipeline，并把Handler加入到ChannelPipeline。ChannelPipeline，一个Netty应用基于ChannelPipeline机制，这种机制需要依赖于EventLoop和EventLoopGroup，因为它们三个都和事件或者事件处理相关。 ChannelPipeline负责安排Handler的顺序及其执行EventLoops的目的是为Channel处理IO操作，一个EventLoop可以为多个Channel服务。EventLoopGroup会包含多个EventLoop。
+Channel代表了一个Socket链接，或者其它和IO操作相关的组件，它和EventLoop一起用来参与IO处理。
+Future，在Netty中所有的IO操作都是异步的，因此，你不能立刻得知消息是否被正确处理，但是我们可以过一会等它执行完成或者直接注册一个监听，具体的实现就是通过Future和ChannelFutures,他们可以注册一个监听，当操作执行成功或失败时监听会自动触发。总之，所有的操作都会返回一个ChannelFuture。
+我们来看看如何配置一个Netty应用？ – BootsStrapping我们利用BootsStrapping来配置netty 应用，它有两种类型，一种用于Client端：BootsStrap，另一种用于Server端：ServerBootstrap，要想区别如何使用它们，你仅需要记住一个用在Client端，一个用在Server端。下面我们来详细介绍一下这两种类型的区别：1.第一个最明显的区别是，ServerBootstrap用于Server端，通过调用bind()方法来绑定到一个端口监听连接；Bootstrap用于Client端，需要调用connect()方法来连接服务器端，但我们也可以通过调用bind()方法返回的ChannelFuture中获取Channel去connect服务器端。
+一个Netty 简单Echo服务端程序实例 public class EchoServer { public static void main(String[] args) throws InterruptedException { /** * Bootstrap是应用程序的开始，作用是配置整个netty程序，串联各个组件 */ ServerBootstrap serverBootstrap=new ServerBootstrap(); NioEventLoopGroup nioEventLoopGroup=new NioEventLoopGroup(); serverBootstrap .group(nioEventLoopGroup) /** * Channel 代表一个Socket连接，或者其他和IO操作相关的组件，它和EventLoop一起参加IO处理 */ .channel(NioServerSocketChannel.class) .localAddress(new InetSocketAddress(9999)) /** * Handler 是为了支持各种协议和处理数据的方式; 主要是处理连接、数据接收、异常、数据转换等事件 * * ChannelInitializer 用于配置Handler， 它提供ChannelPipeline,并把设置的Handler加到ChannelPipeline */ .childHandler(new ChannelInitializer&amp;lt;SocketChannel&amp;gt;() { @Override protected void initChannel(SocketChannel socketChannel) throws Exception { /** * ChannelPipeline 一个Netty应用基于ChannelPipeline机制，这种机制依赖于EventLoop和EventLoopGroup */ socketChannel.</description>
+    </item>
+    
+    <item>
+      <title>Netty实战——基于netty实现心跳检测、消息编解码和断连重连</title>
+      <link>https://pangwawa.github.io/posts/netty/netty_heartbeat/</link>
+      <pubDate>Thu, 26 Nov 2020 14:43:47 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/netty/netty_heartbeat/</guid>
+      <description>整理下思路
+1、客户端向服务端注册客户端 registerClient(String ClientName, String groupName, EsunClient client)
+2、客户端定期向服务端发送心跳消息、
+3、服务端接收心跳消息，并更新客户端注册列表的心跳时间
+4、服务端定期检查注册列表，对心跳超时未超过三次的的客户端发送心跳消息
+5、客户端启动后会自动重连
+6、服务端启动后会自动重连
+简单实现
+client端
+public class HeartBeatClientHandler extends ChannelInboundHandlerAdapter {private long reconnectTime=5L;@AutowiredClient client;@Overridepublic void channelRegistered(ChannelHandlerContext ctx) throws Exception {super.channelRegistered(ctx);}@Overridepublic void channelUnregistered(ChannelHandlerContext ctx) throws Exception {//重连ctx.channel().eventLoop().schedule(new Runnable() {@Overridepublic void run() {try {client.connect();} catch (InterruptedException e) {log.error(&amp;quot;连接服务端出现异常，message:{}&amp;quot;,e.getMessage());}}},reconnectTime, TimeUnit.SECONDS);super.channelUnregistered(ctx);}@Overridepublic void channelActive(ChannelHandlerContext ctx) throws Exception {CustomMessageProto.</description>
+    </item>
+    
+    <item>
+      <title>Netty基础——基础概念与架构原理</title>
+      <link>https://pangwawa.github.io/posts/netty/netty_structure/</link>
+      <pubDate>Wed, 25 Nov 2020 14:41:07 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/netty/netty_structure/</guid>
+      <description>##Netty 一个NIO Java框架，对NIO底层进行了很好的封装 Netty提供异步的、事件驱动的网络应用程序框架和工具，用以快速开发高性能、高可靠性的网络服务器和客户端程序。 快速和简单的开发出一个网络应用，例如实现了某种协议的客户、服务端应用。Netty相当于简化和流线化了网络应用的编程开发过程，例如：基于TCP和UDP的socket服务开发。 etty 是一个吸收了多种协议（包括FTP、SMTP、HTTP等各种二进制文本协议）的实现经验，并经过相当精心设计的项目。最终，Netty 成功的找到了一种方式，在保证易于开发的同时还保证了其应用的性能，稳定性和伸缩性
+为什么使用Netty 有了Netty，你可以实现自己的HTTP服务器，FTP服务器，UDP服务器，RPC服务器，WebSocket服务器，Redis的Proxy服务器，MySQL的Proxy服务器等等。如果你想知道Nginx是怎么写出来的， 如果你想知道Tomcat和Jetty是如何实现的，如果你也想实现一个简单的Redis服务器，那都应该好好理解一下Netty，它们高性能的原理都是类似的
+Netty组成 核心组件包括：
+Bootstrap 和 ServerBootstrap 、 Channel、 ChannelHandler、 ChannelPipeline、 EventLoop、 ChannelFuture
+.Bootstrap，ServerBootstrap bootstrap意思是引导，一个Netty应用通常由一个Bootstrap开始，主要作用是配置整个netty程序，串联各个组件。ServerBootstrap是服务端启动引导类，Bootstrap是客户端启动引导类。该类提供了一个 用于应用程序网络层配置的容器
+Bootstrap: 用于客户端 示例：Bootstrap bootstrap=new Bootstrap(); ServerBootstrap：用于服务器端 示例： ServerBootstrap serverBootstrap=new ServerBootstrap();
+Channel Channel是Netty网络通信的通道，通过该通道可以执行网络I/O操作。主要作用是：
+维护当前网络连接的通道的状态（例如是否打开?是否已连接） 网络连接的配置参数（例如接收和发送缓冲区的大小） 提供异步的网络I/O操作（如建立连接，读写，绑定端口），异步意味着任何I/O操作都会立即返回，可以通过注册一个监听器来自定义操作结果的事件处理。 支持关联I/O操作与对应的处理程序  底层网络传输 API 必须提供给应用 I/O操作的接口，如读，写，连接，绑定等等。对于我们来说，这是结构几乎总是会成为一个“socket”。 Netty 中的接口 Channel 定义了与 socket 丰富交互的操作集： bind, close, config, connect, isActive, isOpen, isWritable, read, write 等等。 Netty 提供大量的 Channel 实现来专门使用。这些包括 AbstractChannel，AbstractNioByteChannel，AbstractNioChannel， EmbeddedChannel， LocalServerChannel，NioSocketChannel 等等。</description>
+    </item>
+    
+    <item>
+      <title>Netty入门——NIO </title>
+      <link>https://pangwawa.github.io/posts/netty/nio/</link>
+      <pubDate>Tue, 24 Nov 2020 14:40:15 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/netty/nio/</guid>
+      <description>NIO，全称 java-non-blocking IO ,jdk1.4开始支持，java.nio包下，面向块/缓冲区编程
+NIO三大核心部分： Channel、Buffer、Selector</description>
+    </item>
+    
+    <item>
+      <title>Netty进阶——基于Netty协议栈进行Protobuf私有协议的定制开发 </title>
+      <link>https://pangwawa.github.io/posts/netty/netty_private_protocol_base/</link>
+      <pubDate>Tue, 24 Nov 2020 14:40:15 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/posts/netty/netty_private_protocol_base/</guid>
+      <description>私有协议栈和Netty协议栈 绝大多数数私有协议的传输层是基于TCP/IP，利用Netty的TCP/IP协议栈可以非常方便的进行私有协议栈的定制开发
+Netty协议栈用于内部各模块间的通信，基于TCP/IP协议，是个类HTTP协议的应用层协议栈，比传统的标准协议栈更轻巧灵活和实用
+Netty协议栈承载了业务内部各模块之间的消息交互和服务调用，它的主要功能如下。 (1）基于Netty 的NIO通信框架，提供高性能的异步通信能力; (2）提供消息的编解码框架，可以实现POJO的序列化和反序列化; (3)提供基于IP地址的白名单接入认证机制; (4）链路的有效性校验机制; (5)链路的断连重连机制。
+Netty协议 通信模型与步骤 考虑到安全，链路建立需要通过基于IP地址或者号段的黑白名单安全认证机制 为样例，本协议使用基于IP地址的安全认证，如果有多个IP，通过逗号进行分割。在实际商用项目中，安全认证机制会更加严格，例如通过密钥对用户名和密码进行安全认证。
+消息定义 header crcCode : int 32 位 netty消息的校验码，由三部分组成 ： 1、0xABEF （固定值，表面是netty协议，2个字节） ；2、主版本号 1~255，1个字节；3、次版本号，1~255，1个字节。也就是： crcCode= 0xABEF + 主版本号 + 次版本号
+length : int 32
+sessionID : long 64 节点内全局唯一，由会话ID生成器生成
+type : Byte 8
+ 0:业务请求消息1:业务响应消息2:业务ONE WAY消息（既是请求又是响应消息)3:握手请求消息4:握手应答消息5:心跳请求消息6:心跳应答消息 priority: Byte 8 消息优先级 0~255
+attachment : Map&amp;lt;String , Object&amp;gt; 可选字段，用于扩展请求头
+body Object 消息体， 对于请求消息，是参数数据，对于相应消息，是返回的数据</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Abouts on 小吴的工作手记</title>
+    <link>https://pangwawa.github.io/about/</link>
+    <description>Recent content in Abouts on 小吴的工作手记</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <lastBuildDate>Sat, 23 Mar 2019 11:41:37 +0800</lastBuildDate><atom:link href="https://pangwawa.github.io/about/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于我</title>
+      <link>https://pangwawa.github.io/about/about_me/</link>
+      <pubDate>Sat, 23 Mar 2019 11:41:37 +0800</pubDate>
+      
+      <guid>https://pangwawa.github.io/about/about_me/</guid>
+      <description>我是一名专注于Java架构、大数据开发的互联网从业者</description>
+    </item>
+    
+  </channel>
+</rss>

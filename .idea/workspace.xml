@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0f91f832-8bcf-4565-9eba-ec84d8ef5792" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/posts/netty/netty_heartbeat.md" beforeDir="false" afterPath="$PROJECT_DIR$/content/posts/netty/netty_heartbeat.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content/posts/netty/netty_reactor_model.md" beforeDir="false" afterPath="$PROJECT_DIR$/content/posts/netty/netty_reactor_model.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,13 +16,73 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/content/posts/java/synchronized.md">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/content/posts/netty/netty_echo_sample.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="363">
-                <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
+              <first_editor relative-caret-position="-872">
+                <caret line="37" selection-start-line="37" selection-end-line="37" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/content/posts/netty/netty_heartbeat.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="475">
+                <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/content/posts/netty/netty_private_protocol_base.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="187">
+                <caret line="297" selection-start-line="297" selection-end-line="297" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/content/posts/netty/netty_structure.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="1593">
+                <caret line="135" column="45" selection-start-line="135" selection-start-column="45" selection-end-line="135" selection-end-column="45" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/content/posts/netty/netty_reactor_model.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="-1252">
+                <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/content/posts/netty/nio.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="228">
+                <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
               </first_editor>
               <second_editor />
             </state>
@@ -86,10 +148,8 @@
         <option value="$PROJECT_DIR$/content/posts/elasticsearch/ElasticSearch_lifecycle_management.md" />
         <option value="$PROJECT_DIR$/content/posts/elasticsearch/ElasticSearch_cluster.md" />
         <option value="$PROJECT_DIR$/content/posts/netty/netty_structure.md" />
-        <option value="$PROJECT_DIR$/content/posts/netty/netty_reactor_model.md" />
         <option value="$PROJECT_DIR$/content/posts/netty/netty_echo_sample.md" />
         <option value="$PROJECT_DIR$/content/posts/netty/nio.md" />
-        <option value="$PROJECT_DIR$/content/posts/netty/netty_heartbeat.md" />
         <option value="$PROJECT_DIR$/content/posts/netty/netty_private_protocol_base.md" />
         <option value="$PROJECT_DIR$/themes/m10c/layouts/_default/baseof.html" />
         <option value="$PROJECT_DIR$/themes/m10c/assets/css/components/_posts_list.scss" />
@@ -100,6 +160,8 @@
         <option value="$PROJECT_DIR$/content/posts/java/juc/concurrent_container.md" />
         <option value="$PROJECT_DIR$/content/posts/java/juc/threadpool.md" />
         <option value="$PROJECT_DIR$/content/posts/java/synchronized.md" />
+        <option value="$PROJECT_DIR$/content/posts/netty/netty_reactor_model.md" />
+        <option value="$PROJECT_DIR$/content/posts/netty/netty_heartbeat.md" />
       </list>
     </option>
   </component>
@@ -123,18 +185,15 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="-7" />
+    <option name="width" value="1934" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -153,10 +212,24 @@
               <item name="content" type="462c0819:PsiDirectoryNode" />
               <item name="posts" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="pangwawa.github.io" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pangwawa.github.io" type="462c0819:PsiDirectoryNode" />
+              <item name="content" type="462c0819:PsiDirectoryNode" />
+              <item name="posts" type="462c0819:PsiDirectoryNode" />
+              <item name="netty" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pangwawa.github.io" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pangwawa.github.io" type="462c0819:PsiDirectoryNode" />
+              <item name="docs" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -170,19 +243,19 @@
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\esunproject\pangwawa.github.io\static\images\daotu" />
-      <recent name="D:\esunproject\pangwawa.github.io\static\images" />
-      <recent name="D:\esunproject\pangwawa.github.io\themes\m10c\static" />
-      <recent name="D:\esunproject\pangwawa.github.io\docs\tags" />
-      <recent name="D:\esunproject\pangwawa.github.io" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\esunproject\pangwawa.github.io\content\posts\java\basic" />
       <recent name="D:\esunproject\pangwawa.github.io\content\posts\java\juc" />
       <recent name="D:\esunproject\pangwawa.github.io\content\posts\other" />
       <recent name="D:\esunproject\pangwawa.github.io\content\posts\life" />
       <recent name="D:\esunproject\pangwawa.github.io\content\posts\mysql" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\esunproject\pangwawa.github.io\static\images\daotu" />
+      <recent name="D:\esunproject\pangwawa.github.io\static\images" />
+      <recent name="D:\esunproject\pangwawa.github.io\themes\m10c\static" />
+      <recent name="D:\esunproject\pangwawa.github.io\docs\tags" />
+      <recent name="D:\esunproject\pangwawa.github.io" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -233,6 +306,8 @@
       <workItem from="1607401666295" duration="2566000" />
       <workItem from="1608195280230" duration="4952000" />
       <workItem from="1608256812929" duration="28000" />
+      <workItem from="1610705583613" duration="51000" />
+      <workItem from="1622690620698" duration="802000" />
     </task>
     <task id="LOCAL-00001" summary="languageCode修改">
       <created>1603185171761</created>
@@ -367,11 +442,18 @@
       <option name="project" value="LOCAL" />
       <updated>1604916540425</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="java version">
+      <created>1610705596819</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1610705596819</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="123005000" />
+    <option name="totallyTimeSpent" value="123858000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -405,6 +487,7 @@
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Database" order="8" />
+      <window_info anchor="right" id="Mongo Explorer" order="9" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -628,26 +711,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content/posts/netty/nio.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="228">
-            <caret line="12" selection-end-line="12" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/posts/netty/netty_echo_sample.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="-60">
-            <caret line="37" selection-start-line="37" selection-end-line="37" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/content/posts/java/basic/java_vesrion.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
@@ -696,46 +759,6 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/posts/netty/netty_structure.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="-1537">
-            <caret line="31" column="46" selection-start-line="31" selection-start-column="46" selection-end-line="31" selection-end-column="46" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/posts/netty/netty_reactor_model.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="152">
-            <caret line="8" selection-start-line="8" selection-end-line="8" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/posts/netty/netty_private_protocol_base.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="187">
-            <caret line="297" selection-start-line="297" selection-end-line="297" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/content/posts/netty/netty_heartbeat.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="152">
-            <caret line="8" selection-start-line="8" selection-end-line="8" />
-          </first_editor>
           <second_editor />
         </state>
       </provider>
@@ -874,8 +897,68 @@
     <entry file="file://$PROJECT_DIR$/content/posts/java/synchronized.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="363">
-            <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
+          <first_editor relative-caret-position="1275">
+            <caret line="99" column="9" lean-forward="true" selection-start-line="99" selection-start-column="9" selection-end-line="99" selection-end-column="9" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/posts/netty/netty_private_protocol_base.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="187">
+            <caret line="297" selection-start-line="297" selection-end-line="297" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/posts/netty/netty_reactor_model.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="-1252">
+            <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/posts/netty/nio.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="228">
+            <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/posts/netty/netty_structure.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="1593">
+            <caret line="135" column="45" selection-start-line="135" selection-start-column="45" selection-end-line="135" selection-end-column="45" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/posts/netty/netty_echo_sample.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="-872">
+            <caret line="37" selection-start-line="37" selection-end-line="37" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content/posts/netty/netty_heartbeat.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="475">
+            <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
           </first_editor>
           <second_editor />
         </state>
