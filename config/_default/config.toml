@@ -1,4 +1,4 @@
-baseURL = "https://example.com"
+baseURL = "https://pangwawa.github.io"
 title = "Jack Wu"
 theme = "hugo-theme-bootstrap"
 copyright = "Copyright © 2018-{year} Jack Wu. All Rights Reserved."
