@@ -1,0 +1,35 @@
+baseURL = "https://example.com"
+title = "Jack Wu"
+theme = "hugo-theme-bootstrap"
+copyright = "Copyright © 2018-{year} Jack Wu. All Rights Reserved."
+
+# Multilingual mode
+defaultContentLanguage = "zh-cn"
+defaultContentLanguageInSubdir = true
+
+# Pagination
+paginate = 10
+# paginatePath = "page"
+
+# Disqus
+# disqusShortname = "Jack"
+
+# Google analytics
+# googleAnalytics = "UA-123-45"
+
+enableRobotsTXT = true
+
+enableEmoji = true
+
+hasCJKLanguage = true # Turn on it if your content contains Chinese/Japanese/Korean Languages.
+
+[blackfriday]
+  hrefTargetBlank = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[taxonomies]
+  category = "categories"
+  series = "series"
+  tag = "tags"

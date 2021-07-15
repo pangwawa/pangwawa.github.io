@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Search - Jack Wu</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="description" content="" /><meta itemprop="name" content="Search">
+<meta itemprop="description" content="一名专注于Java架构、大数据开发的互联网从业者">
+<meta property="og:title" content="Search" />
+<meta property="og:description" content="一名专注于Java架构、大数据开发的互联网从业者" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/en/search/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Search"/>
+<meta name="twitter:description" content="一名专注于Java架构、大数据开发的互联网从业者"/>
+<link rel="alternate" type="application/rss+xml" href="/en/search/index.xml" title="Jack Wu" /><meta data-name="search-index" content="/en/index.json"><meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.5e28a02b1827120280de54374daf944524694ccfd699b58a014376162da28321.css" integrity="sha256-XiigKxgnEgKA3lQ3Ta&#43;URSRpTM/WmbWKAUN2Fi2igyE=" crossorigin="anonymous"><script src="/js/bundle.min.aae996eab2b4188b8e1d806a6895ef5b02e8b97a6ceb11faef9b9b1cb99021be.js" integrity="sha256-qumW6rK0GIuOHYBqaJXvWwLouXps6xH675ubHLmQIb4=" crossorigin="anonymous"></script>
+<script>
+  window.searchResultContentWordCount = parseInt('240');
+  window.searchPaginate = parseInt('10');
+  window.fuseOptions = JSON.parse('{\u0022ignoreLocation\u0022:true,\u0022includeMatches\u0022:true,\u0022includeScore\u0022:true,\u0022keys\u0022:[{\u0022name\u0022:\u0022title\u0022,\u0022weight\u0022:0.8},{\u0022name\u0022:\u0022content\u0022,\u0022weight\u0022:0.5},{\u0022name\u0022:\u0022tags\u0022,\u0022weight\u0022:0.3},{\u0022name\u0022:\u0022categories\u0022,\u0022weight\u0022:0.3},{\u0022name\u0022:\u0022series\u0022,\u0022weight\u0022:0.3}],\u0022threshold\u0022:0.1}');
+</script><script src="/js/search.58ff3eeb7a404f4e928adac02e01832f15921296c949bcb145b15c47997a2af5.js" integrity="sha256-WP8&#43;63pAT06SitrALgGDLxWSEpbJSbyxRbFcR5l6KvU=" crossorigin="anonymous"></script>
+</head><body class="mode-dark"><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/en/">
+      <img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy">Jack Wu</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/en/archives">
+            <i class="fas fa-fw fa-file-archive"></i>Archives
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/en/categories">
+            <i class="fas fa-fw fa-folder"></i>Categories
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/en/tags">
+            <i class="fas fa-fw fa-tags"></i>Tags
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/en/series">
+            <i class="fas fa-fw fa-columns"></i>Series
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://github.com/pangwawa" target="_blank">
+            <i class="fab fa-fw fa-github"></i>github
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="search container">
+  <form id="searchForm" class="search-form mb-3">
+    <div class="input-group input-group-lg">
+      <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+      <input class="form-control rounded-pill ps-5" name="q" type="search" aria-label="Search">
+    </div>
+  </form>
+  <div class="search-stat mb-3 me-1">
+    <i id="loadingSpinner" class="fas fa-fw fa-spin fa-spinner"></i>
+    <span id="searchStat"></span>
+  </div>
+  <div id="searchResults" class="search-results mb-3"></div>
+  <div class="text-center mb-3">
+    <button class="btn d-none" type="button" id="btnLoadMore">Load More</button>
+  </div>
+</div>
+<script type="text/html" id="templateResult">
+  <div class="search-result surface" id="{{id}}">
+    <h2 class="search-result-title mb-2">
+      <a href={{permalink}}>{{title}}</a>
+    </h2>
+    <div class="search-result-taxonomies mb-3">
+      <span class="search-result-score search-result-taxonomy">
+        <span style="width: {{{score}}}%"></span>
+      </span>
+      <span class="search-result-taxonomy">{{date}}</span>{{#series}}
+      <a href="/en/series/{{#url}}{{.}}{{/url}}/" class="search-result-taxonomy">{{.}}</a>
+      {{/series}}{{#categories}}
+      <a href="/en/categories/{{#url}}{{.}}{{/url}}/" class="search-result-taxonomy">{{.}}</a>
+      {{/categories}}{{#tags}}
+      <a href="/en/tags/{{#url}}{{.}}{{/url}}/" class="search-result-taxonomy">{{.}}</a>
+      {{/tags}}</div>
+    <div class="search-result-content mb-3">{{{content}}}</div>
+  </div>
+</script>
+<script type="text/html" id="templateMissingKeywords">
+  Please enter search keywords
+</script>
+<script type="text/html" id="templateNoResults">
+  No results found
+</script>
+<script type="text/html" id="templateStat">
+  Found <span class="text-accent">{{total}}</span> results
+</script>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><li class="nav-item">
+    <a class="nav-link social-link" href="mailto:jackwu1024@163.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a>
+  </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="https://github.com/pangwawa" title="GitHub">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a>
+    </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2442591540&amp;site=qq&amp;menu=yes" title="QQ">
+        <i class="fa-fw fa-2x fab fa-qq"></i>
+      </a>
+    </li>
+</nav>
+<div class="copyright mb-2">
+  Copyright © 2018-2021 Jack Wu. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+<script async src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-60bcc43f59f2d04f"></script></body>
+</html>

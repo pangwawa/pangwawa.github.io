@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Java并发编程 juc包——AQS - Jack Wu</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="description" content="" /><meta itemprop="name" content="Java并发编程 juc包——AQS">
+<meta itemprop="description" content="AQS AbstractQueuedSynchronizer,抽象的队列式同步器。是除了java自带的synchronized关键字之外的锁机制 使">
+<meta itemprop="datePublished" content="2019-02-06T09:31:57+08:00" />
+<meta itemprop="dateModified" content="2019-02-06T09:31:57+08:00" />
+<meta itemprop="wordCount" content="2420">
+
+
+
+<meta itemprop="keywords" content="并发编程,Java," />
+<meta property="og:title" content="Java并发编程 juc包——AQS" />
+<meta property="og:description" content="AQS AbstractQueuedSynchronizer,抽象的队列式同步器。是除了java自带的synchronized关键字之外的锁机制 使" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/zh-cn/posts/java/juc/aqs/" />
+<meta property="article:published_time" content="2019-02-06T09:31:57+08:00" />
+<meta property="article:modified_time" content="2019-02-06T09:31:57+08:00" /><meta property="og:site_name" content="Jack Wu" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java并发编程 juc包——AQS"/>
+<meta name="twitter:description" content="AQS AbstractQueuedSynchronizer,抽象的队列式同步器。是除了java自带的synchronized关键字之外的锁机制 使"/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.5e28a02b1827120280de54374daf944524694ccfd699b58a014376162da28321.css" integrity="sha256-XiigKxgnEgKA3lQ3Ta&#43;URSRpTM/WmbWKAUN2Fi2igyE=" crossorigin="anonymous"><script src="/js/bundle.min.aae996eab2b4188b8e1d806a6895ef5b02e8b97a6ceb11faef9b9b1cb99021be.js" integrity="sha256-qumW6rK0GIuOHYBqaJXvWwLouXps6xH675ubHLmQIb4=" crossorigin="anonymous"></script>
+</head><body class="mode-dark"><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/zh-cn/">
+      <img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy">Jack Wu</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/zh-cn/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/categories">
+            <i class="fas fa-fw fa-folder"></i>分类
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/tags">
+            <i class="fas fa-fw fa-tags"></i>标签
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/series">
+            <i class="fas fa-fw fa-columns"></i>专栏
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://github.com/pangwawa" target="_blank">
+            <i class="fab fa-fw fa-github"></i>github
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/zh-cn/">主页</a></li><li class="breadcrumb-item"><a href="/zh-cn/posts/">文章</a></li><li class="breadcrumb-item active">Java并发编程 juc包——AQS</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Java并发编程 juc包——AQS</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2019-02-06
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>5 分钟阅读
+  </span>
+<a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/" class="post-taxonomy">#技术博客</a><a href="/zh-cn/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="post-taxonomy">#并发编程</a><a href="/zh-cn/tags/java/" class="post-taxonomy">#Java</a></div>
+<div class="post-share mb-3"><div class="addthis_inline_share_toolbox"></div></div><a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#aqs">AQS</a></li>
+    <li><a href="#aqs构建锁和其他同步组件">AQS构建锁和其他同步组件</a>
+      <ul>
+        <li><a href="#countdownlatch">CountDownLatch</a></li>
+        <li><a href="#semaphore信号量">Semaphore信号量</a></li>
+        <li><a href="#cyclicbarrier">CyclicBarrier</a></li>
+        <li><a href="#reentrantlock与锁">ReentrantLock与锁</a></li>
+        <li><a href="#condition">Condition</a></li>
+        <li><a href="#futuretask">FutureTask</a></li>
+      </ul>
+    </li>
+    <li><a href="#aqs-定义的两种资源方式">AQS 定义的两种资源方式</a></li>
+    <li><a href="#自定义同步器">自定义同步器</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><h2 id="aqs">AQS</h2>
+<p>AbstractQueuedSynchronizer,抽象的队列式同步器。是除了java自带的synchronized关键字之外的锁机制</p>
+<p>使用Node实现FIFO队列
+利用int类型表示状态
+使用方法是继承
+排它锁和共享锁</p>
+<p>核心思想是，如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的工作线程，并将共享资源设置为锁定状态，如果被请求的共享资源被占用，那么就需要一套线程阻塞等待以及被唤醒时锁分配的机制，
+这个机制AQS是用CLH队列锁实现的，即将暂时获取不到锁的线程加入到队列中。
+CLH（Craig，Landin，and Hagersten）队列是一个虚拟的双向队列，虚拟的双向队列即不存在队列实例，仅存在节点之间的关联关系。
+AQS是将每一条请求共享资源的线程封装成一个CLH锁队列的一个结点（Node），来实现锁的分配。</p>
+<p>用大白话来说，AQS就是基于CLH队列，用volatile修饰共享变量state，线程通过CAS去改变状态符，成功则获取锁成功，失败则进入等待队列，等待被唤醒。</p>
+<p>**注意：AQS是自旋锁：
+**在等待唤醒的时候，经常会使用自旋（while(!cas())）的方式，不停地尝试获取锁，直到被其他线程获取成功</p>
+<p><strong>实现了AQS的锁有：自旋锁、互斥锁、读锁写锁、条件产量、信号量、栅栏都是AQS的衍生物</strong></p>
+<p>另外 AQS 还维护了一个很重要的变量exclusiveOwnerThread，它表示的是获得锁的线程，也叫独占线程。AQS中还有一个用来存储获取锁失败线程的队列，以及head 和 tail 结点</p>
+<h2 id="aqs构建锁和其他同步组件">AQS构建锁和其他同步组件</h2>
+<h3 id="countdownlatch">CountDownLatch</h3>
+<p>（计数器，执行countDown方法后会减一，await()方法保证countDown减为0）
+CountDownLatch latch=new CountDownLatch(100);
+latch.countDown();
+latch.await();</p>
+<p>同步辅助类，非常实用的多线程控制工具类，
+CountDownLatch(int count) //实例化一个倒计数器，count指定计数个数
+countDown() // 计数减一
+await() //等待，当计数减到0时，所有线程并行执行</p>
+<h3 id="semaphore信号量">Semaphore信号量</h3>
+<p>控制同时并发访问的个数
+final Semaphore semaphore=new Semaphore(3);
+semaphore.acquire(3);
+semaphore.release(3);</p>
+<p>semaphore.tryAcquire(3，……);尝试获取许可，能获取则执行，设置等待时间和获取个数</p>
+<h3 id="cyclicbarrier">CyclicBarrier</h3>
+<p>设置计数器等待其他符合数量条件线程就绪再继续执行之后的操作，可循环使用</p>
+<h3 id="reentrantlock与锁">ReentrantLock与锁</h3>
+<p>可重入锁，JDK实现，对指定代码枷锁
+与synchronized锁的区别</p>
+<p>public class ReentrantLockExample {
+//请求总数
+private static int clientcount=5000;
+//并发数
+public static int threadTotal=200;
+//计数器
+public static int count=0;</p>
+<p>private final static Lock lock=new ReentrantLock();
+public static void main(String[] args) throws InterruptedException {
+ExecutorService executorService=Executors.newCachedThreadPool();
+final Semaphore semaphore=new Semaphore(threadTotal);
+final CountDownLatch countDownLatch=new CountDownLatch(clientcount);
+for (int i=0;i&lt;clientcount;i++){
+executorService.execute(()-&gt;{
+try {
+semaphore.acquire();
+add();
+semaphore.release();
+} catch (InterruptedException e) {
+e.printStackTrace();
+}
+countDownLatch.countDown();
+});
+}
+countDownLatch.await();
+executorService.shutdown();;</p>
+<pre><code>}
+public static void add(){
+    lock.lock();;
+    try {
+        count++;
+    } finally {
+        lock.unlock();
+    }
+
+}
+</code></pre>
+<p>}</p>
+<h3 id="condition">Condition</h3>
+<h3 id="futuretask">FutureTask</h3>
+<h2 id="aqs-定义的两种资源方式">AQS 定义的两种资源方式</h2>
+<p>1.Exclusive：独占，只有一个线程能执行，如ReentrantLock</p>
+<p>2.Share：共享，多个线程可以同时执行，如Semaphore、CountDownLatch、ReadWriteLock，CyclicBarrier</p>
+<h2 id="自定义同步器">自定义同步器</h2>
+<p>自定义同步器一般的方式是这样（模板方法模式很经典的一个应用）：</p>
+<p>使用者继承AbstractQueuedSynchronizer并重写指定的方法。（这些重写方法很简单，无非是对于共享资源state的获取和释放）
+将AQS组合在自定义同步组件的实现中，并调用其模板方法，而这些模板方法会调用使用者重写的方法。
+这和我们以往通过实现接口的方式有很大区别，这是模板方法模式很经典的一个运用。
+自定义同步器在实现的时候只需要实现共享资源state的获取和释放方式即可，至于具体线程等待队列的维护，AQS已经在顶层实现好了。自定义同步器实现的时候主要实现下面几种方法：
+isHeldExclusively()：该线程是否正在独占资源。只有用到condition才需要去实现它。
+tryAcquire(int)：独占方式。尝试获取资源，成功则返回true，失败则返回false。
+tryRelease(int)：独占方式。尝试释放资源，成功则返回true，失败则返回false。
+tryAcquireShared(int)：共享方式。尝试获取资源。负数表示失败；0表示成功，但没有剩余可用资源；正数表示成功，且有剩余资源。
+tryReleaseShared(int)：共享方式。尝试释放资源，如果释放后允许唤醒后续等待结点返回true，否则返回false。</p>
+<p>ReentrantLock为例，（可重入独占式锁）：state初始化为0，表示未锁定状态，A线程lock()时，会调用tryAcquire()独占锁并将state+1.之后其他线程再想tryAcquire的时候就会失败，直到A线程unlock（）到state=0为止，其他线程才有机会获取该锁。A释放锁之前，自己也是可以重复获取此锁（state累加），这就是可重入的概念。
+注意：获取多少次锁就要释放多少次锁，保证state是能回到零态的。</p>
+<p>以CountDownLatch为例，任务分N个子线程去执行，state就初始化 为N，N个线程并行执行，每个线程执行完之后countDown（）一次，state就会CAS减一。当N子线程全部执行完毕，state=0，会unpark()主调用线程，主调用线程就会从await()函数返回，继续之后的动作。</p>
+<p>一般来说，自定义同步器要么是独占方法，要么是共享方式，他们也只需实现tryAcquire-tryRelease、tryAcquireShared-tryReleaseShared中的一种即可。但AQS也支持自定义同步器同时实现独占和共享两种方式，如ReentrantReadWriteLock。
+　在acquire() acquireShared()两种方式下，线程在等待队列中都是忽略中断的，acquireInterruptibly()/acquireSharedInterruptibly()是支持响应中断的。</p>
+<p>同步类在实现时一般都将自定义同步器（sync）定义为内部类，供自己使用；而同步类自己（Mutex）则实现某个接口，对外服务。</p>
+</div><div class="post-copyright mb-4">
+  <h3>版权</h3><div class="post-cc">本作品采用 <a target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">CC BY-NC-ND 4.0 <i class="fab fa-fw fa-creative-commons"></i><i class="fab fa-fw fa-creative-commons-by"></i><i class="fab fa-fw fa-creative-commons-nc"></i><i class="fab fa-fw fa-creative-commons-nd"></i></a> 授权。</div>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/zh-cn/posts/java/synchronized/">Java并发编程——synchronized关键字</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/zh-cn/posts/java/juc/atomic/">Java并发编程 juc包——Atomic包</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/zh-cn/posts/java/synchronized/">Java并发编程——synchronized关键字</a></li><li><a href="/zh-cn/posts/java/juc/java_memory_gc/">深入理解Java虚拟机——JVM的GC详解</a></li><li><a href="/zh-cn/posts/java/juc/java_memory_model/">深入理解Java虚拟机——Java内存模型</a></li></ul>
+  </section></article><div class="post-comments surface row"><script src="https://utteranc.es/client.js"
+  repo="razonyang/hugo-theme-bootstrap"
+  issue-term="pathname"
+  label=""
+  theme="github-dark"
+  crossorigin="anonymous"
+  async>
+</script></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile.webp" alt="Jack Wu" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">Jack Wu</h5><div class="profile-bio mb-2">Java开发工程师，全栈工程师.</div><div class="profile-company mb-2"><i class="fas fa-fw fa-building"></i>~</div><div class="profile-location mb-2"><i class="fas fa-fw fa-map-marker-alt"></i>深圳</div></div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/zh-cn/posts/netty/netty_reactor_model/">Netty_reactor_model</a></li><li><a href="/zh-cn/posts/netty/netty_echo_sample/">Netty基础——从简单Echo程序分析Netty组件</a></li><li><a href="/zh-cn/posts/netty/netty_heartbeat/">Netty实战——基于netty实现心跳检测、消息编解码和断连重连</a></li><li><a href="/zh-cn/posts/netty/netty_structure/">Netty基础——基础概念与架构原理</a></li><li><a href="/zh-cn/posts/netty/nio/">Netty入门——NIO </a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/zh-cn/categories">分类</a>
+      </h4>
+      <div><a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="技术博客">
+          技术博客 <span class="badge rounded-pill">37</span>
+        </a><a href="/zh-cn/categories/life/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="life">
+          life <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="/zh-cn/tags">标签</a>
+      </h4>
+      <div><a href="/zh-cn/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="大数据">
+          大数据 <span class="badge rounded-pill">14</span>
+        </a><a href="/zh-cn/tags/olap/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="OLAP">
+          OLAP <span class="badge rounded-pill">13</span>
+        </a><a href="/zh-cn/tags/elasticsearch/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="ElasticSearch">
+          ElasticSearch <span class="badge rounded-pill">11</span>
+        </a><a href="/zh-cn/tags/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/zh-cn/tags/netty/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Netty">
+          Netty <span class="badge rounded-pill">6</span>
+        </a><a href="/zh-cn/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="并发编程">
+          并发编程 <span class="badge rounded-pill">6</span>
+        </a><a href="/zh-cn/tags/devops/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="DevOps">
+          DevOps <span class="badge rounded-pill">5</span>
+        </a><a href="/zh-cn/tags/kubernetes/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="kubernetes">
+          kubernetes <span class="badge rounded-pill">5</span>
+        </a><a href="/zh-cn/tags/gc/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="GC">
+          GC <span class="badge rounded-pill">2</span>
+        </a><a href="/zh-cn/tags/jvm/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="JVM">
+          JVM <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><li class="nav-item">
+    <a class="nav-link social-link" href="mailto:jackwu1024@163.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a>
+  </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="https://github.com/pangwawa" title="GitHub">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a>
+    </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2442591540&amp;site=qq&amp;menu=yes" title="QQ">
+        <i class="fa-fw fa-2x fab fa-qq"></i>
+      </a>
+    </li>
+</nav>
+<div class="copyright mb-2">
+  Copyright © 2018-2021 Jack Wu. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+<script async src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-60bcc43f59f2d04f"></script></body>
+</html>

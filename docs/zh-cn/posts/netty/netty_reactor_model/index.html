@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Netty_reactor_model - Jack Wu</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="description" content="" /><meta itemprop="name" content="Netty_reactor_model">
+<meta itemprop="description" content="Netty线程模型 Netty主要是基于主从Reactors多线程模型(如下图)做了一些修改，其中主从reactor多线程模型有多个react">
+<meta itemprop="datePublished" content="2020-11-26T14:50:48+08:00" />
+<meta itemprop="dateModified" content="2020-11-26T14:50:48+08:00" />
+<meta itemprop="wordCount" content="3851">
+
+
+
+<meta itemprop="keywords" content="Netty," />
+<meta property="og:title" content="Netty_reactor_model" />
+<meta property="og:description" content="Netty线程模型 Netty主要是基于主从Reactors多线程模型(如下图)做了一些修改，其中主从reactor多线程模型有多个react" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/zh-cn/posts/netty/netty_reactor_model/" />
+<meta property="article:published_time" content="2020-11-26T14:50:48+08:00" />
+<meta property="article:modified_time" content="2020-11-26T14:50:48+08:00" /><meta property="og:site_name" content="Jack Wu" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Netty_reactor_model"/>
+<meta name="twitter:description" content="Netty线程模型 Netty主要是基于主从Reactors多线程模型(如下图)做了一些修改，其中主从reactor多线程模型有多个react"/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.5e28a02b1827120280de54374daf944524694ccfd699b58a014376162da28321.css" integrity="sha256-XiigKxgnEgKA3lQ3Ta&#43;URSRpTM/WmbWKAUN2Fi2igyE=" crossorigin="anonymous"><script src="/js/bundle.min.aae996eab2b4188b8e1d806a6895ef5b02e8b97a6ceb11faef9b9b1cb99021be.js" integrity="sha256-qumW6rK0GIuOHYBqaJXvWwLouXps6xH675ubHLmQIb4=" crossorigin="anonymous"></script>
+</head><body class="mode-dark"><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/zh-cn/">
+      <img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy">Jack Wu</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/zh-cn/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/categories">
+            <i class="fas fa-fw fa-folder"></i>分类
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/tags">
+            <i class="fas fa-fw fa-tags"></i>标签
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/series">
+            <i class="fas fa-fw fa-columns"></i>专栏
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://github.com/pangwawa" target="_blank">
+            <i class="fab fa-fw fa-github"></i>github
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/zh-cn/">主页</a></li><li class="breadcrumb-item"><a href="/zh-cn/posts/">文章</a></li><li class="breadcrumb-item active">Netty_reactor_model</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Netty_reactor_model</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2020-11-26
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>8 分钟阅读
+  </span>
+<a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/" class="post-taxonomy">#技术博客</a><a href="/zh-cn/tags/netty/" class="post-taxonomy">#Netty</a></div>
+<div class="post-share mb-3"><div class="addthis_inline_share_toolbox"></div></div><a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#netty线程模型">Netty线程模型</a></li>
+    <li><a href="#channelhandler的方法">ChannelHandler的方法</a></li>
+    <li><a href="#netty自带-handler">Netty自带 Handler</a></li>
+    <li><a href="#netty-channelfuturelistener">Netty ChannelFutureListener</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><h2 id="netty线程模型">Netty线程模型</h2>
+<p>Netty主要是基于主从Reactors多线程模型(如下图)做了一些修改，其中主从reactor多线程模型有多个reactor：</p>
+<p>MainReactor负责客户端的连接请求，并将请求转交给SubReactor
+SubReactor负责相应通道的IO读写请求
+非IO请求(具体逻辑处理)的任务则会直接进入写入队列，等到worker threads进行处理</p>
+<p>特别说明的是：虽然Netty的线程模型基于主从Reactor多线程，借用了MainReactor和SubReactor的结构。但是实际实现上SubReactor和Worker线程在同一个线程池中</p>
+<p>bossGroup线程池则只是在bind某个端口后，获得其中一个线程作为MainReactor，专门处理端口的Accept事件，每个端口对应一个boss线程
+workerGroup线程池会被各个SubReactor和Worker线程充分利用</p>
+<p>异常处理</p>
+<p>异步的概念和同步相对。当一个异步过程调用发出后，调用者不能立刻得到结果。实际处理这个调用的部件在完成后，通过状态、通知和回调来通知调用者
+Netty中的IO操作是异步的，包括Bind、Write、Connect等操作会简单的返回一个channelFuture
+调用者并不能立刻获得结果，而是通过Future-Listener机制，用户可以方便的主动获取或通过通知机制来获得IO操作结果
+当future对象刚刚创建时，处于非完成状态，调用者可以通过返回的ChannelFuture来获取操作执行的状态，注册监听函数来执行完成后的操作</p>
+<h2 id="channelhandler的方法">ChannelHandler的方法</h2>
+<p>通过ChannelHandler处理IO操作</p>
+<p>ChannelPipeline可以动态添加、删除、替换其中的ChannelHandler，这样的机制可以提高灵活性。</p>
+<p>ChannelInitializer用来初始化ChannelHandler，将自定义的各种ChannelHandler添加到ChannelPipeline中。</p>
+<p>ChannelPipeline提供的方法</p>
+<p>• addFirst(&hellip;)，添加ChannelHandler在ChannelPipeline的第一个位置
+• addBefore(&hellip;)，在ChannelPipeline中指定的ChannelHandler名称之前添加ChannelHandler
+• addAfter(&hellip;)，在ChannelPipeline中指定的ChannelHandler名称之后添加ChannelHandler
+• addLast(ChannelHandler&hellip;)，在ChannelPipeline的末尾添加ChannelHandler
+• remove(&hellip;)，删除ChannelPipeline中指定的ChannelHandler
+• replace(&hellip;)，替换ChannelPipeline中指定的ChannelHandler</p>
+<p>Netty中有3个实现了ChannelHandler接口的类，其中2个是接口（ChannelInboundHandler用来处理入站数据也就是接收数据、ChannelOutboundHandler用来处理出站数据也就是写数据），一个是抽象类ChannelHandlerAdapter类。
+ChannelHandler提供了在它的生命周期内添加或从ChannelPipeline中删除的方法：
+1.handlerAdded:ChannelHandler添加到实际上下文中准备处理事件。
+2.handlerRemoved：将ChannelHandler从实际上下文中删除，不再处理事件。
+3.exceptionCaught：处理跑出的异常。</p>
+<p>ChannelInboundHandler类的用法
+它提供了一些方法来接收数据或Channel状态改变时被调用，下面是一些常用方法：
+1.channelRegistered:ChannelHandlerContext的Channel被注册到EventLoop中。
+2.channelUnregistered：ChannelHandlerContext的channel从eventloop中注销。
+3.channelActive方法：ChannelHandlerContext的channel已被激活。
+4.channelInactive方法：ChannelHandlerContext的channel结束生命周期。
+5.channelRead方法：从当前Channel的对端读取消息。
+6.channelReadComplete方法：消息读取完毕有执行。
+7.userEventTriggered方法：一个用户事件被触发。
+8.channelWritabilityChanned方法：改变通道的可写状态，可以使用Channel.isWritable检查。
+9.exceptionCaught，重写父类ChannelHandler的方法，处理异常.</p>
+<h2 id="netty自带-handler">Netty自带 Handler</h2>
+<p>SslHandler:负责对请求进行加密和解密，是放在ChannelPipeline中的第一个ChannelHandler</p>
+<p>HttpClientCodec和HttpServerCodec:HttpClientCodec负责将请求字节解码为HttpRequest、HttpContent和LastHttpContent消息，以及对应的转为字节；HttpServerCodec负责服务端中将字节码解析成HttpResponse、HttpContent和LastHttpContent消息，以及对应的将它转为字节
+HttpServerCodec 里面组合了HttpResponseEncoder和HttpRequestDecoder</p>
+<p>HttpClientCodec 里面组合了HttpRequestEncoder和HttpResponseDecoder</p>
+<p>HttpObjectAggregator: 负责将http聚合成完整的消息，而不是原始的多个部分
+HttpContentCompressor和HttpContentDecompressor:HttpContentCompressor用于服务器压缩数据，HttpContentDecompressor用于客户端解压数据
+IdleStateHandler:连接空闲时间过长，触发IdleStateEvent事件
+ReadTimeoutHandler:指定时间内没有收到任何的入站数据，抛出ReadTimeoutException异常,并关闭channel
+WriteTimeoutHandler:指定时间内没有任何出站数据写入，抛出WriteTimeoutException异常，并关闭channel
+DelimiterBasedFrameDecoder:使用任何用户提供的分隔符来提取帧的通用解码器
+FixedLengthFrameDecoder:提取在调用构造函数时的定长帧
+ChunkedWriteHandler：将大型文件从文件系统复制到内存【DefaultFileRegion进行大型文件传输】
+WebSocketServerProtocolHandler：处理websocket协议，将HttpServerCodec转为websocketFrame,处理websocket握手</p>
+<p>线程的工作模式：</p>
+<p>在此类中，有两种类型的线程，一种是boss线程，另一种是worker线程</p>
+<p>Boss线程：</p>
+<p>每个server服务器都会有一个boss线程，每绑定一个InetSocketAddress都会产生一个boss线程，比如：我们开启了两个服务器端口80和443，则我们会有两个boss线程。一个boss线程在端口绑定后，会接收传进来的连接，一旦连接接收成功，boss线程会指派一个worker线程处理连接。</p>
+<p>Worker线程：</p>
+<p>一个NioServerSocketChannelFactory会有一个或者多个worker线程。一个worker线程在非阻塞模式下为一个或多个Channels提供非阻塞 读或写</p>
+<p>线程的生命周期和优雅的关闭</p>
+<p>在NioServerSocketChannelFactory被创建的时候，所有的线程都会从指定的Executors中获取。Boss线程从bossExecutor中获取，worker线程从workerExecutor中获取。因此，我们应该准确的指定Executors可以提供足够数量的线程，最好的选择就是指定一个cached线程池（It is the best bet to specify a cached thread pool）。</p>
+<p>此处发现所有源码中的例子(example)中均设置为Executors.newCachedThreadPool()</p>
+<p>Boss线程和worker线程都是懒加载，没有程序使用的时候要释放掉。当boss线程和worker线程释放掉的时候，所有的相关资源如Selector也要释放掉。因此，如果想要优雅的关闭一个服务，需要做一下事情：</p>
+<p>对factory创建的channels执行解绑（unbind）操作
+关闭所有的由解绑的channels处理的子channels（这两步目前通常通过ChannelGroup.close()来操作）
+调用releaseExternalResources()方法
+请确保在所有的channels都关闭前不要关闭executor，否则，会报RejectedExecutionException异常而且相关资源可能不会被释放掉。</p>
+<h2 id="netty-channelfuturelistener">Netty ChannelFutureListener</h2>
+<p>添加异步回调事件</p>
+</div><div class="post-copyright mb-4">
+  <h3>版权</h3><div class="post-cc">本作品采用 <a target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">CC BY-NC-ND 4.0 <i class="fab fa-fw fa-creative-commons"></i><i class="fab fa-fw fa-creative-commons-by"></i><i class="fab fa-fw fa-creative-commons-nc"></i><i class="fab fa-fw fa-creative-commons-nd"></i></a> 授权。</div>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/zh-cn/posts/netty/netty_echo_sample/">Netty基础——从简单Echo程序分析Netty组件</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/zh-cn/posts/netty/netty_echo_sample/">Netty基础——从简单Echo程序分析Netty组件</a></li><li><a href="/zh-cn/posts/netty/netty_heartbeat/">Netty实战——基于netty实现心跳检测、消息编解码和断连重连</a></li><li><a href="/zh-cn/posts/netty/netty_structure/">Netty基础——基础概念与架构原理</a></li><li><a href="/zh-cn/posts/netty/nio/">Netty入门——NIO </a></li><li><a href="/zh-cn/posts/netty/netty_private_protocol_base/">Netty进阶——基于Netty协议栈进行Protobuf私有协议的定制开发 </a></li></ul>
+  </section></article><div class="post-comments surface row"><script src="https://utteranc.es/client.js"
+  repo="razonyang/hugo-theme-bootstrap"
+  issue-term="pathname"
+  label=""
+  theme="github-dark"
+  crossorigin="anonymous"
+  async>
+</script></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile.webp" alt="Jack Wu" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">Jack Wu</h5><div class="profile-bio mb-2">Java开发工程师，全栈工程师.</div><div class="profile-company mb-2"><i class="fas fa-fw fa-building"></i>~</div><div class="profile-location mb-2"><i class="fas fa-fw fa-map-marker-alt"></i>深圳</div></div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/zh-cn/posts/netty/netty_reactor_model/">Netty_reactor_model</a></li><li><a href="/zh-cn/posts/netty/netty_echo_sample/">Netty基础——从简单Echo程序分析Netty组件</a></li><li><a href="/zh-cn/posts/netty/netty_heartbeat/">Netty实战——基于netty实现心跳检测、消息编解码和断连重连</a></li><li><a href="/zh-cn/posts/netty/netty_structure/">Netty基础——基础概念与架构原理</a></li><li><a href="/zh-cn/posts/netty/nio/">Netty入门——NIO </a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/zh-cn/categories">分类</a>
+      </h4>
+      <div><a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="技术博客">
+          技术博客 <span class="badge rounded-pill">37</span>
+        </a><a href="/zh-cn/categories/life/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="life">
+          life <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="/zh-cn/tags">标签</a>
+      </h4>
+      <div><a href="/zh-cn/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="大数据">
+          大数据 <span class="badge rounded-pill">14</span>
+        </a><a href="/zh-cn/tags/olap/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="OLAP">
+          OLAP <span class="badge rounded-pill">13</span>
+        </a><a href="/zh-cn/tags/elasticsearch/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="ElasticSearch">
+          ElasticSearch <span class="badge rounded-pill">11</span>
+        </a><a href="/zh-cn/tags/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/zh-cn/tags/netty/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Netty">
+          Netty <span class="badge rounded-pill">6</span>
+        </a><a href="/zh-cn/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="并发编程">
+          并发编程 <span class="badge rounded-pill">6</span>
+        </a><a href="/zh-cn/tags/devops/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="DevOps">
+          DevOps <span class="badge rounded-pill">5</span>
+        </a><a href="/zh-cn/tags/kubernetes/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="kubernetes">
+          kubernetes <span class="badge rounded-pill">5</span>
+        </a><a href="/zh-cn/tags/gc/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="GC">
+          GC <span class="badge rounded-pill">2</span>
+        </a><a href="/zh-cn/tags/jvm/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="JVM">
+          JVM <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><li class="nav-item">
+    <a class="nav-link social-link" href="mailto:jackwu1024@163.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a>
+  </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="https://github.com/pangwawa" title="GitHub">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a>
+    </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2442591540&amp;site=qq&amp;menu=yes" title="QQ">
+        <i class="fa-fw fa-2x fab fa-qq"></i>
+      </a>
+    </li>
+</nav>
+<div class="copyright mb-2">
+  Copyright © 2018-2021 Jack Wu. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+<script async src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-60bcc43f59f2d04f"></script></body>
+</html>

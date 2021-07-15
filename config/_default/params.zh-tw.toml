@@ -1,0 +1,4 @@
+dateFormat = "2006-01-02"
+description = "略……"
+[archive]
+  dateFormat = "01-02"

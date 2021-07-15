@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MySQL索引与优化 - Jack Wu</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="description" content="" /><meta itemprop="name" content="MySQL索引与优化">
+<meta itemprop="description" content="什么是索引，为什么要使用索引 索引是一种能提高数据查询速度的数据结构， 常用的索引数据解构有 B&#43; 树 和 Hash 可以提高数据检索的效率，降低数据库的IO成本">
+<meta itemprop="datePublished" content="2020-03-22T18:09:01+08:00" />
+<meta itemprop="dateModified" content="2020-03-22T18:09:01+08:00" />
+<meta itemprop="wordCount" content="1860">
+
+
+
+<meta itemprop="keywords" content="关系型数据库,MySQL,存储," />
+<meta property="og:title" content="MySQL索引与优化" />
+<meta property="og:description" content="什么是索引，为什么要使用索引 索引是一种能提高数据查询速度的数据结构， 常用的索引数据解构有 B&#43; 树 和 Hash 可以提高数据检索的效率，降低数据库的IO成本" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/zh-cn/posts/mysql/mysql_index/" />
+<meta property="article:published_time" content="2020-03-22T18:09:01+08:00" />
+<meta property="article:modified_time" content="2020-03-22T18:09:01+08:00" /><meta property="og:site_name" content="Jack Wu" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MySQL索引与优化"/>
+<meta name="twitter:description" content="什么是索引，为什么要使用索引 索引是一种能提高数据查询速度的数据结构， 常用的索引数据解构有 B&#43; 树 和 Hash 可以提高数据检索的效率，降低数据库的IO成本"/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.5e28a02b1827120280de54374daf944524694ccfd699b58a014376162da28321.css" integrity="sha256-XiigKxgnEgKA3lQ3Ta&#43;URSRpTM/WmbWKAUN2Fi2igyE=" crossorigin="anonymous"><script src="/js/bundle.min.aae996eab2b4188b8e1d806a6895ef5b02e8b97a6ceb11faef9b9b1cb99021be.js" integrity="sha256-qumW6rK0GIuOHYBqaJXvWwLouXps6xH675ubHLmQIb4=" crossorigin="anonymous"></script>
+</head><body class="mode-dark"><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/zh-cn/">
+      <img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy">Jack Wu</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/zh-cn/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/categories">
+            <i class="fas fa-fw fa-folder"></i>分类
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/tags">
+            <i class="fas fa-fw fa-tags"></i>标签
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/series">
+            <i class="fas fa-fw fa-columns"></i>专栏
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://github.com/pangwawa" target="_blank">
+            <i class="fab fa-fw fa-github"></i>github
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/zh-cn/">主页</a></li><li class="breadcrumb-item"><a href="/zh-cn/posts/">文章</a></li><li class="breadcrumb-item active">MySQL索引与优化</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">MySQL索引与优化</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2020-03-22
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>4 分钟阅读
+  </span>
+<a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/" class="post-taxonomy">#技术博客</a><a href="/zh-cn/tags/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-taxonomy">#关系型数据库</a><a href="/zh-cn/tags/mysql/" class="post-taxonomy">#MySQL</a><a href="/zh-cn/tags/%E5%AD%98%E5%82%A8/" class="post-taxonomy">#存储</a></div>
+<div class="post-share mb-3"><div class="addthis_inline_share_toolbox"></div></div><a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是索引为什么要使用索引">什么是索引，为什么要使用索引</a></li>
+    <li><a href="#索引类型">索引类型</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#为什么很少使用hash作为索引的数据结构">为什么很少使用Hash作为索引的数据结构</a></li>
+    <li><a href="#什么是b树为什么使用b树作为数据库索引的底层结构为什么不使用b树">什么是B+树，为什么使用B+树作为数据库索引的底层结构，为什么不使用B树</a></li>
+    <li><a href="#myisam索引和innodb索引的区别">MyISAM索引和InnoDB索引的区别</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><h2 id="什么是索引为什么要使用索引">什么是索引，为什么要使用索引</h2>
+<p>索引是一种能提高数据查询速度的数据结构， 常用的索引数据解构有 B+ 树 和 Hash</p>
+<p>可以提高数据检索的效率，降低数据库的IO成本
+通过索引列对数据进行排序，降低数据排序的成本，降低了CPU的消耗</p>
+<p>劣势：<br>
+索引会占据磁盘空间<br>
+索引虽然会提高查询效率，但是会降低更新表的效率</p>
+<h2 id="索引类型">索引类型</h2>
+<h4 id="主键索引">主键索引</h4>
+<p>索引列中的值必须是唯一的，不允许有空值。</p>
+<h4 id="普通索引">普通索引</h4>
+<p>MySQL中基本索引类型，没有什么限制，允许在定义索引的列中插入重复值和空值。</p>
+<h4 id="唯一索引">唯一索引</h4>
+<p>索引列中的值必须是唯一的，但是允许为空值。</p>
+<h4 id="全文索引">全文索引</h4>
+<p>只能在文本类型CHAR,VARCHAR,TEXT类型字段上创建全文索引。字段长度比较大时，如果创建普通索引，在进行like模糊查询时效率比较低，这时可以创建全文索引。MyISAM和InnoDB中都可以使用全文索引。</p>
+<h4 id="空间索引">空间索引</h4>
+<p>MySQL在5.7之后的版本支持了空间索引，而且支持OpenGIS几何数据模型。MySQL在空间索引这方面遵循OpenGIS几何数据模型规则。</p>
+<h4 id="前缀索引">前缀索引</h4>
+<p>在文本类型如CHAR,VARCHAR,TEXT类列上创建索引时，可以指定索引列的长度，但是数值类型不能指定。</p>
+<p>其他（按照索引列数量分类）
+####单列索引
+####组合索引
+组合索引的使用，需要遵循最左前缀匹配原则（最左匹配原则）。一般情况下在条件允许的情况下使用组合索引替代多个单列索引使用。</p>
+<h2 id="为什么很少使用hash作为索引的数据结构">为什么很少使用Hash作为索引的数据结构</h2>
+<p>Hash表在等值查询时效率很高，时间复杂度为O(1)；但是不支持范围快速查找，范围查找时还是只能通过扫描全表方式。</p>
+<h2 id="什么是b树为什么使用b树作为数据库索引的底层结构为什么不使用b树">什么是B+树，为什么使用B+树作为数据库索引的底层结构，为什么不使用B树</h2>
+<p>减少磁盘IO操作，就需要尽量降低树的高度，第一个根节点的位置要合理</p>
+<p>平衡二叉树：采用二分法思维，平衡二叉查找树除了具备二叉树的特点，最主要的特征是树的左右两个子树的层级最多相差1。</p>
+<p>B树，改造平衡二叉树，降低树的高度，减少磁盘IO操作。B树的高度一般2至3层就能满足大部分的应用场景，所以使用B树构建索引可以很好的提升查询的效率。</p>
+<p>B+树，为了解决B树不支持范围查询的快速查找</p>
+<pre><code>B+树和B树最主要的区别在于非叶子节点是否存储数据的问题
+
+B树：非叶子节点和叶子节点都会存储数据。
+
+B+树：只有叶子节点才会存储数据，非叶子节点至存储键值。叶子节点之间使用双向指针连接，最底层的叶子节点形成了一个双向有序链表。
+</code></pre>
+<h2 id="myisam索引和innodb索引的区别">MyISAM索引和InnoDB索引的区别</h2>
+<p>####MyISAM
+MyISAM的数据文件和索引文件是分开存储的。MyISAM使用B+树构建索引树时，叶子节点中存储的键值为索引列的值，数据为索引所在行的磁盘地址。
+先在主键树中从根节点开始检索，将根节点加载到内存，比较28&lt;75，走左路。（1次磁盘IO）
+将左子树节点加载到内存中，比较16&lt;28&lt;47，向下检索。（1次磁盘IO）
+检索到叶节点，将节点加载到内存中遍历，比较16&lt;28，18&lt;28，28=28。查找到值等于30的索引项。（1次磁盘IO）
+从索引项中获取磁盘地址，然后到数据文件user.MYD中获取对应整行记录。（1次磁盘IO）
+将记录返给客户端。</p>
+<h4 id="innodb-索引">InnoDB 索引</h4>
+<p>InnoDB的数据和索引存储在一个文件t_user_innodb.ibd中。InnoDB的数据组织方式，是聚簇索引。</p>
+<p>InnoDB索引按照叶子节点是否存储数据分为主键索引（聚簇索引）和 辅助索引
+除聚簇索引之外的所有索引都称为辅助索引，InnoDB的辅助索引只会存储主键值而非磁盘地址。</p>
+<pre><code> 主键索引的叶子节点会存储数据行，辅助索引只会存储主键值。
+</code></pre>
+<p>回表查询：根据在辅助索引树中获取的主键id，到主键索引树检索数据的过程称为回表查询</p>
+<h4 id="组合索引和覆盖索引">组合索引和覆盖索引</h4>
+<p>组合索引的最左前缀匹配原则：使用组合索引查询时，mysql会一直向右匹配直至遇到范围查询(&gt;、&lt;、between、like)就停止匹配。</p>
+<p>覆盖索引
+覆盖索引并不是说是索引结构，覆盖索引是一种很常用的优化手段。因为在使用辅助索引的时候，我们只可以拿到主键值，相当于获取数据还需要再根据主键查询主键索引再获取到数据。
+但是试想下这么一种情况，在上面abc_innodb表中的组合索引查询时，如果我只需要abc字段的，那是不是意味着我们查询到组合索引的叶子节点就可以直接返回了，而不需要回表。这种情况就是覆盖索引。</p>
+<h4 id="覆盖索引和联合索引是什么">覆盖索引和联合索引是什么</h4>
+<p>覆盖索引，返回的字段建立索引，减少回表操作</p>
+<p>联合索引，在合理的情况下，尽可能在一个****索引中包含多个字段</p>
+<p>覆盖索引的字段可能不是在同一个索引，即覆盖索引中所使用的索引不一定是联合索引</p>
+</div><div class="post-copyright mb-4">
+  <h3>版权</h3><div class="post-cc">本作品采用 <a target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">CC BY-NC-ND 4.0 <i class="fab fa-fw fa-creative-commons"></i><i class="fab fa-fw fa-creative-commons-by"></i><i class="fab fa-fw fa-creative-commons-nc"></i><i class="fab fa-fw fa-creative-commons-nd"></i></a> 授权。</div>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/zh-cn/posts/elasticsearch/elasticsearch_read_write_search_process/">Elasticsearch数据的写入、读取与检索过程详解</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/zh-cn/posts/kubernetes/what_is_cloud_native/">容器、kubernetes、DevOps与云原生</a>
+    </div></div>
+</div></article><div class="post-comments surface row"><script src="https://utteranc.es/client.js"
+  repo="razonyang/hugo-theme-bootstrap"
+  issue-term="pathname"
+  label=""
+  theme="github-dark"
+  crossorigin="anonymous"
+  async>
+</script></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile.webp" alt="Jack Wu" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">Jack Wu</h5><div class="profile-bio mb-2">Java开发工程师，全栈工程师.</div><div class="profile-company mb-2"><i class="fas fa-fw fa-building"></i>~</div><div class="profile-location mb-2"><i class="fas fa-fw fa-map-marker-alt"></i>深圳</div></div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/zh-cn/posts/netty/netty_reactor_model/">Netty_reactor_model</a></li><li><a href="/zh-cn/posts/netty/netty_echo_sample/">Netty基础——从简单Echo程序分析Netty组件</a></li><li><a href="/zh-cn/posts/netty/netty_heartbeat/">Netty实战——基于netty实现心跳检测、消息编解码和断连重连</a></li><li><a href="/zh-cn/posts/netty/netty_structure/">Netty基础——基础概念与架构原理</a></li><li><a href="/zh-cn/posts/netty/nio/">Netty入门——NIO </a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/zh-cn/categories">分类</a>
+      </h4>
+      <div><a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="技术博客">
+          技术博客 <span class="badge rounded-pill">37</span>
+        </a><a href="/zh-cn/categories/life/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="life">
+          life <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="/zh-cn/tags">标签</a>
+      </h4>
+      <div><a href="/zh-cn/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="大数据">
+          大数据 <span class="badge rounded-pill">14</span>
+        </a><a href="/zh-cn/tags/olap/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="OLAP">
+          OLAP <span class="badge rounded-pill">13</span>
+        </a><a href="/zh-cn/tags/elasticsearch/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="ElasticSearch">
+          ElasticSearch <span class="badge rounded-pill">11</span>
+        </a><a href="/zh-cn/tags/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/zh-cn/tags/netty/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Netty">
+          Netty <span class="badge rounded-pill">6</span>
+        </a><a href="/zh-cn/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="并发编程">
+          并发编程 <span class="badge rounded-pill">6</span>
+        </a><a href="/zh-cn/tags/devops/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="DevOps">
+          DevOps <span class="badge rounded-pill">5</span>
+        </a><a href="/zh-cn/tags/kubernetes/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="kubernetes">
+          kubernetes <span class="badge rounded-pill">5</span>
+        </a><a href="/zh-cn/tags/gc/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="GC">
+          GC <span class="badge rounded-pill">2</span>
+        </a><a href="/zh-cn/tags/jvm/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="JVM">
+          JVM <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><li class="nav-item">
+    <a class="nav-link social-link" href="mailto:jackwu1024@163.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a>
+  </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="https://github.com/pangwawa" title="GitHub">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a>
+    </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2442591540&amp;site=qq&amp;menu=yes" title="QQ">
+        <i class="fa-fw fa-2x fab fa-qq"></i>
+      </a>
+    </li>
+</nav>
+<div class="copyright mb-2">
+  Copyright © 2018-2021 Jack Wu. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+<script async src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-60bcc43f59f2d04f"></script></body>
+</html>

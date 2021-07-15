@@ -1,0 +1,4 @@
+[[main]]
+  name = "github"
+  url = "https://github.com/pangwawa"
+  pre = '<i class="fab fa-fw fa-github"></i>'

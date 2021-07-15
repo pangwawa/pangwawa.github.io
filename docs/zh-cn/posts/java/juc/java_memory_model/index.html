@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>深入理解Java虚拟机——Java内存模型 - Jack Wu</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="description" content="" /><meta itemprop="name" content="深入理解Java虚拟机——Java内存模型">
+<meta itemprop="description" content="Java内存模型 java堆 线程共享 存放对象的实例 java堆是JVM内存管理最大的一块区域 所有对象实例与数组都要在堆上分配内存。它也是垃圾收集">
+<meta itemprop="datePublished" content="2019-01-06T09:31:45+08:00" />
+<meta itemprop="dateModified" content="2019-01-06T09:31:45+08:00" />
+<meta itemprop="wordCount" content="2581">
+
+
+
+<meta itemprop="keywords" content="JVM,GC,Java," />
+<meta property="og:title" content="深入理解Java虚拟机——Java内存模型" />
+<meta property="og:description" content="Java内存模型 java堆 线程共享 存放对象的实例 java堆是JVM内存管理最大的一块区域 所有对象实例与数组都要在堆上分配内存。它也是垃圾收集" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/zh-cn/posts/java/juc/java_memory_model/" />
+<meta property="article:published_time" content="2019-01-06T09:31:45+08:00" />
+<meta property="article:modified_time" content="2019-01-06T09:31:45+08:00" /><meta property="og:site_name" content="Jack Wu" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="深入理解Java虚拟机——Java内存模型"/>
+<meta name="twitter:description" content="Java内存模型 java堆 线程共享 存放对象的实例 java堆是JVM内存管理最大的一块区域 所有对象实例与数组都要在堆上分配内存。它也是垃圾收集"/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.5e28a02b1827120280de54374daf944524694ccfd699b58a014376162da28321.css" integrity="sha256-XiigKxgnEgKA3lQ3Ta&#43;URSRpTM/WmbWKAUN2Fi2igyE=" crossorigin="anonymous"><script src="/js/bundle.min.aae996eab2b4188b8e1d806a6895ef5b02e8b97a6ceb11faef9b9b1cb99021be.js" integrity="sha256-qumW6rK0GIuOHYBqaJXvWwLouXps6xH675ubHLmQIb4=" crossorigin="anonymous"></script>
+</head><body class="mode-dark"><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/zh-cn/">
+      <img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy">Jack Wu</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/zh-cn/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/categories">
+            <i class="fas fa-fw fa-folder"></i>分类
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/tags">
+            <i class="fas fa-fw fa-tags"></i>标签
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/series">
+            <i class="fas fa-fw fa-columns"></i>专栏
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://github.com/pangwawa" target="_blank">
+            <i class="fab fa-fw fa-github"></i>github
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/zh-cn/">主页</a></li><li class="breadcrumb-item"><a href="/zh-cn/posts/">文章</a></li><li class="breadcrumb-item active">深入理解Java虚拟机——Java内存模型</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">深入理解Java虚拟机——Java内存模型</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2019-01-06
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>6 分钟阅读
+  </span>
+<a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/" class="post-taxonomy">#技术博客</a><a href="/zh-cn/tags/jvm/" class="post-taxonomy">#JVM</a><a href="/zh-cn/tags/gc/" class="post-taxonomy">#GC</a><a href="/zh-cn/tags/java/" class="post-taxonomy">#Java</a></div>
+<div class="post-share mb-3"><div class="addthis_inline_share_toolbox"></div></div><a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#java内存模型">Java内存模型</a></li>
+    <li><a href="#新生代内存老年代内存和永久代内存">新生代内存、老年代内存和永久代内存</a></li>
+    <li><a href="#常见的内存溢出">常见的内存溢出</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><h2 id="java内存模型">Java内存模型</h2>
+<p>java堆       线程共享    存放对象的实例</p>
+<p>java堆是JVM内存管理最大的一块区域 所有对象实例与数组都要在堆上分配内存。它也是垃圾收集器的主要管理区域。java对可以处于物理上不连续的空间，只要逻辑上是连续的即可。
+如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，将抛出OutOfMemoryError异常。
+为了支持垃圾收集（GC），堆内存通常被分为三块区域:新生代内存(young generation)、老年代内存(old generation,jdk8移除)、永久内存(Permanent Generation for VM Matedata),一个对象被创建以后首先被放到Nursery中的Eden内存中，假设存活期超两个Survivor之后就会被转移到长时内存中(Old Generation)中;永久内存中存放着对象的方法、变量等元数据信息。</p>
+<p>虚拟机栈     线程私有    栈中存放一个个栈帧，每个栈帧对应一个方法。一个栈帧包括（局部变量表，操作数栈，指向当前方法所属的类的运行时常量池，方法返回地址和一些额外的附加按信息。）</p>
+<p>局部变量表，就是用来存储方法中的局部变量（包括在方法中声明的非静态变量以及函数形参）对于基本数据类型的变量，则直接存储它的值，对于引用类型的变量，则存的是指向对象的引用。局部变量表的大小在编译器就可以确定其大小了，因此在程序执行期间局部变量表的大小是不会改变的。
+操作数栈，程序中的所有计算过程都是在借助于操作数栈来完成的。
+指向运行时常量池的引用，因为在方法执行的过程中有可能需要用到类中的常量，所以必须要有一个引用指向运行时常量。
+方法返回地址，当一个方法执行完毕之后，要返回之前调用它的地方，因此在栈帧中必须保存一个方法返回地址
+注意，当线程执行一个方法时，就会随之创建一个对应的栈帧，并将建立的栈帧压栈。当方法执行完毕之后，便会将栈帧出栈。因此可知，线程当前执行的方法所对应的栈帧必定位于Java栈的顶部。在这个区域规定了两种异常状况：
+如果线程请求的栈深入大于虚拟机所允许的深度，将抛出StackOverFlowError异常！
+如果虚拟机栈可以动态扩展，当扩展到无法申请内存到足够的内存，就会抛出OutOfMemoryError异常!</p>
+<p>本地方法栈   线程私有    和虚拟站的区别是虚拟机栈为虚拟机执行Java方法（字节码）服务，而本地方法栈则为虚拟机使用到的Native方法服务。</p>
+<p>程序计数器   线程私有    记录当前线程的程序执行指令的计数器，通过改变这个计数器的值来选取下一条需要执行的字节码指令，各个线程间计数器互相独立</p>
+<p>方法区       线程共享    方法区在JVM中也是一个非常重要的区域，它与堆一样，是被线程共享的区域。在方法区中，存储了每个类的信息（包括类的名称、方法信息、字段信息）、静态变量、常量以及编译器编译后的代码等。方法区是堆的一个逻辑部分，为了区分Java堆，它还有一个别名Non-Heap（非堆）。相对而言，GC对于这个区域的收集是很少出现的。当方法区无法满足内存分配需求时，将抛出OutOfMemoryError异常。</p>
+<h2 id="新生代内存老年代内存和永久代内存">新生代内存、老年代内存和永久代内存</h2>
+<p>为了支持垃圾收集（GC），堆内存通常被分为三块区域:新生代内存(young generation)、老年代内存(old generation,jdk8移除)、永久内存(Permanent Generation for VM Matedata),
+一个对象被创建以后首先被放到Nursery中的Eden内存中，假设存活期超两个Survivor之后就会被转移到长时内存中(Old Generation)中;永久内存中存放着对象的方法、变量等元数据信息。</p>
+<h2 id="常见的内存溢出">常见的内存溢出</h2>
+<p>JDK7和JDK8的JVM内存模型的区别：</p>
+<p>1、方法区变化。元数据区取代了永久代，就是JDK8没有了PermSize相关的参数配置了。元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代之间最大的区别在于：元数据空间并不在虚拟机中，而是使用本地内存。</p>
+<p>2、运行时常量池变化。在近三个JDK版本（1.6、1.7、1.8）中， 运行时常量池（Runtime Constant Pool）的所处区域一直在不断的变化，在JDK1.6时它是方法区的一部分；1.7又把他放到了堆内存中；1.8之后出现了元空间，它又回到了方法区。</p>
+<p>内存泄露（Memory Leak）：程序在申请内存后，对象没有被GC所回收，它始终占用内存，内存泄漏的堆积最终会造成内存溢出。</p>
+<p>内存溢出（Memory Overflow）：程序运行过程中无法申请到足够的内存而导致的一种错误。内存溢出通常发生于OLD段或Perm段垃圾回收后，仍然无内存空间容纳新的Java对象的情况。通常都是由于内存泄露导致堆栈内存不断增大，从而引发内存溢出。</p>
+<p>jmap -histo:live后相当于手动调用了一次GC</p>
+<p>这会导致由JVM根据运行情况去自动分配了内存，在物理内存足够的情况下，JVM出于对应用程序性能的考虑并没有调用FGC</p>
+<p>那些参数都是啥意思？
+-Xmx指定堆内存最大值，这个是最常用的参数，实在懒得理解，光设置这个也凑合了。</p>
+<p>-XX:MaxMetaspaceSize指定非堆内存的元空间最大值，这个参数是java8之后才有的，不过现在应该没几个人用更早的版本了吧……对于学习、测试用的小应用，非堆内存基本都占用很小，但是如果不指定，最大值默认1024m，就算Xmx限制了也还会吃很多内存……</p>
+<p>-XX:CompressedClassSpaceSize这个是Metaspace的一部分，程序的代码被存储在这里，启动后几乎不会增长，可以根据自己的情况指定一个比较小的值，给Metaspace其他部分留够空间。</p>
+<p>其他jvm参数，</p>
+<p>如何知道自己java应用的内存占用来决定最佳分配？
+jdk路径/bin/jstat -gccapacity pid
+根据pid查看某个应用的当前内存和最大内存。可以知道内存占用量的情况，也可以看出来前面的jvm参数配置有没有生效。</p>
+<p>jstat还有很多参数，查出来的数值具体是什么意思也请自行搜索深入学习。</p>
+<p>如果是在windows上运行，还可以用jdk路径/bin/jconsole.exe查看可视化的内存使用情况。</p>
+<p>jps [options] [hostid]
+如果不指定hostid就默认为当前主机或服务器。</p>
+<pre><code>命令行参数选项说明如下：
+</code></pre>
+<p>-q 不输出类名、Jar名和传入main方法的参数
+-m 输出传入main方法的参数
+-l 输出main类或Jar的全限名
+-v 输出传入JVM的参数</p>
+</div><div class="post-copyright mb-4">
+  <h3>版权</h3><div class="post-cc">本作品采用 <a target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">CC BY-NC-ND 4.0 <i class="fab fa-fw fa-creative-commons"></i><i class="fab fa-fw fa-creative-commons-by"></i><i class="fab fa-fw fa-creative-commons-nc"></i><i class="fab fa-fw fa-creative-commons-nd"></i></a> 授权。</div>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/zh-cn/posts/java/juc/java_memory_gc/">深入理解Java虚拟机——JVM的GC详解</a>
+    </div></div>
+</div></article><div class="post-comments surface row"><script src="https://utteranc.es/client.js"
+  repo="razonyang/hugo-theme-bootstrap"
+  issue-term="pathname"
+  label=""
+  theme="github-dark"
+  crossorigin="anonymous"
+  async>
+</script></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile.webp" alt="Jack Wu" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">Jack Wu</h5><div class="profile-bio mb-2">Java开发工程师，全栈工程师.</div><div class="profile-company mb-2"><i class="fas fa-fw fa-building"></i>~</div><div class="profile-location mb-2"><i class="fas fa-fw fa-map-marker-alt"></i>深圳</div></div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/zh-cn/posts/netty/netty_reactor_model/">Netty_reactor_model</a></li><li><a href="/zh-cn/posts/netty/netty_echo_sample/">Netty基础——从简单Echo程序分析Netty组件</a></li><li><a href="/zh-cn/posts/netty/netty_heartbeat/">Netty实战——基于netty实现心跳检测、消息编解码和断连重连</a></li><li><a href="/zh-cn/posts/netty/netty_structure/">Netty基础——基础概念与架构原理</a></li><li><a href="/zh-cn/posts/netty/nio/">Netty入门——NIO </a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/zh-cn/categories">分类</a>
+      </h4>
+      <div><a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="技术博客">
+          技术博客 <span class="badge rounded-pill">37</span>
+        </a><a href="/zh-cn/categories/life/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="life">
+          life <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="/zh-cn/tags">标签</a>
+      </h4>
+      <div><a href="/zh-cn/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="大数据">
+          大数据 <span class="badge rounded-pill">14</span>
+        </a><a href="/zh-cn/tags/olap/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="OLAP">
+          OLAP <span class="badge rounded-pill">13</span>
+        </a><a href="/zh-cn/tags/elasticsearch/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="ElasticSearch">
+          ElasticSearch <span class="badge rounded-pill">11</span>
+        </a><a href="/zh-cn/tags/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/zh-cn/tags/netty/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Netty">
+          Netty <span class="badge rounded-pill">6</span>
+        </a><a href="/zh-cn/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="并发编程">
+          并发编程 <span class="badge rounded-pill">6</span>
+        </a><a href="/zh-cn/tags/devops/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="DevOps">
+          DevOps <span class="badge rounded-pill">5</span>
+        </a><a href="/zh-cn/tags/kubernetes/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="kubernetes">
+          kubernetes <span class="badge rounded-pill">5</span>
+        </a><a href="/zh-cn/tags/gc/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="GC">
+          GC <span class="badge rounded-pill">2</span>
+        </a><a href="/zh-cn/tags/jvm/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="JVM">
+          JVM <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><li class="nav-item">
+    <a class="nav-link social-link" href="mailto:jackwu1024@163.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a>
+  </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="https://github.com/pangwawa" title="GitHub">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a>
+    </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2442591540&amp;site=qq&amp;menu=yes" title="QQ">
+        <i class="fa-fw fa-2x fab fa-qq"></i>
+      </a>
+    </li>
+</nav>
+<div class="copyright mb-2">
+  Copyright © 2018-2021 Jack Wu. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+<script async src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-60bcc43f59f2d04f"></script></body>
+</html>

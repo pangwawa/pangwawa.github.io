@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>存储 on Jack Wu</title>
+    <link>/zh-cn/tags/%E5%AD%98%E5%82%A8/</link>
+    <description>Recent content in 存储 on Jack Wu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2018-{year} Jack Wu. All Rights Reserved.</copyright>
+    <lastBuildDate>Sun, 22 Mar 2020 18:09:01 +0800</lastBuildDate><atom:link href="/zh-cn/tags/%E5%AD%98%E5%82%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL索引与优化</title>
+      <link>/zh-cn/posts/mysql/mysql_index/</link>
+      <pubDate>Sun, 22 Mar 2020 18:09:01 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/mysql/mysql_index/</guid>
+      <description>什么是索引，为什么要使用索引 索引是一种能提高数据查询速度的数据结构， 常用的索引数据解构有 B+ 树 和 Hash 可以提高数据检索的效率，降低数据库的IO成本</description>
+    </item>
+    
+  </channel>
+</rss>

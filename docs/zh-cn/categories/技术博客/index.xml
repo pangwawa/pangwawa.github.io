@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>技术博客 on Jack Wu</title>
+    <link>/zh-cn/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/</link>
+    <description>Recent content in 技术博客 on Jack Wu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2018-{year} Jack Wu. All Rights Reserved.</copyright>
+    <lastBuildDate>Thu, 26 Nov 2020 14:50:48 +0800</lastBuildDate><atom:link href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Netty_reactor_model</title>
+      <link>/zh-cn/posts/netty/netty_reactor_model/</link>
+      <pubDate>Thu, 26 Nov 2020 14:50:48 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/netty/netty_reactor_model/</guid>
+      <description>Netty线程模型 Netty主要是基于主从Reactors多线程模型(如下图)做了一些修改，其中主从reactor多线程模型有多个react</description>
+    </item>
+    
+    <item>
+      <title>Netty基础——从简单Echo程序分析Netty组件</title>
+      <link>/zh-cn/posts/netty/netty_echo_sample/</link>
+      <pubDate>Thu, 26 Nov 2020 14:43:47 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/netty/netty_echo_sample/</guid>
+      <description>Bootstrap or ServerBootstrap EventLoop EventLoopGroup ChannelPipeline Channel Fture or ChannelFuture ChannelInitializer ChannelHandler 详解： Bootstrap，一个Netty应用通常由一个Bootstrap开始，它主要作用是配置整个Netty程序，串</description>
+    </item>
+    
+    <item>
+      <title>Netty实战——基于netty实现心跳检测、消息编解码和断连重连</title>
+      <link>/zh-cn/posts/netty/netty_heartbeat/</link>
+      <pubDate>Thu, 26 Nov 2020 14:43:47 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/netty/netty_heartbeat/</guid>
+      <description>整理下思路 1、客户端向服务端注册客户端 registerClient(String ClientName, String groupName, EsunClient client) 2、客户端定期向服务端发送心跳消息、 3、服务端接收心跳消息，并更新客户端注册列表的心跳时间</description>
+    </item>
+    
+    <item>
+      <title>Netty基础——基础概念与架构原理</title>
+      <link>/zh-cn/posts/netty/netty_structure/</link>
+      <pubDate>Wed, 25 Nov 2020 14:41:07 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/netty/netty_structure/</guid>
+      <description>##Netty 一个NIO Java框架，对NIO底层进行了很好的封装 Netty提供异步的、事件驱动的网络应用程序框架和工具，用以快速开发高性能、高可靠性的</description>
+    </item>
+    
+    <item>
+      <title>Netty入门——NIO </title>
+      <link>/zh-cn/posts/netty/nio/</link>
+      <pubDate>Tue, 24 Nov 2020 14:40:15 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/netty/nio/</guid>
+      <description>NIO，全称 java-non-blocking IO ,jdk1.4开始支持，java.nio包下，面向块/缓冲区编程 NIO三大核心部分： Channel、Buffer、Selec</description>
+    </item>
+    
+    <item>
+      <title>Netty进阶——基于Netty协议栈进行Protobuf私有协议的定制开发 </title>
+      <link>/zh-cn/posts/netty/netty_private_protocol_base/</link>
+      <pubDate>Tue, 24 Nov 2020 14:40:15 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/netty/netty_private_protocol_base/</guid>
+      <description>私有协议栈和Netty协议栈 绝大多数数私有协议的传输层是基于TCP/IP，利用Netty的TCP/IP协议栈可以非常方便的进行私有协议栈的定</description>
+    </item>
+    
+    <item>
+      <title>Mybatis源码分析—Mybatis架构与SQL处理过程</title>
+      <link>/zh-cn/posts/mybatis/mybastis_structure/</link>
+      <pubDate>Mon, 02 Nov 2020 11:23:22 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/mybatis/mybastis_structure/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Clickhouse基础概念与架构原理</title>
+      <link>/zh-cn/posts/clickhouse/clickhouse_structure/</link>
+      <pubDate>Mon, 02 Nov 2020 11:22:51 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/clickhouse/clickhouse_structure/</guid>
+      <description>什么是ClickHouse ClickHouse是面向联机分析处理的列式数据库，支持SQL查询，且查询性能好，特别是基于大宽表的聚合分析查询性</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes对象详解</title>
+      <link>/zh-cn/posts/kubernetes/kubernetes_resource_object/</link>
+      <pubDate>Mon, 26 Oct 2020 10:54:43 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/kubernetes/kubernetes_resource_object/</guid>
+      <description>Kubernetes对象的概念 在 Kubernetes 系统中，Kubernetes 对象 是持久化的实体。 Kubernetes 使用这些实体去表示整个集群的状态。它们主要描述了如下信息</description>
+    </item>
+    
+    <item>
+      <title>Flink编程模型详解</title>
+      <link>/zh-cn/posts/flink/flink_programing_model/</link>
+      <pubDate>Thu, 22 Oct 2020 18:19:12 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/flink/flink_programing_model/</guid>
+      <description>Flink 为流式/批式处理应用程序的开发提供了Stateful Stream Processing、DataStream/DataSet ApI 、Table API和SQ</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes常用kubectl命令总结</title>
+      <link>/zh-cn/posts/kubernetes/kubernetes_cli_order/</link>
+      <pubDate>Tue, 13 Oct 2020 18:01:51 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/kubernetes/kubernetes_cli_order/</guid>
+      <description>kubernetes 常用kubectl命令 基本命令 create 通过文件名或控制台输入，创建资源。 get 用于获取一个或多个资源的信息，包括 Namespace、 Pod、 Node</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes v1.19.0集群部署</title>
+      <link>/zh-cn/posts/kubernetes/kubernetes_cluster_install/</link>
+      <pubDate>Mon, 12 Oct 2020 17:46:07 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/kubernetes/kubernetes_cluster_install/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kubernetes基础概念与组件架构</title>
+      <link>/zh-cn/posts/kubernetes/kubernetes_basic_structure/</link>
+      <pubDate>Fri, 09 Oct 2020 17:45:53 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/kubernetes/kubernetes_basic_structure/</guid>
+      <description>什么是Kubernetes Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。Kubernetes</description>
+    </item>
+    
+    <item>
+      <title>容器、kubernetes、DevOps与云原生</title>
+      <link>/zh-cn/posts/kubernetes/what_is_cloud_native/</link>
+      <pubDate>Wed, 16 Sep 2020 20:22:15 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/kubernetes/what_is_cloud_native/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL索引与优化</title>
+      <link>/zh-cn/posts/mysql/mysql_index/</link>
+      <pubDate>Sun, 22 Mar 2020 18:09:01 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/mysql/mysql_index/</guid>
+      <description>什么是索引，为什么要使用索引 索引是一种能提高数据查询速度的数据结构， 常用的索引数据解构有 B+ 树 和 Hash 可以提高数据检索的效率，降低数据库的IO成本</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch数据的写入、读取与检索过程详解</title>
+      <link>/zh-cn/posts/elasticsearch/elasticsearch_read_write_search_process/</link>
+      <pubDate>Sat, 07 Mar 2020 18:25:18 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/elasticsearch/elasticsearch_read_write_search_process/</guid>
+      <description>ElasticSearch写过程 分片 一个分片就是一个运行的Lucenes实例，个节点可以包含多个分片，Es中所有数据均衡的存储在集群中各个节</description>
+    </item>
+    
+    <item>
+      <title>Kibana可视化展示的各种形式汇总</title>
+      <link>/zh-cn/posts/elasticsearch/kibana_visualization_type/</link>
+      <pubDate>Sat, 07 Mar 2020 17:09:39 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/elasticsearch/kibana_visualization_type/</guid>
+      <description>常用可视化形式 折线图（Line, area, and bar charts），面积图和条形图—比较X / Y图表中的不同系列。 饼图（Pie chart ）-显示每个来源总计。 数据表</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch聚合—桶（bucket）和指标（metric）</title>
+      <link>/zh-cn/posts/elasticsearch/elasticsearch_buckets_metrics/</link>
+      <pubDate>Thu, 05 Mar 2020 17:07:30 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/elasticsearch/elasticsearch_buckets_metrics/</guid>
+      <description>聚合的两个核心概念：桶（bucket）和指标（metric） 桶（bucket）: 满足特定条件的文档的集合 指标（metric）: 对桶内的文档进</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch倒排索引原理探索</title>
+      <link>/zh-cn/posts/elasticsearch/elasticsearch_inverted_index/</link>
+      <pubDate>Thu, 05 Mar 2020 11:20:35 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/elasticsearch/elasticsearch_inverted_index/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>深入理解LSM存储结构</title>
+      <link>/zh-cn/posts/other/lsm_store/</link>
+      <pubDate>Mon, 02 Mar 2020 11:18:34 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/other/lsm_store/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch集群与调优</title>
+      <link>/zh-cn/posts/elasticsearch/elasticsearch_cluster/</link>
+      <pubDate>Sat, 29 Feb 2020 11:10:33 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/elasticsearch/elasticsearch_cluster/</guid>
+      <description>1.1、设计阶段调优 （1）根据业务增量需求，采取基于日期模板创建索引，通过roll over API滚动索引； （2）使用别名进行索引管理； （3）每天凌</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch 数据导入方案</title>
+      <link>/zh-cn/posts/elasticsearch/elasticsearch_data_input/</link>
+      <pubDate>Tue, 25 Feb 2020 11:08:58 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/elasticsearch/elasticsearch_data_input/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch用户权限与安全机制</title>
+      <link>/zh-cn/posts/elasticsearch/elasticsearch_account_management_and_security/</link>
+      <pubDate>Sat, 22 Feb 2020 10:32:21 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/elasticsearch/elasticsearch_account_management_and_security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch基础概念与架构原理</title>
+      <link>/zh-cn/posts/elasticsearch/elasticsearch__structure/</link>
+      <pubDate>Thu, 20 Feb 2020 11:14:21 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/elasticsearch/elasticsearch__structure/</guid>
+      <description>基本概念 集群(cluster)：有一个主节点，通过选举产生，从外部来看es集群，在逻辑上是个整体，你与任何一个节点的通信和与整个es集群通信</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch Mapping 数据建模规范与建模过程</title>
+      <link>/zh-cn/posts/elasticsearch/elasticsearch_data_modeling/</link>
+      <pubDate>Sun, 16 Feb 2020 09:41:35 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/elasticsearch/elasticsearch_data_modeling/</guid>
+      <description>Mapping数据建模 数据建模即创建数据模型的过程，它主要分为以下的步骤 概念分析：确定系统的核心需求和范围边界，设计实现和实体间的关系 逻辑模</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch的DSL——常用检索、复合检索、高级检索</title>
+      <link>/zh-cn/posts/elasticsearch/elasticsearch_query_dsl/</link>
+      <pubDate>Sat, 15 Feb 2020 17:49:40 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/elasticsearch/elasticsearch_query_dsl/</guid>
+      <description>简单查询 精准查询term （完全匹配，不使用分词器） term单值查询 { &amp;quot;query&amp;quot;: { &amp;quot;term&amp;quot;: { &amp;quot;productType&amp;quot;: { &amp;quot;value&amp;quot;: &amp;quot;101&amp;quot; } } } } term多值查询 GET /test/_search { &amp;quot;query&amp;quot;: { &amp;quot;bool&amp;quot;: { &amp;quot;must&amp;quot;: [ { &amp;quot;term&amp;quot;: { &amp;quot;mac&amp;quot;: { &amp;quot;value&amp;quot;: &amp;quot;2541229&amp;quot;</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch 生命周期管理——索引生命周期与冷热数据分离</title>
+      <link>/zh-cn/posts/elasticsearch/elasticsearch_lifecycle_management/</link>
+      <pubDate>Tue, 11 Feb 2020 09:46:25 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/elasticsearch/elasticsearch_lifecycle_management/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch 7.9 数据类型和Mapping参数详解</title>
+      <link>/zh-cn/posts/elasticsearch/elasticsearch_datatype/</link>
+      <pubDate>Mon, 10 Feb 2020 09:23:44 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/elasticsearch/elasticsearch_datatype/</guid>
+      <description>ElasticSearch数据类型 基础类型 String keyword字段通常用于排序， 聚合和术语级查询 keyword类型 （keyword类型可设置属性</description>
+    </item>
+    
+    <item>
+      <title>Java各个版本的特性</title>
+      <link>/zh-cn/posts/java/basic/java_vesrion/</link>
+      <pubDate>Wed, 06 Nov 2019 10:22:19 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/basic/java_vesrion/</guid>
+      <description>Java各个版本的特性 Java 5 1、泛型 2、增强for循环 3、自动装箱拆箱 4、枚举 5、可变参数 6、静态导入 7、自定义注解 关键字 @interface Java 6 1、集合框架增</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程 juc包——ForkJoin</title>
+      <link>/zh-cn/posts/java/juc/forkjoin/</link>
+      <pubDate>Mon, 18 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/forkjoin/</guid>
+      <description>ForkJoin 特性 使用 提供两个抽象类继承ForkJoinTask ，分别是RecursiveAction和RecursiveTask.他们的区别在于：Re</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程 juc包——线程池</title>
+      <link>/zh-cn/posts/java/juc/threadpool/</link>
+      <pubDate>Sun, 17 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/threadpool/</guid>
+      <description>线程池 JUC Executors 通过JUC的ThreadPoolExecutor类创建各种类型线程池，包括了 Executors.newCachedThreadPool(); 可缓存的线程池，可以进行缓存的线程池，意味着它的线程</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程 juc包——并发容器</title>
+      <link>/zh-cn/posts/java/juc/concurrent_container/</link>
+      <pubDate>Sun, 10 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/concurrent_container/</guid>
+      <description>容器的线程安全 同步容器 同步容器可实现线程安全 ArrayList Vector（使用synchronized实现线程安全） , Stack （使用synchronized实现</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程 juc包——Atomic包</title>
+      <link>/zh-cn/posts/java/juc/atomic/</link>
+      <pubDate>Fri, 08 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/atomic/</guid>
+      <description>CAS unsafe Atomic包 Atomic的核心操作就是CAS（compareandset,利用CMPXCHG指令实现，它是一个原子指令）,该指令有三个</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程 juc包——AQS</title>
+      <link>/zh-cn/posts/java/juc/aqs/</link>
+      <pubDate>Wed, 06 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/aqs/</guid>
+      <description>AQS AbstractQueuedSynchronizer,抽象的队列式同步器。是除了java自带的synchronized关键字之外的锁机制 使</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程——synchronized关键字</title>
+      <link>/zh-cn/posts/java/synchronized/</link>
+      <pubDate>Wed, 06 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/synchronized/</guid>
+      <description>CAS CAS : compare and swap 或者 compare and exchange 比较交换。 当我们需要对内存中的数据进行修改操作时，为了避免多线程并发修改的情况，我们在对他进行修改操作前，先读取他原来</description>
+    </item>
+    
+    <item>
+      <title>深入理解Java虚拟机——JVM的GC详解</title>
+      <link>/zh-cn/posts/java/juc/java_memory_gc/</link>
+      <pubDate>Sun, 06 Jan 2019 09:31:57 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/java_memory_gc/</guid>
+      <description>JVM的GC有哪些 一、Serial收集器(jdk1.3) Serial收集器是最基本、发展历史最悠久的收集器，曾经（在JDK 1.3.1之前）是</description>
+    </item>
+    
+    <item>
+      <title>深入理解Java虚拟机——Java内存模型</title>
+      <link>/zh-cn/posts/java/juc/java_memory_model/</link>
+      <pubDate>Sun, 06 Jan 2019 09:31:45 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/java_memory_model/</guid>
+      <description>Java内存模型 java堆 线程共享 存放对象的实例 java堆是JVM内存管理最大的一块区域 所有对象实例与数组都要在堆上分配内存。它也是垃圾收集</description>
+    </item>
+    
+  </channel>
+</rss>

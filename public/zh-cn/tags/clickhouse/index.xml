@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ClickHouse on Jack Wu</title>
+    <link>/zh-cn/tags/clickhouse/</link>
+    <description>Recent content in ClickHouse on Jack Wu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2018-{year} Jack Wu. All Rights Reserved.</copyright>
+    <lastBuildDate>Mon, 02 Nov 2020 11:22:51 +0800</lastBuildDate><atom:link href="/zh-cn/tags/clickhouse/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Clickhouse基础概念与架构原理</title>
+      <link>/zh-cn/posts/clickhouse/clickhouse_structure/</link>
+      <pubDate>Mon, 02 Nov 2020 11:22:51 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/clickhouse/clickhouse_structure/</guid>
+      <description>什么是ClickHouse ClickHouse是面向联机分析处理的列式数据库，支持SQL查询，且查询性能好，特别是基于大宽表的聚合分析查询性</description>
+    </item>
+    
+  </channel>
+</rss>

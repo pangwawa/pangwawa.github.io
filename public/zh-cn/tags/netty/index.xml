@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Netty on Jack Wu</title>
+    <link>/zh-cn/tags/netty/</link>
+    <description>Recent content in Netty on Jack Wu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2018-{year} Jack Wu. All Rights Reserved.</copyright>
+    <lastBuildDate>Thu, 26 Nov 2020 14:50:48 +0800</lastBuildDate><atom:link href="/zh-cn/tags/netty/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Netty_reactor_model</title>
+      <link>/zh-cn/posts/netty/netty_reactor_model/</link>
+      <pubDate>Thu, 26 Nov 2020 14:50:48 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/netty/netty_reactor_model/</guid>
+      <description>Netty线程模型 Netty主要是基于主从Reactors多线程模型(如下图)做了一些修改，其中主从reactor多线程模型有多个react</description>
+    </item>
+    
+    <item>
+      <title>Netty基础——从简单Echo程序分析Netty组件</title>
+      <link>/zh-cn/posts/netty/netty_echo_sample/</link>
+      <pubDate>Thu, 26 Nov 2020 14:43:47 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/netty/netty_echo_sample/</guid>
+      <description>Bootstrap or ServerBootstrap EventLoop EventLoopGroup ChannelPipeline Channel Fture or ChannelFuture ChannelInitializer ChannelHandler 详解： Bootstrap，一个Netty应用通常由一个Bootstrap开始，它主要作用是配置整个Netty程序，串</description>
+    </item>
+    
+    <item>
+      <title>Netty实战——基于netty实现心跳检测、消息编解码和断连重连</title>
+      <link>/zh-cn/posts/netty/netty_heartbeat/</link>
+      <pubDate>Thu, 26 Nov 2020 14:43:47 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/netty/netty_heartbeat/</guid>
+      <description>整理下思路 1、客户端向服务端注册客户端 registerClient(String ClientName, String groupName, EsunClient client) 2、客户端定期向服务端发送心跳消息、 3、服务端接收心跳消息，并更新客户端注册列表的心跳时间</description>
+    </item>
+    
+    <item>
+      <title>Netty基础——基础概念与架构原理</title>
+      <link>/zh-cn/posts/netty/netty_structure/</link>
+      <pubDate>Wed, 25 Nov 2020 14:41:07 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/netty/netty_structure/</guid>
+      <description>##Netty 一个NIO Java框架，对NIO底层进行了很好的封装 Netty提供异步的、事件驱动的网络应用程序框架和工具，用以快速开发高性能、高可靠性的</description>
+    </item>
+    
+    <item>
+      <title>Netty入门——NIO </title>
+      <link>/zh-cn/posts/netty/nio/</link>
+      <pubDate>Tue, 24 Nov 2020 14:40:15 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/netty/nio/</guid>
+      <description>NIO，全称 java-non-blocking IO ,jdk1.4开始支持，java.nio包下，面向块/缓冲区编程 NIO三大核心部分： Channel、Buffer、Selec</description>
+    </item>
+    
+    <item>
+      <title>Netty进阶——基于Netty协议栈进行Protobuf私有协议的定制开发 </title>
+      <link>/zh-cn/posts/netty/netty_private_protocol_base/</link>
+      <pubDate>Tue, 24 Nov 2020 14:40:15 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/netty/netty_private_protocol_base/</guid>
+      <description>私有协议栈和Netty协议栈 绝大多数数私有协议的传输层是基于TCP/IP，利用Netty的TCP/IP协议栈可以非常方便的进行私有协议栈的定</description>
+    </item>
+    
+  </channel>
+</rss>

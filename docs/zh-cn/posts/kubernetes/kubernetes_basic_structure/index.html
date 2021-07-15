@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kubernetes基础概念与组件架构 - Jack Wu</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="description" content="" /><meta itemprop="name" content="Kubernetes基础概念与组件架构">
+<meta itemprop="description" content="什么是Kubernetes Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。Kubernetes">
+<meta itemprop="datePublished" content="2020-10-09T17:45:53+08:00" />
+<meta itemprop="dateModified" content="2020-10-09T17:45:53+08:00" />
+<meta itemprop="wordCount" content="2728">
+
+
+
+<meta itemprop="keywords" content="kubernetes,DevOps," />
+<meta property="og:title" content="Kubernetes基础概念与组件架构" />
+<meta property="og:description" content="什么是Kubernetes Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。Kubernetes" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/zh-cn/posts/kubernetes/kubernetes_basic_structure/" />
+<meta property="article:published_time" content="2020-10-09T17:45:53+08:00" />
+<meta property="article:modified_time" content="2020-10-09T17:45:53+08:00" /><meta property="og:site_name" content="Jack Wu" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kubernetes基础概念与组件架构"/>
+<meta name="twitter:description" content="什么是Kubernetes Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。Kubernetes"/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.5e28a02b1827120280de54374daf944524694ccfd699b58a014376162da28321.css" integrity="sha256-XiigKxgnEgKA3lQ3Ta&#43;URSRpTM/WmbWKAUN2Fi2igyE=" crossorigin="anonymous"><script src="/js/bundle.min.aae996eab2b4188b8e1d806a6895ef5b02e8b97a6ceb11faef9b9b1cb99021be.js" integrity="sha256-qumW6rK0GIuOHYBqaJXvWwLouXps6xH675ubHLmQIb4=" crossorigin="anonymous"></script>
+</head><body class="mode-dark"><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/zh-cn/">
+      <img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy">Jack Wu</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/zh-cn/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/categories">
+            <i class="fas fa-fw fa-folder"></i>分类
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/tags">
+            <i class="fas fa-fw fa-tags"></i>标签
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/series">
+            <i class="fas fa-fw fa-columns"></i>专栏
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://github.com/pangwawa" target="_blank">
+            <i class="fab fa-fw fa-github"></i>github
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/zh-cn/">主页</a></li><li class="breadcrumb-item"><a href="/zh-cn/posts/">文章</a></li><li class="breadcrumb-item active">Kubernetes基础概念与组件架构</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Kubernetes基础概念与组件架构</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2020-10-09
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>6 分钟阅读
+  </span>
+<a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/" class="post-taxonomy">#技术博客</a><a href="/zh-cn/tags/kubernetes/" class="post-taxonomy">#kubernetes</a><a href="/zh-cn/tags/devops/" class="post-taxonomy">#DevOps</a></div>
+<div class="post-share mb-3"><div class="addthis_inline_share_toolbox"></div></div><a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是kubernetes">什么是Kubernetes</a></li>
+    <li><a href="#核心概念与架构">核心概念与架构</a>
+      <ul>
+        <li></li>
+        <li><a href="#分层架构">分层架构</a></li>
+        <li><a href="#核心组件">核心组件</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><h2 id="什么是kubernetes">什么是Kubernetes</h2>
+<p>Kubernetes 是一个可移植的、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。Kubernetes(k8s)是Google开源的容器集群管理系统（谷歌内部:Borg）在Docker技术的基础上，为容器化的应用提供部署运行、资源调度、服务发现和动态伸缩等一系列完整功能，提高了大规模容器集群管理的便捷性。</p>
+<h2 id="核心概念与架构">核心概念与架构</h2>
+<p><img class="img-fluid" src="../../assets/devops/kubernetes_jiagou.png" alt="导图"  loading="lazy" />
+</p>
+<h4 id="service">service</h4>
+<p>service  一个Service对象是对应用集群的抽象，比如一个Mysql集群，一个微服务的集群，都会被看做一个service</p>
+<pre><code>特点：
+
+    拥有唯一指定的名称(比如mysql-server)。
+
+    拥有一个虚拟IP(Cluster lP、Service IP或VIP）和端口号。
+
+    能够提供某种远程服务能力。
+
+    被映射到提供这种服务能力的一组容器应用上。
+</code></pre>
+<h4 id="pod">pod</h4>
+<p>k8s中的最小部署单元，不是一个程序/进程，而是一个环境(包括容器、存储、网络ip:port、容器配置)。其中可以运行1个或多个container（docker或其他容器），在一个pod内部的container共享所有资源，包括共享pod的ip:port和磁盘。</p>
+<p>pod是临时性的，用完即丢弃的，当pod中的进程结束、node故障，或者资源短缺时，pod会被干掉。基于此，用户很少直接创建一个独立的pods，而会通过k8s中的controller来对pod进行管理。
+controller通过pod templates来创建pod，pod template是一个静态模板，创建出来之后的pod就跟模板没有关系了，模板的修改也不会影响现有的pod。</p>
+<p>Pod中封装着应用的容器（有的情况下是好几个容器），存储、独立的网络IP，管理容器如何运行的策略选项。Pod代表着部署的一个单位：kubernetes中应用的一个实例，可能由一个或者多个容器组合在一起共享资源。</p>
+<p>在Kubrenetes集群中Pod有如下两种使用方式：</p>
+<p>一个Pod中运行一个容器。“每个Pod中一个容器”的模式是最常见的用法；在这种使用方式中，你可以把Pod想象成是单个容器的封装，kuberentes管理的是Pod而不是直接管理容器。</p>
+<p>在一个Pod中同时运行多个容器。一个Pod中也可以同时封装几个需要紧密耦合互相协作的容器，它们之间共享资源。这些在同一个Pod中的容器可以互相协作成为一个service单位——一个容器共享文件，另一个“sidecar”容器来更新这些文件。Pod将这些容器的存储资源作为一个实体来管理。</p>
+<h4 id="container">container</h4>
+<p>容器是独立运行的一个或一组应用，是镜像运行时的实体。</p>
+<h4 id="pod-生命周期">pod 生命周期</h4>
+<p>需要注意的是pod的生命周期和container的生命周期有一定的联系，但是不能完全混淆一致。pod状态相对来说要简单一些。这里首先列出pod的状态</p>
+<p>1、pending：pod已经被系统认可了，但是内部的container还没有创建出来。这里包含调度到node上的时间以及下载镜像的时间，会持续一小段时间。
+2、Running：pod已经与node绑定了（调度成功），而且pod中所有的container已经创建出来，至少有一个容器在运行中，或者容器的进程正在启动或者重启状态。&ndash;这里需要注意pod虽然已经Running了，但是内部的container不一定完全可用。因此需要进一步检测container的状态。
+3、Succeeded：这个状态很少出现，表明pod中的所有container已经成功的terminated了，而且不会再被拉起了。
+4、Failed：pod中的所有容器都被terminated，至少一个container是非正常终止的。（退出的时候返回了一个非0的值或者是被系统直接终止）
+5、unknown：由于某些原因pod的状态获取不到，有可能是由于通信问题。 一般情况下pod最常见的就是前两种状态。而且当Running的时候，需要进一步关注container的状态。下面就来看下container的状态有哪些：</p>
+<h4 id="container生命周期">Container生命周期</h4>
+<p>1、Waiting：启动到运行中间的一个等待状态。
+2、Running：运行状态。
+3、Terminated：终止状态。 如果没有任何异常的情况下，container应该会从Waiting状态变为Running状态，这时容器可用。</p>
+<p>但如果长时间处于Waiting状态，container会有一个字段reason表明它所处的状态和原因，如果这个原因很容易能标识这个容器再也无法启动起来时，例如ContainerCannotRun，整个服务启动就会迅速返回。（这里是一个失败状态返回的特性，不详细阐述）</p>
+<p>当一个容器已经运行起来以后，pod和container的状态是如何关联起来的呢，下面给一些举例来更加形象化其中的关系。</p>
+<h3 id="分层架构">分层架构</h3>
+<p>Kubernetes设计理念和功能其实就是一个类似Linux的分层架构
+<img class="img-fluid" src="../../assets/devops/kubernetes_structure.png" alt="导图"  loading="lazy" />
+
+核心层：Kubernetes最核心的功能，对外提供API构建高层的应用，对内提供插件式应用执行环境</p>
+<p>应用层：部署（无状态应用、有状态应用、批处理任务、集群应用等）和路由（服务发现、DNS解析等）</p>
+<p>管理层：系统度量（如基础设施、容器和网络的度量），自动化（如自动扩展、动态Provision等）以及策略管理（RBAC、Quota、PSP、NetworkPolicy等）</p>
+<p>接口层：kubectl命令行工具、客户端SDK以及集群联邦</p>
+<p>生态系统：在接口层之上的庞大容器集群管理调度的生态系统，可以划分为两个范畴</p>
+<p>Kubernetes外部：日志、监控、配置管理、CI、CD、Workflow、FaaS、OTS应用、ChatOps等</p>
+<p>Kubernetes内部：CRI、CNI、CVI、镜像仓库、Cloud Provider、集群自身的配置和管理等</p>
+<h3 id="核心组件">核心组件</h3>
+<h4 id="kubernetes主要由以下几个核心组件组成">Kubernetes主要由以下几个核心组件组成：</h4>
+<p>etcd  保存了整个集群的状态；</p>
+<p>apiserver  提供了资源操作的唯一入口，并提供认证、授权、访问控制、API注册和发现等机制；</p>
+<p>controller manager  负责维护集群的状态，比如故障检测、自动扩展、滚动更新等；</p>
+<p>scheduler  负责资源的调度，按照预定的调度策略将Pod调度到相应的机器上；</p>
+<p>kubelet  负责维护容器的生命周期，同时也负责Volume（CVI）和网络（CNI）的管理；</p>
+<p>Container runtime  负责镜像管理以及Pod和容器的真正运行（CRI）；</p>
+<p>kube-proxy  负责为Service提供cluster内部的服务发现和负载均衡；</p>
+<h4 id="除了核心组件还有一些推荐的add-ons">除了核心组件，还有一些推荐的Add-ons：</h4>
+<p>kube-dns负责为整个集群提供DNS服务</p>
+<p>Ingress Controller为服务提供外网入口</p>
+<p>Heapster提供资源监控</p>
+<p>Dashboard提供GUI</p>
+<p>Federation提供跨可用区的集群</p>
+<p>Fluentd-elasticsearch提供集群日志采集、存储与查询</p>
+</div><div class="post-copyright mb-4">
+  <h3>版权</h3><div class="post-cc">本作品采用 <a target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">CC BY-NC-ND 4.0 <i class="fab fa-fw fa-creative-commons"></i><i class="fab fa-fw fa-creative-commons-by"></i><i class="fab fa-fw fa-creative-commons-nc"></i><i class="fab fa-fw fa-creative-commons-nd"></i></a> 授权。</div>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/zh-cn/posts/kubernetes/what_is_cloud_native/">容器、kubernetes、DevOps与云原生</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/zh-cn/posts/kubernetes/kubernetes_cluster_install/">Kubernetes v1.19.0集群部署</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/zh-cn/posts/kubernetes/what_is_cloud_native/">容器、kubernetes、DevOps与云原生</a></li></ul>
+  </section></article><div class="post-comments surface row"><script src="https://utteranc.es/client.js"
+  repo="razonyang/hugo-theme-bootstrap"
+  issue-term="pathname"
+  label=""
+  theme="github-dark"
+  crossorigin="anonymous"
+  async>
+</script></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile.webp" alt="Jack Wu" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">Jack Wu</h5><div class="profile-bio mb-2">Java开发工程师，全栈工程师.</div><div class="profile-company mb-2"><i class="fas fa-fw fa-building"></i>~</div><div class="profile-location mb-2"><i class="fas fa-fw fa-map-marker-alt"></i>深圳</div></div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/zh-cn/posts/netty/netty_reactor_model/">Netty_reactor_model</a></li><li><a href="/zh-cn/posts/netty/netty_echo_sample/">Netty基础——从简单Echo程序分析Netty组件</a></li><li><a href="/zh-cn/posts/netty/netty_heartbeat/">Netty实战——基于netty实现心跳检测、消息编解码和断连重连</a></li><li><a href="/zh-cn/posts/netty/netty_structure/">Netty基础——基础概念与架构原理</a></li><li><a href="/zh-cn/posts/netty/nio/">Netty入门——NIO </a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/zh-cn/categories">分类</a>
+      </h4>
+      <div><a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="技术博客">
+          技术博客 <span class="badge rounded-pill">37</span>
+        </a><a href="/zh-cn/categories/life/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="life">
+          life <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="/zh-cn/tags">标签</a>
+      </h4>
+      <div><a href="/zh-cn/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="大数据">
+          大数据 <span class="badge rounded-pill">14</span>
+        </a><a href="/zh-cn/tags/olap/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="OLAP">
+          OLAP <span class="badge rounded-pill">13</span>
+        </a><a href="/zh-cn/tags/elasticsearch/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="ElasticSearch">
+          ElasticSearch <span class="badge rounded-pill">11</span>
+        </a><a href="/zh-cn/tags/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/zh-cn/tags/netty/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Netty">
+          Netty <span class="badge rounded-pill">6</span>
+        </a><a href="/zh-cn/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="并发编程">
+          并发编程 <span class="badge rounded-pill">6</span>
+        </a><a href="/zh-cn/tags/devops/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="DevOps">
+          DevOps <span class="badge rounded-pill">5</span>
+        </a><a href="/zh-cn/tags/kubernetes/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="kubernetes">
+          kubernetes <span class="badge rounded-pill">5</span>
+        </a><a href="/zh-cn/tags/gc/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="GC">
+          GC <span class="badge rounded-pill">2</span>
+        </a><a href="/zh-cn/tags/jvm/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="JVM">
+          JVM <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><li class="nav-item">
+    <a class="nav-link social-link" href="mailto:jackwu1024@163.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a>
+  </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="https://github.com/pangwawa" title="GitHub">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a>
+    </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2442591540&amp;site=qq&amp;menu=yes" title="QQ">
+        <i class="fa-fw fa-2x fab fa-qq"></i>
+      </a>
+    </li>
+</nav>
+<div class="copyright mb-2">
+  Copyright © 2018-2021 Jack Wu. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+<script async src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-60bcc43f59f2d04f"></script></body>
+</html>

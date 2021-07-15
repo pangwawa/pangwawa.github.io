@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GC on Jack Wu</title>
+    <link>/zh-cn/tags/gc/</link>
+    <description>Recent content in GC on Jack Wu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2018-{year} Jack Wu. All Rights Reserved.</copyright>
+    <lastBuildDate>Sun, 06 Jan 2019 09:31:57 +0800</lastBuildDate><atom:link href="/zh-cn/tags/gc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>深入理解Java虚拟机——JVM的GC详解</title>
+      <link>/zh-cn/posts/java/juc/java_memory_gc/</link>
+      <pubDate>Sun, 06 Jan 2019 09:31:57 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/java_memory_gc/</guid>
+      <description>JVM的GC有哪些 一、Serial收集器(jdk1.3) Serial收集器是最基本、发展历史最悠久的收集器，曾经（在JDK 1.3.1之前）是</description>
+    </item>
+    
+    <item>
+      <title>深入理解Java虚拟机——Java内存模型</title>
+      <link>/zh-cn/posts/java/juc/java_memory_model/</link>
+      <pubDate>Sun, 06 Jan 2019 09:31:45 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/java_memory_model/</guid>
+      <description>Java内存模型 java堆 线程共享 存放对象的实例 java堆是JVM内存管理最大的一块区域 所有对象实例与数组都要在堆上分配内存。它也是垃圾收集</description>
+    </item>
+    
+  </channel>
+</rss>

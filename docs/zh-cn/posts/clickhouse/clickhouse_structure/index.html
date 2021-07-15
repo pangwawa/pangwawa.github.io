@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clickhouse基础概念与架构原理 - Jack Wu</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="description" content="" /><meta itemprop="name" content="Clickhouse基础概念与架构原理">
+<meta itemprop="description" content="什么是ClickHouse ClickHouse是面向联机分析处理的列式数据库，支持SQL查询，且查询性能好，特别是基于大宽表的聚合分析查询性">
+<meta itemprop="datePublished" content="2020-11-02T11:22:51+08:00" />
+<meta itemprop="dateModified" content="2020-11-02T11:22:51+08:00" />
+<meta itemprop="wordCount" content="2668">
+
+
+
+<meta itemprop="keywords" content="ClickHouse,OLAP,大数据," />
+<meta property="og:title" content="Clickhouse基础概念与架构原理" />
+<meta property="og:description" content="什么是ClickHouse ClickHouse是面向联机分析处理的列式数据库，支持SQL查询，且查询性能好，特别是基于大宽表的聚合分析查询性" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/zh-cn/posts/clickhouse/clickhouse_structure/" />
+<meta property="article:published_time" content="2020-11-02T11:22:51+08:00" />
+<meta property="article:modified_time" content="2020-11-02T11:22:51+08:00" /><meta property="og:site_name" content="Jack Wu" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Clickhouse基础概念与架构原理"/>
+<meta name="twitter:description" content="什么是ClickHouse ClickHouse是面向联机分析处理的列式数据库，支持SQL查询，且查询性能好，特别是基于大宽表的聚合分析查询性"/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.5e28a02b1827120280de54374daf944524694ccfd699b58a014376162da28321.css" integrity="sha256-XiigKxgnEgKA3lQ3Ta&#43;URSRpTM/WmbWKAUN2Fi2igyE=" crossorigin="anonymous"><script src="/js/bundle.min.aae996eab2b4188b8e1d806a6895ef5b02e8b97a6ceb11faef9b9b1cb99021be.js" integrity="sha256-qumW6rK0GIuOHYBqaJXvWwLouXps6xH675ubHLmQIb4=" crossorigin="anonymous"></script>
+</head><body class="mode-dark"><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/zh-cn/">
+      <img class="logo" alt="Logo" src="/images/logo.webp" loading="lazy">Jack Wu</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/zh-cn/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/categories">
+            <i class="fas fa-fw fa-folder"></i>分类
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/tags">
+            <i class="fas fa-fw fa-tags"></i>标签
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/zh-cn/series">
+            <i class="fas fa-fw fa-columns"></i>专栏
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="https://github.com/pangwawa" target="_blank">
+            <i class="fab fa-fw fa-github"></i>github
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/zh-cn/">主页</a></li><li class="breadcrumb-item"><a href="/zh-cn/posts/">文章</a></li><li class="breadcrumb-item active">Clickhouse基础概念与架构原理</li></ol>
+</nav><article class="post row surface"><div class="post-toolbox">
+  <div class="col-12 d-none d-lg-block">
+    <a id="sidebarToggler" class="fas fa-fw fa-2x fa-expand-alt" role="button"></a>
+  </div>
+</div>
+<h1 class="post-title my-3">Clickhouse基础概念与架构原理</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2020-11-02
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>6 分钟阅读
+  </span>
+<a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/" class="post-taxonomy">#技术博客</a><a href="/zh-cn/tags/clickhouse/" class="post-taxonomy">#ClickHouse</a><a href="/zh-cn/tags/olap/" class="post-taxonomy">#OLAP</a><a href="/zh-cn/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-taxonomy">#大数据</a></div>
+<div class="post-share mb-3"><div class="addthis_inline_share_toolbox"></div></div><a id="btnTOC" class="fas fa-fw fa-2x fa-list-alt position-fixed" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+
+<div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#什么是clickhouse">什么是ClickHouse</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3"><h3 id="什么是clickhouse">什么是ClickHouse</h3>
+<p>ClickHouse是面向联机分析处理的列式数据库，支持SQL查询，且查询性能好，特别是基于大宽表的聚合分析查询性能非常优异，比其他分析型数据库速度快一个数量级。
+ClickHouse不单单是一个数据库， 它是一个数据库管理系统。因为它允许在运行时创建表和数据库、加载数据和运行查询，而无需重新配置或重启服务。
+主要特性包括：
+数据压缩比高。
+多核并行计算。
+向量化计算引擎。
+支持嵌套数据结构。
+支持稀疏索引。</p>
+<p>支持数据Insert和Update。</p>
+<h4 id="clickhouse为什么如此快">clickhouse为什么如此快</h4>
+<p>1）优秀的代码，对性能的极致追求</p>
+<p>clickhouse是CPP编写的，代码中大量使用了CPP最新的特性来对查询进行加速。</p>
+<p>2）优秀的执行引擎以及存储引擎</p>
+<p>clickhouse是基于列式存储的，使用了向量化的执行引擎，利用SIMD指令进行处理加速，同时使用LLVM加快函数编译执行，当然了Presto也大量的使用了这样的特性。</p>
+<p>3）稀疏索引</p>
+<p>相比于传统基于HDFS的OLAP引擎，clickhouse不仅有基于分区的过滤，还有基于列级别的稀疏索引，这样在进行条件查询的时候可以过滤到很多不需要扫描的块，这样对提升查询速度是很有帮助的。</p>
+<p>4）存储执行耦合</p>
+<p>存储和执行分离是一个趋势，但是存储和执行耦合也是有优势的，避免了网络的开销，CPU的极致压榨加上SSD的加持，每秒的数据传输对于网络带宽的压力是非常大的，耦合部署可以避免该问题。</p>
+<p>5）数据存储在SSD，极高的iops。</p>
+<h4 id="clickhouse高性能存储和查询的实现原理">Clickhouse高性能存储和查询的实现原理</h4>
+<p>1、多核CPU并行计算，看到刚才的文件存储方式，文件是按照压缩块的方式存在.bin文件中。ClickHouse可以通过大量CPU，并行读取不同的压缩块并行解压计算。</p>
+<p>2、SIMD指令集加速，充分利用了CPU寄存器的并行计算能力。如果是传统的CPU指令集，寄存器就算有128位，如果要进行N次8bit的计算，每次都只能利用寄存器的低8位重复计算N次；而SIMD的话，可以将16个8bit的运算并行放到128位的寄存器中，仅通过1次计算就可以并行计算16个8bit的运算。ClickHouse是通过SSE2指令集实现的，所以最好选用Intel的机器。</p>
+<p>3、之前介绍的，ClickHouse分布式水平扩展集群的能力，也可以很好的提升性能。</p>
+<p>4、还有稀疏索引，列式存储和极致的数据压缩，也都是大数据场景下高性能查询的关键点。</p>
+<p>5、实际上，ClickHouse还有很多优化性能的细节。比如聚合分析，通常的实现是通过HashMap实现，HashMap的key是group by的key，HashMap的value是聚合的值。ClickHouse通过对长字符串的Key，进行Hash实现的HashMapWithSavedHash，以及对Uint8这类范围小的数据字段通过数组实现的FixedHashMap，以及大量新增类别字段和内存限制的场景，也有TwoLevelHashMap和Split to disk的实现方案。</p>
+<p>实际上，ClickHouse的内核实现中，并没有使用什么神秘的算法，但是正是这所有的优化组合在一起，才有了ClickHouse彪悍的查询性能。</p>
+<h4 id="海量数据直接写入clickhouse会失败">海量数据直接写入ClickHouse会失败</h4>
+<p>ClickHouse的MergeTree表引擎，底层原理是类似于LSM-tree。数据通过Append的方式写入，后续再启动merge线程将小的数据文件进行合并。</p>
+<p>一次数据写入，会生成一个文件目录。目录结构可以看到，分为四个部分：</p>
+<p>第一部分，是分区ID的信息；</p>
+<p>第二部分，是这个目录中包含数据的最小BlockNum；</p>
+<p>第三部分，是这个目录中包含数据的最大BlockNum；</p>
+<p>第四部分，是这个目录进行合并的等级。</p>
+<p>举个例子，图中两个黄色的数据目录合并成蓝色的数据目录，数据BlockNum从1_1和2_2合并成了1_2，数据合并level也从0变成了1。</p>
+<p>了解了ClickHouse MergeTree家族表的写入过程，这里我们就会发现两个问题。</p>
+<p>第一：如果一次写入的数据量太小，比如一条写一次，那么会产生大量的文件目录。当后台合并线程来不及合并的时候，文件目录数量会越来越多，这会导致ClickHouse抛出Too many parts的异常，写入失败。
+第二：根据之前的介绍，每一次写入除了写入数据本身，ClickHouse还需要跟Zookeeper进行十来次的数据交互，而我们知道Zookeeper是不能承受高并发的访问。可以看到，写入QPS过高导致进一步Zookeeper的QPS过高，从而导致Zookeeper崩溃。
+我们采用的解决方案是，改用Batch的方式写入。即一个Batch的数据，产生一个数据目录，与Zookeeper进行一系列交互。那Batch设置多大呢，Batch太小的话缓解不了ZK的压力，Batch也不能太大，不然上游内存的压力和数据延迟会太大。通过实验，最终我们选用了大小几十万的Batch。</p>
+<p>这样避免了QPS太高带来的问题。当前方案其实还有优化空间的，比如Zookeeper是无法线性扩展的。我了解到，业内有些团队就把log和data part相关信息不写入Zookeeper，这样减少了Zookeeper的压力。不过这样涉及到了对源代码的修改，对于一般的业务团队实现的成本太高了。</p>
+<p>数据写入，遇到的第二个问题是，如果数据写入通过分布式表写入会遇到单点问题。</p>
+<p>先介绍一下分布式表。分布式表实际上是一张逻辑表并不存储真实数据，可以理解为一张代理表。</p>
+<p>比如用户查询分布式表，分布式表会将查询请求下发到每一个分片的本地表上进行查询，然后收集每个分片本地表的结果，汇总之后再返回给用户。</p>
+<p>用户写入分布式表的场景，是用户将一个Batch的数据写入分布式表，分布式表根据一定的规则，将这个Batch的数据分为若干个Mini Batch的数据，存储到不同的分片上。</p>
+<p>这里有一个很容易误解的地方，我们开始以为，分布式表是按照一定规则做一个网络转发，那么我们当时想只要万兆网卡的带宽足够，就不会出现单点的性能瓶颈。</p>
+<p>尤其是Clickhouse底层运用的是Mergetree，在合并的过程中，会存在写放大的问题加重磁盘的压力。峰值每分钟几千万条数据写完耗时几十秒，如果正在做Merge就会阻塞写入请求，查询也会非常慢。</p>
+<p>我们做的两个优化方案：</p>
+<p>第一，对磁盘做Raid提升磁盘的IO。</p>
+<p>第二，在写入之前，上游进行数据划分分表操作，直接分开写入到不同的分片上，磁盘压力直接变为了原来的1/N。</p>
+<p>这样很好的避免了磁盘的单点瓶颈。</p>
+</div><div class="post-copyright mb-4">
+  <h3>版权</h3><div class="post-cc">本作品采用 <a target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh">CC BY-NC-ND 4.0 <i class="fab fa-fw fa-creative-commons"></i><i class="fab fa-fw fa-creative-commons-by"></i><i class="fab fa-fw fa-creative-commons-nc"></i><i class="fab fa-fw fa-creative-commons-nd"></i></a> 授权。</div>
+</div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/zh-cn/posts/kubernetes/kubernetes_resource_object/">Kubernetes对象详解</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/zh-cn/posts/mybatis/mybastis_structure/">Mybatis源码分析—Mybatis架构与SQL处理过程</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/zh-cn/posts/elasticsearch/elasticsearch_read_write_search_process/">Elasticsearch数据的写入、读取与检索过程详解</a></li><li><a href="/zh-cn/posts/elasticsearch/kibana_visualization_type/">Kibana可视化展示的各种形式汇总</a></li><li><a href="/zh-cn/posts/elasticsearch/elasticsearch_buckets_metrics/">Elasticsearch聚合—桶（bucket）和指标（metric）</a></li><li><a href="/zh-cn/posts/elasticsearch/elasticsearch_inverted_index/">ElasticSearch倒排索引原理探索</a></li><li><a href="/zh-cn/posts/elasticsearch/elasticsearch_cluster/">ElasticSearch集群与调优</a></li></ul>
+  </section></article><div class="post-comments surface row"><script src="https://utteranc.es/client.js"
+  repo="razonyang/hugo-theme-bootstrap"
+  issue-term="pathname"
+  label=""
+  theme="github-dark"
+  crossorigin="anonymous"
+  async>
+</script></div></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile.webp" alt="Jack Wu" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">Jack Wu</h5><div class="profile-bio mb-2">Java开发工程师，全栈工程师.</div><div class="profile-company mb-2"><i class="fas fa-fw fa-building"></i>~</div><div class="profile-location mb-2"><i class="fas fa-fw fa-map-marker-alt"></i>深圳</div></div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/zh-cn/posts/netty/netty_reactor_model/">Netty_reactor_model</a></li><li><a href="/zh-cn/posts/netty/netty_echo_sample/">Netty基础——从简单Echo程序分析Netty组件</a></li><li><a href="/zh-cn/posts/netty/netty_heartbeat/">Netty实战——基于netty实现心跳检测、消息编解码和断连重连</a></li><li><a href="/zh-cn/posts/netty/netty_structure/">Netty基础——基础概念与架构原理</a></li><li><a href="/zh-cn/posts/netty/nio/">Netty入门——NIO </a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/zh-cn/categories">分类</a>
+      </h4>
+      <div><a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="技术博客">
+          技术博客 <span class="badge rounded-pill">37</span>
+        </a><a href="/zh-cn/categories/life/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="life">
+          life <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="/zh-cn/tags">标签</a>
+      </h4>
+      <div><a href="/zh-cn/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="大数据">
+          大数据 <span class="badge rounded-pill">14</span>
+        </a><a href="/zh-cn/tags/olap/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="OLAP">
+          OLAP <span class="badge rounded-pill">13</span>
+        </a><a href="/zh-cn/tags/elasticsearch/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="ElasticSearch">
+          ElasticSearch <span class="badge rounded-pill">11</span>
+        </a><a href="/zh-cn/tags/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/zh-cn/tags/netty/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Netty">
+          Netty <span class="badge rounded-pill">6</span>
+        </a><a href="/zh-cn/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="并发编程">
+          并发编程 <span class="badge rounded-pill">6</span>
+        </a><a href="/zh-cn/tags/devops/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="DevOps">
+          DevOps <span class="badge rounded-pill">5</span>
+        </a><a href="/zh-cn/tags/kubernetes/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="kubernetes">
+          kubernetes <span class="badge rounded-pill">5</span>
+        </a><a href="/zh-cn/tags/gc/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="GC">
+          GC <span class="badge rounded-pill">2</span>
+        </a><a href="/zh-cn/tags/jvm/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="JVM">
+          JVM <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"><li class="nav-item">
+    <a class="nav-link social-link" href="mailto:jackwu1024@163.com" title="Email">
+      <i class="fas fa-fw fa-2x fa-envelope"></i>
+    </a>
+  </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="https://github.com/pangwawa" title="GitHub">
+        <i class="fa-fw fa-2x fab fa-github"></i>
+      </a>
+    </li><li class="nav-item">
+      <a class="nav-link social-link" target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2442591540&amp;site=qq&amp;menu=yes" title="QQ">
+        <i class="fa-fw fa-2x fab fa-qq"></i>
+      </a>
+    </li>
+</nav>
+<div class="copyright mb-2">
+  Copyright © 2018-2021 Jack Wu. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+<script async src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-60bcc43f59f2d04f"></script></body>
+</html>

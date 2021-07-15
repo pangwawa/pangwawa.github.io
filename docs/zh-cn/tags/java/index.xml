@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on Jack Wu</title>
+    <link>/zh-cn/tags/java/</link>
+    <description>Recent content in Java on Jack Wu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2018-{year} Jack Wu. All Rights Reserved.</copyright>
+    <lastBuildDate>Mon, 02 Nov 2020 11:23:22 +0800</lastBuildDate><atom:link href="/zh-cn/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mybatis源码分析—Mybatis架构与SQL处理过程</title>
+      <link>/zh-cn/posts/mybatis/mybastis_structure/</link>
+      <pubDate>Mon, 02 Nov 2020 11:23:22 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/mybatis/mybastis_structure/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java各个版本的特性</title>
+      <link>/zh-cn/posts/java/basic/java_vesrion/</link>
+      <pubDate>Wed, 06 Nov 2019 10:22:19 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/basic/java_vesrion/</guid>
+      <description>Java各个版本的特性 Java 5 1、泛型 2、增强for循环 3、自动装箱拆箱 4、枚举 5、可变参数 6、静态导入 7、自定义注解 关键字 @interface Java 6 1、集合框架增</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程 juc包——ForkJoin</title>
+      <link>/zh-cn/posts/java/juc/forkjoin/</link>
+      <pubDate>Mon, 18 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/forkjoin/</guid>
+      <description>ForkJoin 特性 使用 提供两个抽象类继承ForkJoinTask ，分别是RecursiveAction和RecursiveTask.他们的区别在于：Re</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程 juc包——线程池</title>
+      <link>/zh-cn/posts/java/juc/threadpool/</link>
+      <pubDate>Sun, 17 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/threadpool/</guid>
+      <description>线程池 JUC Executors 通过JUC的ThreadPoolExecutor类创建各种类型线程池，包括了 Executors.newCachedThreadPool(); 可缓存的线程池，可以进行缓存的线程池，意味着它的线程</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程 juc包——并发容器</title>
+      <link>/zh-cn/posts/java/juc/concurrent_container/</link>
+      <pubDate>Sun, 10 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/concurrent_container/</guid>
+      <description>容器的线程安全 同步容器 同步容器可实现线程安全 ArrayList Vector（使用synchronized实现线程安全） , Stack （使用synchronized实现</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程 juc包——Atomic包</title>
+      <link>/zh-cn/posts/java/juc/atomic/</link>
+      <pubDate>Fri, 08 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/atomic/</guid>
+      <description>CAS unsafe Atomic包 Atomic的核心操作就是CAS（compareandset,利用CMPXCHG指令实现，它是一个原子指令）,该指令有三个</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程 juc包——AQS</title>
+      <link>/zh-cn/posts/java/juc/aqs/</link>
+      <pubDate>Wed, 06 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/aqs/</guid>
+      <description>AQS AbstractQueuedSynchronizer,抽象的队列式同步器。是除了java自带的synchronized关键字之外的锁机制 使</description>
+    </item>
+    
+    <item>
+      <title>Java并发编程——synchronized关键字</title>
+      <link>/zh-cn/posts/java/synchronized/</link>
+      <pubDate>Wed, 06 Feb 2019 09:31:57 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/synchronized/</guid>
+      <description>CAS CAS : compare and swap 或者 compare and exchange 比较交换。 当我们需要对内存中的数据进行修改操作时，为了避免多线程并发修改的情况，我们在对他进行修改操作前，先读取他原来</description>
+    </item>
+    
+    <item>
+      <title>深入理解Java虚拟机——JVM的GC详解</title>
+      <link>/zh-cn/posts/java/juc/java_memory_gc/</link>
+      <pubDate>Sun, 06 Jan 2019 09:31:57 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/java_memory_gc/</guid>
+      <description>JVM的GC有哪些 一、Serial收集器(jdk1.3) Serial收集器是最基本、发展历史最悠久的收集器，曾经（在JDK 1.3.1之前）是</description>
+    </item>
+    
+    <item>
+      <title>深入理解Java虚拟机——Java内存模型</title>
+      <link>/zh-cn/posts/java/juc/java_memory_model/</link>
+      <pubDate>Sun, 06 Jan 2019 09:31:45 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/java/juc/java_memory_model/</guid>
+      <description>Java内存模型 java堆 线程共享 存放对象的实例 java堆是JVM内存管理最大的一块区域 所有对象实例与数组都要在堆上分配内存。它也是垃圾收集</description>
+    </item>
+    
+  </channel>
+</rss>

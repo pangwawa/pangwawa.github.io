@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Flink on Jack Wu</title>
+    <link>/zh-cn/tags/flink/</link>
+    <description>Recent content in Flink on Jack Wu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2018-{year} Jack Wu. All Rights Reserved.</copyright>
+    <lastBuildDate>Thu, 22 Oct 2020 18:19:12 +0800</lastBuildDate><atom:link href="/zh-cn/tags/flink/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Flink编程模型详解</title>
+      <link>/zh-cn/posts/flink/flink_programing_model/</link>
+      <pubDate>Thu, 22 Oct 2020 18:19:12 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/flink/flink_programing_model/</guid>
+      <description>Flink 为流式/批式处理应用程序的开发提供了Stateful Stream Processing、DataStream/DataSet ApI 、Table API和SQ</description>
+    </item>
+    
+  </channel>
+</rss>

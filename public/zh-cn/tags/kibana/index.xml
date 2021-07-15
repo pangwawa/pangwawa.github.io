@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kibana on Jack Wu</title>
+    <link>/zh-cn/tags/kibana/</link>
+    <description>Recent content in Kibana on Jack Wu</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2018-{year} Jack Wu. All Rights Reserved.</copyright>
+    <lastBuildDate>Sat, 07 Mar 2020 17:09:39 +0800</lastBuildDate><atom:link href="/zh-cn/tags/kibana/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kibana可视化展示的各种形式汇总</title>
+      <link>/zh-cn/posts/elasticsearch/kibana_visualization_type/</link>
+      <pubDate>Sat, 07 Mar 2020 17:09:39 +0800</pubDate>
+      
+      <guid>/zh-cn/posts/elasticsearch/kibana_visualization_type/</guid>
+      <description>常用可视化形式 折线图（Line, area, and bar charts），面积图和条形图—比较X / Y图表中的不同系列。 饼图（Pie chart ）-显示每个来源总计。 数据表</description>
+    </item>
+    
+  </channel>
+</rss>
