@@ -265,7 +265,7 @@
       <pubDate>Sun, 09 Feb 2020 15:00:01 +0800</pubDate>
       
       <guid>/zh-cn/posts/life/hello/</guid>
-      <description>关于我 我是一名专注于Java架构和大数据开发的互联网人。 2020，是我毕业后在职场的第二年，但也知道了自己的兴趣方向，明白了生活的不易。之前</description>
+      <description>关于我 我是一名Java开发工程师， 专研Java架构、也会点前端， 偶尔还玩下Python、大数据…… 所以，在编程这件事上， 我好像还挺&amp;quot</description>
     </item>
     
     <item>
@@ -347,6 +347,15 @@
       
       <guid>/zh-cn/posts/java/juc/java_memory_model/</guid>
       <description>Java内存模型 java堆 线程共享 存放对象的实例 java堆是JVM内存管理最大的一块区域 所有对象实例与数组都要在堆上分配内存。它也是垃圾收集</description>
+    </item>
+    
+    <item>
+      <title>关于我</title>
+      <link>/zh-cn/about/</link>
+      <pubDate>Mon, 28 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/zh-cn/about/</guid>
+      <description>我是一名Java开发工程师， 专研 Java架构、也会点前端， 偶尔还玩下Python、大数据。 所以，在编程这件事上，我还挺&amp;quot;花心&amp;qu</description>
     </item>
     
   </channel>

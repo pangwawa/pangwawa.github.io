@@ -84,9 +84,9 @@ customJS = []
     # distance = 100
     # useExtendedSearch = true
 
-#[reward]
-  #alipay = "images/reward/alipay.png"
-  #wechat = "images/reward/wechat.png"
+[reward]
+  alipay = "images/reward/alipay.png"
+  wechat = "images/reward/wechat.png"
 
 [share]
   addThis = "ra-60bcc43f59f2d04f" # AddThis pubid.
