@@ -104,7 +104,7 @@
   </ul>
 </nav>
   </div>
-</div><div class="post-content mb-3"><h2 id="netty线程模型">Netty线程模型</h2>
+</div><div class="post-content mb-3" style="font-family:'Courier New', Courier, monospace;"><h2 id="netty线程模型">Netty线程模型</h2>
 <p>Netty主要是基于主从Reactors多线程模型(如下图)做了一些修改，其中主从reactor多线程模型有多个reactor：</p>
 <p>MainReactor负责客户端的连接请求，并将请求转交给SubReactor
 SubReactor负责相应通道的IO读写请求

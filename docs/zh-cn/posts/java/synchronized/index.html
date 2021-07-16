@@ -106,7 +106,7 @@
   </ul>
 </nav>
   </div>
-</div><div class="post-content mb-3"><h2 id="cas">CAS</h2>
+</div><div class="post-content mb-3" style="font-family:'Courier New', Courier, monospace;"><h2 id="cas">CAS</h2>
 <p>CAS : compare and swap 或者 compare and exchange 比较交换。
 当我们需要对内存中的数据进行修改操作时，为了避免多线程并发修改的情况，我们在对他进行修改操作前，先读取他原来的值E，然后进行计算得出新的的值V，在修改前去比较当前内存中的值N是否和我之前读到的E相同，
 如果相同，认为其他线程没有修改过内存中的值，如果不同，说明被其他线程修改了，这时，要继续循环去获取最新的值E，再进行计算和比较，直到我们预期的值和当前内存中的值相等时，再对数据执行修改操作。</p>

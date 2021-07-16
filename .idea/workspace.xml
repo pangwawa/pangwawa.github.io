@@ -2,229 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ede124d1-bb70-4f54-a38f-611de8af7db5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/content/zh-cn/about/index.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/images/reward/alipay.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/images/reward/wechat.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/zh-cn/about me/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/zh-cn/about-us/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/zh-cn/about/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/zh-cn/contact/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/zh-cn/关于/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/zh-cn/关于我/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/zh-cn/联系/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/reward/alipay.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/reward/wechat.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/zh-cn/about me/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/zh-cn/about-us/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/zh-cn/about/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/zh-cn/contact/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/zh-cn/关于/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/zh-cn/关于我/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/zh-cn/联系/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/favicons/android-chrome-192x192.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/favicons/android-chrome-192x192bacup.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/favicons/android-chrome-512x512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/favicons/android-chrome-512x512bacu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/favicons/apple-touch-icon - 副本.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/favicons/apple-touch-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/favicons/apple-touch-iconbacup.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/favicons/favicon-16x16.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/favicons/favicon-16x16backup.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/favicons/favicon-32x32.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/favicons/favicon-32x32backup.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/favicons/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/favicons/manifest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/icons/dark.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/icons/light.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/icons/menu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/logo.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/logobackup.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/profile.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/themes/hugo-theme-bootstrap/static/images/reward/alipay.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/themes/hugo-theme-bootstrap/static/images/reward/wechat.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/_default/params.toml" beforeDir="false" afterPath="$PROJECT_DIR$/config/_default/params.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/content/en/about/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/content/en/about/index.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/content/zh-cn/posts/life/hello.md" beforeDir="false" afterPath="$PROJECT_DIR$/content/zh-cn/posts/life/hello.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/en/about/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/en/about/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/en/index.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/en/index.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/en/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/en/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/en/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/en/sitemap.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/categories/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/categories/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/categories/life/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/categories/life/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/categories/life/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/categories/life/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/categories/技术博客/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/categories/技术博客/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/categories/技术博客/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/categories/技术博客/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/categories/技术博客/page/3/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/categories/技术博客/page/3/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/categories/技术博客/page/4/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/categories/技术博客/page/4/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/index.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/index.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/page/3/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/page/3/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/page/4/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/page/4/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/clickhouse/clickhouse_structure/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/clickhouse/clickhouse_structure/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch__structure/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch__structure/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_account_management_and_security/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_account_management_and_security/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_buckets_metrics/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_buckets_metrics/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_cluster/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_cluster/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_data_input/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_data_input/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_data_modeling/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_data_modeling/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_datatype/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_datatype/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_inverted_index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_inverted_index/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_lifecycle_management/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_lifecycle_management/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_query_dsl/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_query_dsl/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_read_write_search_process/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/elasticsearch_read_write_search_process/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/kibana_visualization_type/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/elasticsearch/kibana_visualization_type/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/flink/flink_programing_model/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/flink/flink_programing_model/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/java/basic/java_vesrion/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/java/basic/java_vesrion/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/java/juc/aqs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/java/juc/aqs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/java/juc/atomic/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/java/juc/atomic/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/java/juc/concurrent_container/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/java/juc/concurrent_container/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/java/juc/forkjoin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/java/juc/forkjoin/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/java/juc/java_memory_gc/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/java/juc/java_memory_gc/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/java/juc/java_memory_model/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/java/juc/java_memory_model/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/java/juc/threadpool/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/java/juc/threadpool/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/java/synchronized/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/java/synchronized/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/kubernetes/kubernetes_basic_structure/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/kubernetes/kubernetes_basic_structure/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/kubernetes/kubernetes_cli_order/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/kubernetes/kubernetes_cli_order/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/kubernetes/kubernetes_cluster_install/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/kubernetes/kubernetes_cluster_install/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/kubernetes/kubernetes_resource_object/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/kubernetes/kubernetes_resource_object/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/kubernetes/what_is_cloud_native/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/kubernetes/what_is_cloud_native/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/life/hello/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/life/hello/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/mybatis/mybastis_structure/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/mybatis/mybastis_structure/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/mysql/mysql_index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/mysql/mysql_index/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/netty/netty_echo_sample/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/netty/netty_echo_sample/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/netty/netty_heartbeat/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/netty/netty_heartbeat/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/netty/netty_private_protocol_base/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/netty/netty_private_protocol_base/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/netty/netty_reactor_model/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/netty/netty_reactor_model/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/netty/netty_structure/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/netty/netty_structure/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/netty/nio/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/netty/nio/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/other/lsm_store/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/other/lsm_store/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/page/3/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/page/3/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/posts/page/4/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/posts/page/4/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/series/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/series/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/sitemap.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/clickhouse/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/clickhouse/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/devops/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/devops/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/elasticsearch/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/elasticsearch/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/elasticsearch/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/elasticsearch/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/flink/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/flink/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/gc/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/gc/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/java/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/java/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/jvm/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/jvm/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/kibana/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/kibana/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/kubernetes/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/kubernetes/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/mybatis/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/mybatis/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/mysql/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/mysql/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/netty/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/netty/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/olap/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/olap/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/olap/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/olap/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/关系型数据库/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/关系型数据库/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/大数据/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/大数据/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/大数据/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/大数据/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/存储/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/存储/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/并发编程/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/并发编程/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/感想/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/感想/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/感想/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/感想/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/框架/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/框架/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/随笔/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/随笔/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/zh-cn/tags/随笔/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/zh-cn/tags/随笔/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/en/about/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/en/about/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/en/index.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/en/index.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/en/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/en/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/en/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/en/sitemap.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/categories/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/categories/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/categories/life/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/categories/life/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/categories/life/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/categories/life/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/categories/技术博客/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/categories/技术博客/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/categories/技术博客/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/categories/技术博客/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/categories/技术博客/page/3/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/categories/技术博客/page/3/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/categories/技术博客/page/4/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/categories/技术博客/page/4/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/index.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/index.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/page/3/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/page/3/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/page/4/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/page/4/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/clickhouse/clickhouse_structure/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/clickhouse/clickhouse_structure/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch__structure/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch__structure/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_account_management_and_security/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_account_management_and_security/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_buckets_metrics/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_buckets_metrics/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_cluster/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_cluster/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_data_input/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_data_input/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_data_modeling/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_data_modeling/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_datatype/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_datatype/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_inverted_index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_inverted_index/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_lifecycle_management/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_lifecycle_management/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_query_dsl/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_query_dsl/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_read_write_search_process/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/elasticsearch_read_write_search_process/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/kibana_visualization_type/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/elasticsearch/kibana_visualization_type/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/flink/flink_programing_model/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/flink/flink_programing_model/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/java/basic/java_vesrion/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/java/basic/java_vesrion/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/java/juc/aqs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/java/juc/aqs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/java/juc/atomic/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/java/juc/atomic/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/java/juc/concurrent_container/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/java/juc/concurrent_container/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/java/juc/forkjoin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/java/juc/forkjoin/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/java/juc/java_memory_gc/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/java/juc/java_memory_gc/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/java/juc/java_memory_model/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/java/juc/java_memory_model/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/java/juc/threadpool/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/java/juc/threadpool/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/java/synchronized/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/java/synchronized/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/kubernetes/kubernetes_basic_structure/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/kubernetes/kubernetes_basic_structure/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/kubernetes/kubernetes_cli_order/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/kubernetes/kubernetes_cli_order/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/kubernetes/kubernetes_cluster_install/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/kubernetes/kubernetes_cluster_install/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/kubernetes/kubernetes_resource_object/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/kubernetes/kubernetes_resource_object/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/kubernetes/what_is_cloud_native/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/kubernetes/what_is_cloud_native/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/life/hello/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/life/hello/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/mybatis/mybastis_structure/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/mybatis/mybastis_structure/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/mysql/mysql_index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/mysql/mysql_index/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/netty/netty_echo_sample/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/netty/netty_echo_sample/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/netty/netty_heartbeat/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/netty/netty_heartbeat/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/netty/netty_private_protocol_base/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/netty/netty_private_protocol_base/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/netty/netty_reactor_model/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/netty/netty_reactor_model/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/netty/netty_structure/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/netty/netty_structure/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/netty/nio/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/netty/nio/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/other/lsm_store/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/other/lsm_store/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/page/3/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/page/3/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/posts/page/4/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/posts/page/4/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/series/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/series/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/sitemap.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/clickhouse/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/clickhouse/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/devops/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/devops/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/elasticsearch/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/elasticsearch/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/elasticsearch/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/elasticsearch/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/flink/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/flink/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/gc/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/gc/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/java/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/java/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/jvm/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/jvm/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/kibana/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/kibana/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/kubernetes/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/kubernetes/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/mybatis/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/mybatis/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/mysql/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/mysql/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/netty/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/netty/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/olap/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/olap/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/olap/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/olap/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/关系型数据库/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/关系型数据库/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/大数据/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/大数据/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/大数据/page/2/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/大数据/page/2/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/存储/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/存储/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/并发编程/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/并发编程/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/感想/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/感想/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/感想/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/感想/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/框架/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/框架/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/随笔/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/随笔/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/zh-cn/tags/随笔/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/public/zh-cn/tags/随笔/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/themes/hugo-theme-bootstrap/static/images/logo.webp" beforeDir="false" afterPath="$PROJECT_DIR$/themes/hugo-theme-bootstrap/static/images/logo.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/images/logo.webp" beforeDir="false" afterPath="$PROJECT_DIR$/static/images/logo.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themes/hugo-theme-bootstrap/layouts/partials/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/themes/hugo-theme-bootstrap/layouts/partials/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themes/hugo-theme-bootstrap/layouts/partials/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/themes/hugo-theme-bootstrap/layouts/partials/post.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -236,35 +18,7 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitmodules">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CNAME">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="16" selection-start-column="16" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -293,6 +47,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -300,12 +55,22 @@
               <item name="pangwawa.github.io" type="b2602c69:ProjectViewProjectNode" />
               <item name="pangwawa.github.io" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="pangwawa.github.io" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pangwawa.github.io" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pangwawa.github.io" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pangwawa.github.io" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -347,7 +112,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1626336111966</updated>
-      <workItem from="1626336113296" duration="2977000" />
+      <workItem from="1626336113296" duration="3752000" />
+      <workItem from="1626398060522" duration="1913000" />
     </task>
     <task id="LOCAL-00001" summary="project reconsitution">
       <created>1626336455986</created>
@@ -370,28 +136,29 @@
       <option name="project" value="LOCAL" />
       <updated>1626339498204</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="update about me">
+      <created>1626344568919</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1626344568919</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2977000" />
+    <option name="totallyTimeSpent" value="5665000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Designer" />
-      <window_info id="Image Layers" />
-      <window_info id="Capture Tool" />
-      <window_info id="UI Designer" />
-      <window_info id="Favorites" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="TypeScript" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -399,16 +166,22 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Maven" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Mongo Explorer" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="bottom" id="TypeScript" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5010661" side_tool="true" visible="true" weight="0.329718" />
+      <window_info anchor="bottom" id="Database Changes" order="11" />
+      <window_info anchor="bottom" id="Version Control" order="12" sideWeight="0.4989339" visible="true" weight="0.329718" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Mongo Explorer" order="6" />
+      <window_info anchor="right" id="Database" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -417,7 +190,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="project reconsitution" />
     <MESSAGE value="update config" />
-    <option name="LAST_COMMIT_MESSAGE" value="update config" />
+    <MESSAGE value="update about me" />
+    <option name="LAST_COMMIT_MESSAGE" value="update about me" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.gitmodules">
@@ -427,19 +201,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="26" column="7" selection-start-line="26" selection-start-column="7" selection-end-line="26" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CNAME">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="16" selection-start-column="16" selection-end-column="16" />
+          <caret column="16" lean-forward="true" selection-start-column="16" selection-end-column="16" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/logo.webp">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/kubernetes_structure.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/logobackup.webp">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/markdown.png">
+      <provider selected="true" editor-type-id="images" />
     </entry>
   </component>
   <component name="masterDetails">

@@ -84,7 +84,7 @@
     <i class="fas fa-fw fa-coffee"></i>2 分钟阅读
   </span>
 <a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E5%8D%9A%E5%AE%A2/" class="post-taxonomy">#技术博客</a><a href="/zh-cn/tags/elasticsearch/" class="post-taxonomy">#ElasticSearch</a><a href="/zh-cn/tags/olap/" class="post-taxonomy">#OLAP</a><a href="/zh-cn/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-taxonomy">#大数据</a></div>
-<div class="post-share mb-3"><div class="addthis_inline_share_toolbox"></div></div><div class="post-content mb-3"><p>1.1、设计阶段调优</p>
+<div class="post-share mb-3"><div class="addthis_inline_share_toolbox"></div></div><div class="post-content mb-3" style="font-family:'Courier New', Courier, monospace;"><p>1.1、设计阶段调优</p>
 <p>（1）根据业务增量需求，采取基于日期模板创建索引，通过roll over API滚动索引；
 （2）使用别名进行索引管理；
 （3）每天凌晨定时对索引做force_merge操作，以释放空间；
